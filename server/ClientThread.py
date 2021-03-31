@@ -1,11 +1,12 @@
 import socket
 import threading
 
+import router
 from bcolors import bcolors
 
 class ClientThread(threading.Thread):
 
-    def __init__(self,ip,port,clientsocket):
+    def __init__(self, ip, port, clientsocket):
         threading.Thread.__init__(self)
         self.ip = ip
         self.port = port
@@ -18,10 +19,8 @@ class ClientThread(threading.Thread):
             data = self.clientsock.recv(2048).decode()
             if len(data):
                 request, body = data.split('\n')
-                method, url = request.split(' ')
-                print(method)
-                print(url)
-                print(body)
-            # print("Cliente (%s:%s) enviou: %s"%(self.ip, str(self.port), data))
+                print(f"Cliente ({self.ip}:{self.port}) chamou a rota: {request}")
+                router.routes(request, body)
 
         print(f"{bcolors.RED}[-]{bcolors.COLOR_OFF} Cliente {self.ip}:{str(self.port)} desconectado...")
+
