@@ -6,6 +6,8 @@
 package View;
 
 import Controller.AutoramaController;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -18,9 +20,14 @@ public class TelaConfiguracao extends javax.swing.JFrame {
      * Creates new form TelaConfiguracao
      */
     private JFrame frame = new JFrame ("Autorama");
-    
-    public TelaConfiguracao() {
+    private final AutoramaController autoramaController;
+    public TelaConfiguracao( AutoramaController autoramaController) {
+        this.autoramaController = autoramaController;
         initComponents();
+    }
+
+    private TelaConfiguracao() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 
@@ -110,6 +117,13 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoConfigurarLeitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfigurarLeitorActionPerformed
+        String url = inputIp.getText();
+        int porta = Integer.parseInt(inputPorta.getText());
+        try {
+            autoramaController.iniciarservidor(url, porta);
+        } catch (Exception ex) {
+            Logger.getLogger(TelaConfiguracao.class.getName()).log(Level.SEVERE, null, ex);
+        }
         frame = new TelaInicial();
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setVisible(true);

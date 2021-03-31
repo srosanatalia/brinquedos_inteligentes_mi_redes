@@ -15,11 +15,20 @@ import java.net.Socket;
  * @author nati_
  */
 public class ClienteTCP {
-    public void leituraTag(String url, int porta){
+    private String url;
+    private int porta;
+
+    public ClienteTCP(String url, int porta) {
+        this.url = url;
+        this.porta = porta;
+    }
+    
+    public void leituraTag(){
         try {
-            Socket cliente = new Socket(url,porta);
+            Socket cliente = new Socket(this.url, this.porta);
+            System.out.println("Conexão iniciada");
             try (ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream())) {
-               //LEITURA TAG
+               System.out.println("Conexão iniciada");
             }
             System.out.println("Conexão encerrada");
           }

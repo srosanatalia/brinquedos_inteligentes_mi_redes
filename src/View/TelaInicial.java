@@ -6,6 +6,7 @@
 package View;
 
 import Controller.AutoramaController;
+import java.util.Iterator;
 
 /**
  *
@@ -16,6 +17,14 @@ public class TelaInicial extends javax.swing.JFrame {
     /**
      * Creates new form TelaInicial
      */
+    private AutoramaController autorama;
+    
+    public TelaInicial(AutoramaController autorama) {
+        this.autorama = autorama;
+        initComponents();
+        esconderTelas();
+        painelPrincipal.setVisible(true);
+    }
     public TelaInicial() {
         initComponents();
         esconderTelas();
@@ -114,7 +123,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel17.setText("Equipe");
 
-        selectPilotoCarro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selectPilotoCarro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectPilotoCarroActionPerformed(evt);
+            }
+        });
 
         SelectEquipeCarro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -621,6 +634,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void botaoCadastrarCarrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarCarrosActionPerformed
         esconderTelas();
+        preenchePilotos();
         painelCadastroCarros.setVisible(true);
     }//GEN-LAST:event_botaoCadastrarCarrosActionPerformed
 
@@ -633,6 +647,10 @@ public class TelaInicial extends javax.swing.JFrame {
         esconderTelas();
         painelCadastroEquipes.setVisible(true);
     }//GEN-LAST:event_botaoCadastrarEquipesActionPerformed
+
+    private void selectPilotoCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPilotoCarroActionPerformed
+
+    }//GEN-LAST:event_selectPilotoCarroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -674,6 +692,12 @@ public class TelaInicial extends javax.swing.JFrame {
         painelCadastroPilotos.setVisible(false);
         painelCadastroEquipes.setVisible(false);
         painelPrincipal.setVisible(false);
+    }
+    
+    private void preenchePilotos(){
+        selectPilotoCarro.removeAllItems();
+        selectPilotoCarro.addItem("<Selecionar Piloto>");
+        autorama.getPilotos();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
