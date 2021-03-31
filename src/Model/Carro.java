@@ -9,7 +9,7 @@ package Model;
  *
  * @author nati_
  */
-class Carro {
+public class Carro {
     private String id;
     private String tag;
     private String modelo;

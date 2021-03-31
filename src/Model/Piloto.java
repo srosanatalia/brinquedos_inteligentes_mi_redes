@@ -12,7 +12,7 @@ import java.sql.Date;
  *
  * @author nati_
  */
-class Piloto {
+public class Piloto {
     private String id;
     private String nome;
     private String apelido;
@@ -24,12 +24,10 @@ class Piloto {
     private boolean emAtividade;
     private int pontos;
 
-    public Piloto(String id, String nome, String apelido, BufferedImage foto, Date dataNascimento, String nacionalidade, boolean emAtividade) {
+    public Piloto(String id, String nome, String apelido, String nacionalidade, boolean emAtividade) {
         this.id = id;
         this.nome = nome;
         this.apelido = apelido;
-        this.foto = foto;
-        this.dataNascimento = dataNascimento;
         this.nacionalidade = nacionalidade;
         this.emAtividade = emAtividade;
     }
@@ -114,5 +112,9 @@ class Piloto {
         this.pontos = pontos;
     }
     
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
     
 }

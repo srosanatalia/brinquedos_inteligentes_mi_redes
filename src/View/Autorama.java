@@ -12,7 +12,9 @@ import Controller.AutoramaController;
  * @author nati_
  */
 public class Autorama {
+
     public static void main (String [] args){
-        AutoramaInterface autorama = new AutoramaInterface();
+        AutoramaController autoramaController = new AutoramaController();
+        AutoramaInterface autorama = new AutoramaInterface(autoramaController);
     }
 }

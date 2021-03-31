@@ -15,9 +15,10 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  */
 public class AutoramaInterface {
     private JFrame frame = new JFrame ("Autorama");
-
-    AutoramaInterface() {
-        frame = new TelaConfiguracao();
+    private final AutoramaController autoramaController;
+    AutoramaInterface(AutoramaController autoramaController) {
+        this.autoramaController = autoramaController;
+        frame = new TelaConfiguracao(autoramaController);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
