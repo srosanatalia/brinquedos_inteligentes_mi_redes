@@ -16,7 +16,10 @@ class ClientThread(threading.Thread):
     def run(self):    
         data = '.'
         while True and len(data):
-            data = self.clientsock.recv(2048).decode()
+            try:
+                data = self.clientsock.recv(2048).decode()
+            except:
+                break
             if len(data):
                 request, body = data.split('\n')
                 print(f"Cliente ({self.ip}:{self.port}) chamou a rota: {request}")
