@@ -27,10 +27,6 @@ public class ClienteTCP {
         try {
             Socket cliente = new Socket(this.url, this.porta);
             System.out.println("Conexão iniciada");
-            try (ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream())) {
-               System.out.println("Conexão iniciada");
-            }
-            System.out.println("Conexão encerrada");
           }
           catch(HeadlessException | IOException e) {
             System.out.println("Erro: " + e.getMessage());
