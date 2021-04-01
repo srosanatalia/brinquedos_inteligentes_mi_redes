@@ -18,7 +18,7 @@ class ClientThread(threading.Thread):
         while True and len(data):
             try:
                 data = self.clientsock.recv(2048).decode()
-            except:
+            except ConnectionResetError:
                 break
             if len(data):
                 request, body = data.split('\n')

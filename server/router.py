@@ -10,6 +10,9 @@ def routes(request, body):
 
 def post_rfid_config(body):
     data = json.loads(body)
+    with open('configs/rfid.json', 'w') as file:
+        json.dump(data, file, indent=2)
+
     sensor = SensorThread(
         data['serial'], 
         data['baudrate'], 

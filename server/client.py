@@ -19,17 +19,3 @@ s.connect((host, port))
 s.sendall('POST /rfid/config\n{"serial":"tmr:///dev/ttyUSB0", "baudrate":"115200", "region":"NA2", "protocol":"GEN2", "antenna":"1", "frequency":"1500"}'.encode())
 
 time.sleep(5)
-
-# s.sendall('GET /rfid/config\n'.encode())
-
-# time.sleep(3)
-
-# s.sendall('3'.encode())
-
-# time.sleep(3)
-
-# s.sendall('4'.encode())
-
-# time.sleep(3)
-
-# s.sendall('5'.encode())
