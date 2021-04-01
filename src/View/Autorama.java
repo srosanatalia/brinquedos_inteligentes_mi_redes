@@ -6,6 +6,7 @@
 package View;
 
 import Controller.AutoramaController;
+import Model.ClienteTCP;
 
 /**
  *
@@ -16,5 +17,8 @@ public class Autorama {
     public static void main (String [] args){
         AutoramaController autoramaController = new AutoramaController();
         AutoramaInterface autorama = new AutoramaInterface(autoramaController);
+//        ClienteTCP cliente = new ClienteTCP("augusto.ddns.net", 5051);
+//        cliente.leituraTag();
+        
     }
 }

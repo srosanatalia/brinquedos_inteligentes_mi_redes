@@ -16,8 +16,8 @@ import Model.*;
  */
 public class AutoramaController {
     private final ArrayList pilotos;
-    private String url;
-    private int porta;
+    public String url;
+    public int porta;
     
     public AutoramaController() {
         this.pilotos = new ArrayList ();
@@ -39,9 +39,7 @@ public class AutoramaController {
         new Thread(cliente).start();
     }
 
-    private static Runnable cliente = new Runnable() {
-        int porta = this.porta;
-        String url = this.url;
+    private Runnable cliente = new Runnable() {
         public void run() {
             try{
                 ClienteTCP Cliente = new ClienteTCP(url, porta);
