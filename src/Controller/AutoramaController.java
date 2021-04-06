@@ -18,6 +18,12 @@ public class AutoramaController {
     private final ArrayList pilotos;
     public String url;
     public int porta;
+    public String serial;
+    public String baudrate;
+    public String region;
+    public String protocol;
+    public String antenna;
+    public String frequency;
     
     public AutoramaController() {
         this.pilotos = new ArrayList ();
@@ -34,9 +40,12 @@ public class AutoramaController {
     }
     
     public void iniciarservidor(String url, int porta) throws Exception{
-        this.porta = porta;
-        this.url = url;
-        new Thread(cliente).start();
+        try{
+            this.porta = porta;
+            this.url = url;
+            new Thread(cliente).start();
+        } catch (Exception e){System.out.println("Não foi possível estabelecer uma conexão.");}
+        
     }
 
     private Runnable cliente = new Runnable() {
