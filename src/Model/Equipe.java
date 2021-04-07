@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author nati_
  */
-class Equipe {
+public class Equipe {
     private String id; 
     private String nome;
     private String apelido;
