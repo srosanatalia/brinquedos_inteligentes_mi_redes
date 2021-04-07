@@ -6,6 +6,8 @@
 package View;
 
 import Controller.AutoramaController;
+import Model.*;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -26,9 +28,7 @@ public class TelaInicial extends javax.swing.JFrame {
         painelPrincipal.setVisible(true);
     }
     public TelaInicial() {
-        initComponents();
-        esconderTelas();
-        painelPrincipal.setVisible(true);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -58,6 +58,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         inputTagCarro = new javax.swing.JTextField();
         inputModeloCarro = new javax.swing.JTextField();
+        botaoVoltar = new javax.swing.JButton();
         painelCadastroPilotos = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel9 = new javax.swing.JLabel();
@@ -80,6 +81,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         inputPontosPiloto = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        botaoVoltar1 = new javax.swing.JButton();
         painelCadastroEquipes = new javax.swing.JPanel();
         inputAnoEquipe = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
@@ -102,6 +104,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
+        botaoVoltar2 = new javax.swing.JButton();
         painelPrincipal = new javax.swing.JPanel();
         botaoCadastrarCarros = new javax.swing.JButton();
         botaoCadastrarPilotos = new javax.swing.JButton();
@@ -130,6 +133,11 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         SelectEquipeCarro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        SelectEquipeCarro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SelectEquipeCarroActionPerformed(evt);
+            }
+        });
 
         jLabel18.setText("Cor");
 
@@ -150,6 +158,13 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel12.setText("Modelo");
 
+        botaoVoltar.setText("Cancelar");
+        botaoVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoVoltarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelCadastroCarrosLayout = new javax.swing.GroupLayout(painelCadastroCarros);
         painelCadastroCarros.setLayout(painelCadastroCarrosLayout);
         painelCadastroCarrosLayout.setHorizontalGroup(
@@ -157,38 +172,33 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(painelCadastroCarrosLayout.createSequentialGroup()
                 .addGap(210, 210, 210)
                 .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(painelCadastroCarrosLayout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addGap(375, 375, 375))
-                            .addComponent(inputIdCarro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(painelCadastroCarrosLayout.createSequentialGroup()
-                            .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(selectPilotoCarro, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(inputMarcaCarro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(jLabel13)
+                    .addComponent(inputIdCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18)
+                    .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroCarrosLayout.createSequentialGroup()
+                            .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(inputTagCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(38, 38, 38)
-                            .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel15)
-                                .addComponent(inputNumeroCarro)
-                                .addComponent(jLabel17)
-                                .addComponent(SelectEquipeCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jLabel18)
-                        .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroCarrosLayout.createSequentialGroup()
-                                .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(inputTagCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(38, 38, 38)
-                                .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel12)
-                                    .addComponent(inputModeloCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroCarrosLayout.createSequentialGroup()
-                        .addComponent(botaoConfirmarCadastroCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(133, 133, 133)))
+                            .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel12)
+                                .addComponent(inputModeloCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelCadastroCarrosLayout.createSequentialGroup()
+                        .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(selectPilotoCarro, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inputMarcaCarro, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botaoVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(38, 38, 38)
+                        .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel15)
+                            .addComponent(inputNumeroCarro)
+                            .addComponent(jLabel17)
+                            .addComponent(SelectEquipeCarro, 0, 182, Short.MAX_VALUE)
+                            .addComponent(botaoConfirmarCadastroCarro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(221, Short.MAX_VALUE))
         );
         painelCadastroCarrosLayout.setVerticalGroup(
@@ -226,9 +236,11 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(SelectEquipeCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addComponent(botaoConfirmarCadastroCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoConfirmarCadastroCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(74, 74, 74))
         );
 
         painelCadastroPilotos.setBackground(new java.awt.Color(255, 255, 255));
@@ -268,7 +280,12 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel5.setText("Data de Nascimento");
 
-        selectAtividadePiloto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selectAtividadePiloto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sim", "Nao" }));
+        selectAtividadePiloto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectAtividadePilotoActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Foto");
 
@@ -279,6 +296,13 @@ public class TelaInicial extends javax.swing.JFrame {
         inputPontosPiloto.setEditable(false);
 
         jLabel8.setText("Nacionalidade");
+
+        botaoVoltar1.setText("Cancelar");
+        botaoVoltar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoVoltar1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelCadastroPilotosLayout = new javax.swing.GroupLayout(painelCadastroPilotos);
         painelCadastroPilotos.setLayout(painelCadastroPilotosLayout);
@@ -292,20 +316,20 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addGroup(painelCadastroPilotosLayout.createSequentialGroup()
                             .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(painelCadastroPilotosLayout.createSequentialGroup()
-                                    .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(selectAtividadePiloto, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                    .addComponent(selectCarroPiloto, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                            .addComponent(inputNacionalidadePiloto, javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(inputNomePiloto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addComponent(jLabel8)))
-                                                .addComponent(jLabel2)))
-                                        .addComponent(jLabel9))
+                                    .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(selectAtividadePiloto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(selectCarroPiloto, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                        .addComponent(inputNacionalidadePiloto, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(inputNomePiloto, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
+                                                    .addComponent(jLabel8)))
+                                            .addComponent(jLabel2))
+                                        .addComponent(jLabel9)
+                                        .addComponent(botaoVoltar1, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
                                     .addGap(40, 40, 40))
                                 .addGroup(painelCadastroPilotosLayout.createSequentialGroup()
                                     .addComponent(jLabel11)
@@ -313,23 +337,19 @@ public class TelaInicial extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelCadastroPilotosLayout.createSequentialGroup()
                                     .addComponent(inputIdPiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                            .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel6)
-                                .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel4)
-                                    .addComponent(inputApelidoPiloto)
-                                    .addComponent(inputDataNascimentoPiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(selectEquipePiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel4)
+                                .addComponent(inputApelidoPiloto)
+                                .addComponent(inputDataNascimentoPiloto, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                                .addComponent(selectEquipePiloto, 0, 166, Short.MAX_VALUE)
+                                .addComponent(botaoConfirmarCadastroPiloto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel10)
                         .addComponent(inputPontosPiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(236, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroPilotosLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botaoConfirmarCadastroPiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(336, 336, 336))
         );
         painelCadastroPilotosLayout.setVerticalGroup(
             painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,9 +360,9 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(inputIdPiloto)
+                    .addComponent(inputIdPiloto, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                     .addComponent(inputPontosPiloto))
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -374,10 +394,14 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(selectAtividadePiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(botaoConfirmarCadastroPiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(botaoConfirmarCadastroPiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(painelCadastroPilotosLayout.createSequentialGroup()
+                        .addComponent(botaoVoltar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(2, 2, 2)))
                 .addGap(81, 81, 81))
         );
 
@@ -437,6 +461,13 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel23.setText("Nome ");
 
+        botaoVoltar2.setText("Cancelar");
+        botaoVoltar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoVoltar2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelCadastroEquipesLayout = new javax.swing.GroupLayout(painelCadastroEquipes);
         painelCadastroEquipes.setLayout(painelCadastroEquipesLayout);
         painelCadastroEquipesLayout.setHorizontalGroup(
@@ -449,19 +480,6 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(jLabel24)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
-                            .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(inputNacionalidadeEquipe, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(inputNomeEquipe, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(inputApelidoEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel28)
-                                .addComponent(inputAnoEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel29)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel21)))
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
                             .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,10 +491,26 @@ public class TelaInicial extends javax.swing.JFrame {
                                     .addGap(280, 280, 280)))
                             .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel26)
-                                .addComponent(inputPontosEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(botaoConfirmarCadastroEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(inputPontosEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
+                            .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
+                                    .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(inputNacionalidadeEquipe, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(inputNomeEquipe, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
+                                    .addComponent(botaoVoltar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(40, 40, 40)))
+                            .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(botaoConfirmarCadastroEquipe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(inputApelidoEquipe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                                .addComponent(jLabel28)
+                                .addComponent(inputAnoEquipe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                                .addComponent(jLabel29)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                                .addComponent(jLabel21)))))
                 .addContainerGap(216, Short.MAX_VALUE))
         );
         painelCadastroEquipesLayout.setVerticalGroup(
@@ -518,9 +552,11 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel24)
-                .addGap(30, 30, 30)
-                .addComponent(botaoConfirmarCadastroEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoConfirmarCadastroEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoVoltar2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         painelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
@@ -633,17 +669,28 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoConfirmarCadastroEquipeActionPerformed
 
     private void botaoCadastrarCarrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarCarrosActionPerformed
+        int id = autorama.getCarros().size() + 1;
+        inputIdCarro.setText(Integer.toString(id));
         esconderTelas();
         preenchePilotos();
+        preencheEquipesCarro();
         painelCadastroCarros.setVisible(true);
     }//GEN-LAST:event_botaoCadastrarCarrosActionPerformed
 
     private void botaoCadastrarPilotosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarPilotosActionPerformed
+        int id = autorama.getPilotos().size() + 1;
+        inputIdPiloto.setText(Integer.toString(id));
+        inputPontosPiloto.setText("000");
+        preencheEquipesPiloto();
+        preencheCarros();
         esconderTelas();
         painelCadastroPilotos.setVisible(true);
     }//GEN-LAST:event_botaoCadastrarPilotosActionPerformed
 
     private void botaoCadastrarEquipesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarEquipesActionPerformed
+        int id = autorama.getEquipes().size() + 1;
+        inputIdEquipe.setText(Integer.toString(id));
+        inputPontosEquipe.setText("000");
         esconderTelas();
         painelCadastroEquipes.setVisible(true);
     }//GEN-LAST:event_botaoCadastrarEquipesActionPerformed
@@ -651,6 +698,29 @@ public class TelaInicial extends javax.swing.JFrame {
     private void selectPilotoCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPilotoCarroActionPerformed
 
     }//GEN-LAST:event_selectPilotoCarroActionPerformed
+
+    private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
+        esconderTelas();
+        painelPrincipal.setVisible(true);
+    }//GEN-LAST:event_botaoVoltarActionPerformed
+
+    private void botaoVoltar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltar1ActionPerformed
+        esconderTelas();
+        painelPrincipal.setVisible(true);
+    }//GEN-LAST:event_botaoVoltar1ActionPerformed
+
+    private void botaoVoltar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltar2ActionPerformed
+        esconderTelas();
+        painelPrincipal.setVisible(true);
+    }//GEN-LAST:event_botaoVoltar2ActionPerformed
+
+    private void SelectEquipeCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectEquipeCarroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SelectEquipeCarroActionPerformed
+
+    private void selectAtividadePilotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectAtividadePilotoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectAtividadePilotoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -697,7 +767,53 @@ public class TelaInicial extends javax.swing.JFrame {
     private void preenchePilotos(){
         selectPilotoCarro.removeAllItems();
         selectPilotoCarro.addItem("<Selecionar Piloto>");
-        autorama.getPilotos();
+        Iterator itr = autorama.getPilotos().iterator();
+        while(itr.hasNext()){
+            Object o = itr.next();
+            if(o  instanceof Piloto){
+                Piloto piloto = (Piloto)o;
+                selectPilotoCarro.addItem(piloto.getNome());
+            }
+        }
+    }
+    
+    private void preencheCarros(){
+        selectCarroPiloto.removeAllItems();
+        selectCarroPiloto.addItem("<Selecionar Carro>");
+        Iterator itr = autorama.getCarros().iterator();
+        while(itr.hasNext()){
+            Object o = itr.next();
+            if(o  instanceof Carro){
+                Carro carro = (Carro)o;
+                selectCarroPiloto.addItem(carro.getMarca());
+            }
+        }
+    }
+    
+    private void preencheEquipesCarro(){
+        SelectEquipeCarro.removeAllItems();
+        SelectEquipeCarro.addItem("<Selecionar Equipe>");
+        Iterator itr = autorama.getEquipes().iterator();
+        while(itr.hasNext()){
+            Object o = itr.next();
+            if(o  instanceof Equipe){
+                Equipe equipe = (Equipe)o;
+                SelectEquipeCarro.addItem(equipe.getNome());
+            }
+        }
+    }
+    
+    private void preencheEquipesPiloto(){
+        selectEquipePiloto.removeAllItems();
+        selectEquipePiloto.addItem("<Selecionar Equipe>");
+        Iterator itr = autorama.getEquipes().iterator();
+        while(itr.hasNext()){
+            Object o = itr.next();
+            if(o  instanceof Equipe){
+                Equipe equipe = (Equipe)o;
+                selectEquipePiloto.addItem(equipe.getNome());
+            }
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -708,6 +824,9 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton botaoConfirmarCadastroCarro;
     private javax.swing.JButton botaoConfirmarCadastroEquipe;
     private javax.swing.JButton botaoConfirmarCadastroPiloto;
+    private javax.swing.JButton botaoVoltar;
+    private javax.swing.JButton botaoVoltar1;
+    private javax.swing.JButton botaoVoltar2;
     private javax.swing.JTextField inputAnoEquipe;
     private javax.swing.JTextField inputApelidoEquipe;
     private javax.swing.JTextField inputApelidoPiloto;

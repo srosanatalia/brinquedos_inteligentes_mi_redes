@@ -213,7 +213,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         int porta = Integer.parseInt(inputPorta.getText());
         try {
             autoramaController.iniciarservidor(url, porta);
-            frame = new TelaInicial();
+            frame = new TelaInicial(autoramaController);
             frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
             frame.setVisible(true);
         } catch (Exception ex) {
@@ -223,11 +223,11 @@ public class TelaConfiguracao extends javax.swing.JFrame {
 
     private void botaoConfiguracaoPadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfiguracaoPadraoActionPerformed
         try {
-            autoramaController.iniciarservidor("augusto.ddns.net", 5021);
+            autoramaController.iniciarservidor("augusto.ddns.net", 5022);
         } catch (Exception ex) {
             Logger.getLogger(TelaConfiguracao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        frame = new TelaInicial();
+        frame = new TelaInicial(autoramaController);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setVisible(true);
     }//GEN-LAST:event_botaoConfiguracaoPadraoActionPerformed

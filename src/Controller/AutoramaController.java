@@ -21,8 +21,10 @@ import java.util.logging.Logger;
  * @author nati_
  */
 public class AutoramaController {
-    private final ArrayList pilotos;
-    private final ArrayList<Pais> paises;
+    private final ArrayList <Pais> paises;
+    private final ArrayList <Piloto> pilotos;
+    private final ArrayList <Equipe> equipes;
+    private final ArrayList <Carro> carros;
     public String url;
     public int porta;
     public String serial;
@@ -35,6 +37,8 @@ public class AutoramaController {
     public AutoramaController() {
         this.pilotos = new ArrayList ();
         this.paises = new ArrayList ();
+        this.equipes = new ArrayList ();
+        this.carros = new ArrayList ();
         
         try {
             this.lerPaises();
@@ -51,6 +55,14 @@ public class AutoramaController {
     
     public ArrayList getPilotos() {
         return pilotos;
+    }
+    
+    public ArrayList getEquipes() {
+        return equipes;
+    }
+    
+    public ArrayList getCarros() {
+        return carros;
     }
     
     public void iniciarservidor(String url, int porta) throws Exception{
