@@ -8,7 +8,13 @@ package Controller;
 import java.awt.image.BufferedImage;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Scanner;
 import Model.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,6 +22,7 @@ import Model.*;
  */
 public class AutoramaController {
     private final ArrayList pilotos;
+    private final ArrayList<Pais> paises;
     public String url;
     public int porta;
     public String serial;
@@ -27,6 +34,13 @@ public class AutoramaController {
     
     public AutoramaController() {
         this.pilotos = new ArrayList ();
+        this.paises = new ArrayList ();
+        
+        try {
+            this.lerPaises();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AutoramaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public boolean cadastrarPiloto(String id, String nome, String apelido, String nacionalidade, boolean emAtividade) {
@@ -56,4 +70,20 @@ public class AutoramaController {
             } catch (Exception e){}
        }
     };
+    
+    private void lerPaises() throws FileNotFoundException {
+        try (Scanner scanner = new Scanner(new File(AutoramaController.class.getResource("../Assets/paises.csv").toURI()));) {
+            scanner.nextLine();
+            while (scanner.hasNextLine()) {
+                try (Scanner rowScanner = new Scanner(scanner.nextLine())) {
+                    rowScanner.useDelimiter(",");
+                    String name = rowScanner.next();
+                    String alpha2 = rowScanner.next();
+                    Pais country = new Pais(name, alpha2);
+                    paises.add(country);
+                }
+            }
+        } catch (URISyntaxException e) {
+        }
+    }
 }

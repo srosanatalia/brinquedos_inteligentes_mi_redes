@@ -6,10 +6,10 @@ import socket, time
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
 
 # get local machine name
-# host = 'augusto.ddns.net'
-# port = 5022
-host = '127.0.0.1'
-port = 2000
+host = 'augusto.ddns.net'
+port = 5022
+# host = '127.0.0.1'
+# port = 2000
 # host = '6.tcp.ngrok.io'
 # port = 10203
 
