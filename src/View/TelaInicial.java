@@ -7,8 +7,17 @@ package View;
 
 import Controller.AutoramaController;
 import Model.*;
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -69,7 +78,6 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         inputApelidoPiloto = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        inputNacionalidadePiloto = new javax.swing.JTextField();
         selectCarroPiloto = new javax.swing.JComboBox<>();
         inputDataNascimentoPiloto = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -82,6 +90,8 @@ public class TelaInicial extends javax.swing.JFrame {
         inputPontosPiloto = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         botaoVoltar1 = new javax.swing.JButton();
+        selectNacionalidadePiloto = new javax.swing.JComboBox<>();
+        imagemNacionalidadePiloto = new javax.swing.JLabel();
         painelCadastroEquipes = new javax.swing.JPanel();
         inputAnoEquipe = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
@@ -112,7 +122,6 @@ public class TelaInicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(817, 547));
 
         painelCadastroCarros.setBackground(new java.awt.Color(255, 255, 255));
         painelCadastroCarros.setMaximumSize(new java.awt.Dimension(817, 547));
@@ -304,6 +313,11 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        selectNacionalidadePiloto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        imagemNacionalidadePiloto.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        imagemNacionalidadePiloto.setText(" ");
+
         javax.swing.GroupLayout painelCadastroPilotosLayout = new javax.swing.GroupLayout(painelCadastroPilotos);
         painelCadastroPilotos.setLayout(painelCadastroPilotosLayout);
         painelCadastroPilotosLayout.setHorizontalGroup(
@@ -323,13 +337,16 @@ public class TelaInicial extends javax.swing.JFrame {
                                                 .addComponent(selectCarroPiloto, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                        .addComponent(inputNacionalidadePiloto, javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(inputNomePiloto, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
+                                                        .addComponent(inputNomePiloto, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                                                        .addGroup(painelCadastroPilotosLayout.createSequentialGroup()
+                                                            .addComponent(selectNacionalidadePiloto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                            .addGap(4, 4, 4)
+                                                            .addComponent(imagemNacionalidadePiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                     .addComponent(jLabel8)))
                                             .addComponent(jLabel2))
                                         .addComponent(jLabel9)
-                                        .addComponent(botaoVoltar1, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
+                                        .addComponent(botaoVoltar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGap(40, 40, 40))
                                 .addGroup(painelCadastroPilotosLayout.createSequentialGroup()
                                     .addComponent(jLabel11)
@@ -349,7 +366,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel10)
                         .addComponent(inputPontosPiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(236, Short.MAX_VALUE))
+                .addContainerGap(235, Short.MAX_VALUE))
         );
         painelCadastroPilotosLayout.setVerticalGroup(
             painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,7 +377,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(inputIdPiloto, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addComponent(inputIdPiloto)
                     .addComponent(inputPontosPiloto))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -379,10 +396,15 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(inputDataNascimentoPiloto)
-                    .addComponent(inputNacionalidadePiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelCadastroPilotosLayout.createSequentialGroup()
+                        .addComponent(selectNacionalidadePiloto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(painelCadastroPilotosLayout.createSequentialGroup()
+                        .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inputDataNascimentoPiloto)
+                            .addComponent(imagemNacionalidadePiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(jLabel2))
@@ -394,7 +416,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(selectAtividadePiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -682,8 +704,25 @@ public class TelaInicial extends javax.swing.JFrame {
         inputIdPiloto.setText(Integer.toString(id));
         inputPontosPiloto.setText("000");
         preencheEquipesPiloto();
+        preencheNacionalidadePiloto();
         preencheCarros();
         esconderTelas();
+        selectNacionalidadePiloto.addActionListener(new ActionListener () {
+            public void actionPerformed(ActionEvent e) {
+                String pais_selecionado = selectNacionalidadePiloto.getSelectedItem().toString();
+                Pais pais = autorama.getPais(pais_selecionado);
+                System.out.println(pais.getBandeira());
+                try {
+                    BufferedImage img_bf = ImageIO.read(new File(pais.getBandeira()));
+                    ImageIcon img = new ImageIcon(img_bf);
+                    img = new ImageIcon(img.getImage().getScaledInstance(44, 32, java.awt.Image.SCALE_DEFAULT));
+                    imagemNacionalidadePiloto.setIcon(img); 
+                    
+                } catch (IOException ex) {
+                    Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
         painelCadastroPilotos.setVisible(true);
     }//GEN-LAST:event_botaoCadastrarPilotosActionPerformed
 
@@ -815,6 +854,19 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         }
     }
+    
+    private void preencheNacionalidadePiloto(){
+        selectNacionalidadePiloto.removeAllItems();
+         selectNacionalidadePiloto.addItem("<Selecionar Nacionalidade>");
+        Iterator itr = autorama.getPaises().iterator();
+        while(itr.hasNext()){
+            Object o = itr.next();
+            if(o  instanceof Pais){
+                Pais pais = (Pais)o;
+                selectNacionalidadePiloto.addItem(pais.getNome());
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> SelectEquipeCarro;
@@ -827,6 +879,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton botaoVoltar;
     private javax.swing.JButton botaoVoltar1;
     private javax.swing.JButton botaoVoltar2;
+    private javax.swing.JLabel imagemNacionalidadePiloto;
     private javax.swing.JTextField inputAnoEquipe;
     private javax.swing.JTextField inputApelidoEquipe;
     private javax.swing.JTextField inputApelidoPiloto;
@@ -837,7 +890,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JTextField inputMarcaCarro;
     private javax.swing.JTextField inputModeloCarro;
     private javax.swing.JTextField inputNacionalidadeEquipe;
-    private javax.swing.JTextField inputNacionalidadePiloto;
     private javax.swing.JTextField inputNomeEquipe;
     private javax.swing.JTextField inputNomePiloto;
     private javax.swing.JTextField inputNumeroCarro;
@@ -885,6 +937,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> selectAtividadePiloto;
     private javax.swing.JComboBox<String> selectCarroPiloto;
     private javax.swing.JComboBox<String> selectEquipePiloto;
+    private javax.swing.JComboBox<String> selectNacionalidadePiloto;
     private javax.swing.JComboBox<String> selectPilotoCarro;
     // End of variables declaration//GEN-END:variables
 }

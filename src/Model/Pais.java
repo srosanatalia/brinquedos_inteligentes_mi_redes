@@ -27,7 +27,7 @@ public class Pais {
     }
 
     public String getBandeira() {
-        return Pais.class.getResource("../Assets/flags_countries/" + alpha2 + ".png").toString();
+        return Pais.class.getResource("../Assets/flags_countries/" + alpha2 + ".png").toString().replace("file:", "");
     }
 
     public void setNome(String nome) {

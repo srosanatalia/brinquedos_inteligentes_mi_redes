@@ -8,6 +8,7 @@ package Controller;
 import java.awt.image.BufferedImage;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 import Model.*;
 import java.io.File;
@@ -65,6 +66,10 @@ public class AutoramaController {
         return carros;
     }
     
+    public ArrayList getPaises() {
+        return paises;
+    }
+    
     public void iniciarservidor(String url, int porta) throws Exception{
         try{
             this.porta = porta;
@@ -107,5 +112,18 @@ public class AutoramaController {
             }
         } catch (URISyntaxException e) {
         }
+    }
+
+    public Pais getPais(String nome) {
+        Iterator itr = paises.iterator();
+        while(itr.hasNext()){
+            Object o = itr.next();
+            if(o  instanceof Pais){
+                Pais pais = (Pais)o;
+                if(pais.getNome() == nome)
+                    return pais;
+            }
+        }
+        return null;
     }
 }
