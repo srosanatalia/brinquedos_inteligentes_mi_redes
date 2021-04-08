@@ -61,6 +61,8 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         inputFrequency = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -105,6 +107,14 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Frequency");
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel9.setText("*");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel10.setText("*");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -140,10 +150,16 @@ public class TelaConfiguracao extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(botaoConfigurarLeitor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(inputIp, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                            .addComponent(jLabel1))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel9)))
                         .addGap(32, 32, 32)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel10))
                             .addComponent(inputPorta, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                             .addComponent(botaoConfiguracaoPadrao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(103, Short.MAX_VALUE))
@@ -154,7 +170,9 @@ public class TelaConfiguracao extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inputIp, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -205,14 +223,19 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoConfigurarLeitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfigurarLeitorActionPerformed
+//        if(inputIp.getText().isEmpty() || inputPorta.getText().isEmpty() || inputSerial.getText().isEmpty() || inputBaudrate.getText().isEmpty() || inputRegion.getText().isEmpty() || inputProtocol.getText().isEmpty() || inputAntenna.getText().isEmpty()|| inputFrequency.getText().isEmpty()){
+//            JOptionPane.showMessageDialog(rootPane, "Verifique se as informações inseridas estão corretas.");
+//            return;
+//        }
         if(inputIp.getText().isEmpty() || inputPorta.getText().isEmpty()){
-            JOptionPane.showMessageDialog(rootPane, "Verifique se as informações inseridas estão corretas.");
+            JOptionPane.showMessageDialog(rootPane, "Preencha os campos obrigatórios.");
             return;
         }
         String url = inputIp.getText();
         int porta = Integer.parseInt(inputPorta.getText());
         try {
             autoramaController.iniciarservidor(url, porta);
+            autoramaController.criarJsonRfid(inputSerial.getText(), inputBaudrate.getText(), inputRegion.getText(), inputProtocol.getText(), inputAntenna.getText(), inputFrequency.getText());
             frame = new TelaInicial(autoramaController);
             frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
             frame.setVisible(true);
@@ -224,6 +247,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     private void botaoConfiguracaoPadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfiguracaoPadraoActionPerformed
         try {
             autoramaController.iniciarservidor("augusto.ddns.net", 5022);
+            autoramaController.criarJsonRfid("tmr:///dev/ttyUSB0", "115200", "NA2", "GEN2", "1", "1500");
         } catch (Exception ex) {
             Logger.getLogger(TelaConfiguracao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -279,6 +303,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     private javax.swing.JTextField inputRegion;
     private javax.swing.JTextField inputSerial;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -286,6 +311,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

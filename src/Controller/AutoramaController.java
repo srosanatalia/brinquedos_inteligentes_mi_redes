@@ -83,6 +83,16 @@ public class AutoramaController {
        }
     };
     
+    public void criarJsonRfid(String serial, String baudrate, String region, String protocol, String antenna, String frequency){
+        this.serial = serial;
+        this.baudrate = baudrate;
+        this.region = region;
+        this.protocol = protocol;
+        this.antenna = antenna;
+        this.frequency = frequency;
+        
+    }
+    
     private void lerPaises() throws FileNotFoundException {
         try (Scanner scanner = new Scanner(new File(AutoramaController.class.getResource("../Assets/paises.csv").toURI()));) {
             scanner.nextLine();
