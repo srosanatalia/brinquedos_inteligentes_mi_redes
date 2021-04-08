@@ -108,13 +108,14 @@ public class TelaInicial extends javax.swing.JFrame {
         inputNomeEquipe = new javax.swing.JTextField();
         inputApelidoEquipe = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        inputNacionalidadeEquipe = new javax.swing.JTextField();
         botaoConfirmarCadastroEquipe = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel22 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         botaoVoltar2 = new javax.swing.JButton();
+        selectNacionalidadeEquipe = new javax.swing.JComboBox<>();
+        imagemNacionalidadeEquipe = new javax.swing.JLabel();
         painelPrincipal = new javax.swing.JPanel();
         botaoCadastrarCarros = new javax.swing.JButton();
         botaoCadastrarPilotos = new javax.swing.JButton();
@@ -490,6 +491,11 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        selectNacionalidadeEquipe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        imagemNacionalidadeEquipe.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        imagemNacionalidadeEquipe.setText(" ");
+
         javax.swing.GroupLayout painelCadastroEquipesLayout = new javax.swing.GroupLayout(painelCadastroEquipes);
         painelCadastroEquipes.setLayout(painelCadastroEquipesLayout);
         painelCadastroEquipesLayout.setHorizontalGroup(
@@ -517,14 +523,17 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
                             .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
-                                    .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(inputNacionalidadeEquipe, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(inputNomeEquipe, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
                                     .addComponent(botaoVoltar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGap(40, 40, 40)))
+                                    .addGap(40, 40, 40))
+                                .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
+                                    .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel23)
+                                        .addComponent(inputNomeEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
+                                            .addComponent(selectNacionalidadeEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(imagemNacionalidadeEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(botaoConfirmarCadastroEquipe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(inputApelidoEquipe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
@@ -552,18 +561,23 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
                     .addComponent(jLabel28))
-                .addGap(6, 6, 6)
-                .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputNomeEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputApelidoEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22)
-                    .addComponent(jLabel29))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(inputNacionalidadeEquipe)
-                    .addComponent(inputAnoEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(inputNomeEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputApelidoEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel29))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(inputAnoEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(selectNacionalidadeEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroEquipesLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(imagemNacionalidadeEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel25)
@@ -651,16 +665,16 @@ public class TelaInicial extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(painelCadastroCarros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(painelCadastroCarros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(painelCadastroPilotos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(painelCadastroPilotos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(painelCadastroEquipes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(painelCadastroEquipes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(painelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -730,7 +744,24 @@ public class TelaInicial extends javax.swing.JFrame {
         int id = autorama.getEquipes().size() + 1;
         inputIdEquipe.setText(Integer.toString(id));
         inputPontosEquipe.setText("000");
+        preencheNacionalidadeEquipe();
         esconderTelas();
+        selectNacionalidadeEquipe.addActionListener(new ActionListener () {
+            public void actionPerformed(ActionEvent e) {
+                String pais_selecionado = selectNacionalidadeEquipe.getSelectedItem().toString();
+                Pais pais = autorama.getPais(pais_selecionado);
+                System.out.println(pais.getBandeira());
+                try {
+                    BufferedImage img_bf = ImageIO.read(new File(pais.getBandeira()));
+                    ImageIcon img = new ImageIcon(img_bf);
+                    img = new ImageIcon(img.getImage().getScaledInstance(44, 32, java.awt.Image.SCALE_DEFAULT));
+                    imagemNacionalidadeEquipe.setIcon(img); 
+                    
+                } catch (IOException ex) {
+                    Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
         painelCadastroEquipes.setVisible(true);
     }//GEN-LAST:event_botaoCadastrarEquipesActionPerformed
 
@@ -857,13 +888,26 @@ public class TelaInicial extends javax.swing.JFrame {
     
     private void preencheNacionalidadePiloto(){
         selectNacionalidadePiloto.removeAllItems();
-         selectNacionalidadePiloto.addItem("<Selecionar Nacionalidade>");
+        selectNacionalidadePiloto.addItem("<Selecionar Nacionalidade>");
         Iterator itr = autorama.getPaises().iterator();
         while(itr.hasNext()){
             Object o = itr.next();
             if(o  instanceof Pais){
                 Pais pais = (Pais)o;
                 selectNacionalidadePiloto.addItem(pais.getNome());
+            }
+        }
+    }
+    
+    private void preencheNacionalidadeEquipe(){
+        selectNacionalidadeEquipe.removeAllItems();
+        selectNacionalidadeEquipe.addItem("<Selecionar Nacionalidade>");
+        Iterator itr = autorama.getPaises().iterator();
+        while(itr.hasNext()){
+            Object o = itr.next();
+            if(o  instanceof Pais){
+                Pais pais = (Pais)o;
+                selectNacionalidadeEquipe.addItem(pais.getNome());
             }
         }
     }
@@ -879,6 +923,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton botaoVoltar;
     private javax.swing.JButton botaoVoltar1;
     private javax.swing.JButton botaoVoltar2;
+    private javax.swing.JLabel imagemNacionalidadeEquipe;
     private javax.swing.JLabel imagemNacionalidadePiloto;
     private javax.swing.JTextField inputAnoEquipe;
     private javax.swing.JTextField inputApelidoEquipe;
@@ -889,7 +934,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JTextField inputIdPiloto;
     private javax.swing.JTextField inputMarcaCarro;
     private javax.swing.JTextField inputModeloCarro;
-    private javax.swing.JTextField inputNacionalidadeEquipe;
     private javax.swing.JTextField inputNomeEquipe;
     private javax.swing.JTextField inputNomePiloto;
     private javax.swing.JTextField inputNumeroCarro;
@@ -937,6 +981,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> selectAtividadePiloto;
     private javax.swing.JComboBox<String> selectCarroPiloto;
     private javax.swing.JComboBox<String> selectEquipePiloto;
+    private javax.swing.JComboBox<String> selectNacionalidadeEquipe;
     private javax.swing.JComboBox<String> selectNacionalidadePiloto;
     private javax.swing.JComboBox<String> selectPilotoCarro;
     // End of variables declaration//GEN-END:variables
