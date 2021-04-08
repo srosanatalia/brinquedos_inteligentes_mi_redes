@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -528,11 +527,12 @@ public class TelaInicial extends javax.swing.JFrame {
                                 .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
                                     .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel23)
-                                        .addComponent(inputNomeEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
-                                            .addComponent(selectNacionalidadeEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(imagemNacionalidadeEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
+                                                .addComponent(selectNacionalidadeEquipe, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(imagemNacionalidadeEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(inputNomeEquipe, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(botaoConfirmarCadastroEquipe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -561,23 +561,19 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
                     .addComponent(jLabel28))
-                .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(inputNomeEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputApelidoEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel22)
-                            .addComponent(jLabel29))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(inputAnoEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(selectNacionalidadeEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroEquipesLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(imagemNacionalidadeEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(6, 6, 6)
+                .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inputNomeEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputApelidoEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(jLabel29))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inputAnoEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(selectNacionalidadeEquipe)
+                    .addComponent(imagemNacionalidadeEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel25)
@@ -592,7 +588,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoConfirmarCadastroEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoVoltar2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         painelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
@@ -721,21 +717,19 @@ public class TelaInicial extends javax.swing.JFrame {
         preencheNacionalidadePiloto();
         preencheCarros();
         esconderTelas();
-        selectNacionalidadePiloto.addActionListener(new ActionListener () {
-            public void actionPerformed(ActionEvent e) {
+        selectNacionalidadePiloto.addActionListener((ActionEvent e) -> {
+            try {
                 String pais_selecionado = selectNacionalidadePiloto.getSelectedItem().toString();
                 Pais pais = autorama.getPais(pais_selecionado);
-                System.out.println(pais.getBandeira());
-                try {
-                    BufferedImage img_bf = ImageIO.read(new File(pais.getBandeira()));
-                    ImageIcon img = new ImageIcon(img_bf);
-                    img = new ImageIcon(img.getImage().getScaledInstance(44, 32, java.awt.Image.SCALE_DEFAULT));
-                    imagemNacionalidadePiloto.setIcon(img); 
-                    
-                } catch (IOException ex) {
-                    Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+                
+                BufferedImage img_bf = ImageIO.read(new File(pais.getBandeira()));
+                ImageIcon img = new ImageIcon(img_bf);
+                img = new ImageIcon(img.getImage().getScaledInstance(44, 32, java.awt.Image.SCALE_DEFAULT));
+                imagemNacionalidadePiloto.setIcon(img);
+                
+            } catch (IOException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {}
         });
         painelCadastroPilotos.setVisible(true);
     }//GEN-LAST:event_botaoCadastrarPilotosActionPerformed
@@ -746,21 +740,19 @@ public class TelaInicial extends javax.swing.JFrame {
         inputPontosEquipe.setText("000");
         preencheNacionalidadeEquipe();
         esconderTelas();
-        selectNacionalidadeEquipe.addActionListener(new ActionListener () {
-            public void actionPerformed(ActionEvent e) {
+        selectNacionalidadeEquipe.addActionListener((ActionEvent e) -> {
+            try {
                 String pais_selecionado = selectNacionalidadeEquipe.getSelectedItem().toString();
                 Pais pais = autorama.getPais(pais_selecionado);
-                System.out.println(pais.getBandeira());
-                try {
-                    BufferedImage img_bf = ImageIO.read(new File(pais.getBandeira()));
-                    ImageIcon img = new ImageIcon(img_bf);
-                    img = new ImageIcon(img.getImage().getScaledInstance(44, 32, java.awt.Image.SCALE_DEFAULT));
-                    imagemNacionalidadeEquipe.setIcon(img); 
-                    
-                } catch (IOException ex) {
-                    Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+                
+                BufferedImage img_bf = ImageIO.read(new File(pais.getBandeira()));
+                ImageIcon img = new ImageIcon(img_bf);
+                img = new ImageIcon(img.getImage().getScaledInstance(44, 32, java.awt.Image.SCALE_DEFAULT));
+                imagemNacionalidadeEquipe.setIcon(img);
+                
+            } catch (IOException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {}
         });
         painelCadastroEquipes.setVisible(true);
     }//GEN-LAST:event_botaoCadastrarEquipesActionPerformed
@@ -791,7 +783,8 @@ public class TelaInicial extends javax.swing.JFrame {
     private void selectAtividadePilotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectAtividadePilotoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_selectAtividadePilotoActionPerformed
-
+                              
+    
     /**
      * @param args the command line arguments
      */
