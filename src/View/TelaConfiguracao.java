@@ -6,6 +6,7 @@
 package View;
 
 import Controller.AutoramaController;
+import java.awt.Dimension;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -237,6 +238,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
             autoramaController.iniciarservidor(url, porta);
             autoramaController.criarJsonRfid(inputSerial.getText(), inputBaudrate.getText(), inputRegion.getText(), inputProtocol.getText(), inputAntenna.getText(), inputFrequency.getText());
             frame = new TelaInicial(autoramaController);
+            frame.setPreferredSize(new Dimension(817, 547));
             frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
             frame.setVisible(true);
         } catch (Exception ex) {
