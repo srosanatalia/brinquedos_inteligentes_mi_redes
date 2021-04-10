@@ -46,6 +46,7 @@ public class TelaInicial extends javax.swing.JFrame {
         painelCadastroCarros.setPreferredSize(this.dimensaoPadrao);
         painelCadastroPilotos.setPreferredSize(this.dimensaoPadrao);
         painelCadastroEquipes.setPreferredSize(this.dimensaoPadrao);
+        painelCadastroPista.setPreferredSize(this.dimensaoPadrao);
         this.listaCarrosEquipe = new ArrayList();
         this.listaPilotosEquipe = new ArrayList();
         painelPrincipal.setVisible(true);
@@ -136,6 +137,18 @@ public class TelaInicial extends javax.swing.JFrame {
         botaoCadastrarCarros = new javax.swing.JButton();
         botaoCadastrarPilotos = new javax.swing.JButton();
         botaoCadastrarEquipes = new javax.swing.JButton();
+        botaoCadastrarPista = new javax.swing.JButton();
+        painelCadastroPista = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
+        selectNacionalidadePista = new javax.swing.JComboBox<>();
+        imagemNacionalidadePista = new javax.swing.JLabel();
+        inputNomePista = new javax.swing.JTextField();
+        inputIdPista = new javax.swing.JTextField();
+        jSeparator4 = new javax.swing.JSeparator();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        botaoVoltar3 = new javax.swing.JButton();
+        botaoConfirmarCadastroPista = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -423,7 +436,7 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(painelCadastroPilotosLayout.createSequentialGroup()
                         .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(inputDataNascimentoPiloto)
+                            .addComponent(inputDataNascimentoPiloto, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
                             .addComponent(imagemNacionalidadePiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -684,17 +697,25 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        botaoCadastrarPista.setText("Cadastrar Pista");
+        botaoCadastrarPista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCadastrarPistaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(painelPrincipalLayout);
         painelPrincipalLayout.setHorizontalGroup(
             painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPrincipalLayout.createSequentialGroup()
                 .addGap(322, 322, 322)
-                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(botaoCadastrarEquipes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botaoCadastrarPilotos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botaoCadastrarCarros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(botaoCadastrarEquipes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(380, Short.MAX_VALUE))
+                    .addComponent(botaoCadastrarPista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(374, Short.MAX_VALUE))
         );
         painelPrincipalLayout.setVerticalGroup(
             painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -705,7 +726,104 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(botaoCadastrarPilotos)
                 .addGap(18, 18, 18)
                 .addComponent(botaoCadastrarEquipes)
-                .addContainerGap(303, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(botaoCadastrarPista)
+                .addContainerGap(626, Short.MAX_VALUE))
+        );
+
+        painelCadastroPista.setBackground(new java.awt.Color(255, 255, 255));
+        painelCadastroPista.setMaximumSize(new java.awt.Dimension(817, 547));
+        painelCadastroPista.setMinimumSize(new java.awt.Dimension(817, 547));
+
+        jLabel30.setText("ID");
+
+        selectNacionalidadePista.setEditable(true);
+        selectNacionalidadePista.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        imagemNacionalidadePista.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        imagemNacionalidadePista.setText(" ");
+
+        inputIdPista.setEditable(false);
+
+        jSeparator4.setBackground(new java.awt.Color(0, 102, 255));
+
+        jLabel24.setText("Nacionalidade");
+
+        jLabel34.setText("Nome ");
+
+        botaoVoltar3.setText("Cancelar");
+        botaoVoltar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoVoltar3ActionPerformed(evt);
+            }
+        });
+
+        botaoConfirmarCadastroPista.setText("Cadastrar");
+        botaoConfirmarCadastroPista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoConfirmarCadastroPistaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout painelCadastroPistaLayout = new javax.swing.GroupLayout(painelCadastroPista);
+        painelCadastroPista.setLayout(painelCadastroPistaLayout);
+        painelCadastroPistaLayout.setHorizontalGroup(
+            painelCadastroPistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelCadastroPistaLayout.createSequentialGroup()
+                .addGap(168, 168, 168)
+                .addGroup(painelCadastroPistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelCadastroPistaLayout.createSequentialGroup()
+                        .addComponent(botaoVoltar3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(2, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelCadastroPistaLayout.createSequentialGroup()
+                        .addGroup(painelCadastroPistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelCadastroPistaLayout.createSequentialGroup()
+                                .addGroup(painelCadastroPistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(inputNomePista, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel34))
+                                .addGap(110, 110, 110)
+                                .addGroup(painelCadastroPistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel24)
+                                    .addComponent(selectNacionalidadePista, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelCadastroPistaLayout.createSequentialGroup()
+                                .addComponent(inputIdPista, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(painelCadastroPistaLayout.createSequentialGroup()
+                                .addComponent(jLabel30)
+                                .addGap(459, 459, 459))
+                            .addComponent(botaoConfirmarCadastroPista, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(imagemNacionalidadePista, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 135, Short.MAX_VALUE))))
+        );
+        painelCadastroPistaLayout.setVerticalGroup(
+            painelCadastroPistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelCadastroPistaLayout.createSequentialGroup()
+                .addGap(105, 105, 105)
+                .addComponent(jLabel30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inputIdPista, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(painelCadastroPistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel34)
+                    .addComponent(jLabel24))
+                .addGroup(painelCadastroPistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelCadastroPistaLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addGroup(painelCadastroPistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(inputNomePista, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(selectNacionalidadePista, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(painelCadastroPistaLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(imagemNacionalidadePista, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+                .addGroup(painelCadastroPistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoVoltar3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoConfirmarCadastroPista, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(116, 116, 116))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -724,6 +842,11 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(painelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(painelCadastroPista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -737,8 +860,13 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 364, Short.MAX_VALUE)
                     .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(0, 366, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(painelCadastroPista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -966,6 +1094,50 @@ public class TelaInicial extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Selecione uma opção.");
         }
     }//GEN-LAST:event_botaoAdicionarCarroActionPerformed
+
+    private void botaoCadastrarPistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarPistaActionPerformed
+        int id = autorama.getPistas().size() + 1;
+        inputIdPista.setText(Integer.toString(id));
+        preencheNacionalidadePista();
+        esconderTelas();
+        selectNacionalidadePista.addActionListener((ActionEvent e) -> {
+            try {
+                String pais_selecionado = selectNacionalidadePista.getSelectedItem().toString();
+                Pais pais = autorama.getPais(pais_selecionado);
+                
+                BufferedImage img_bf = ImageIO.read(new File(pais.getBandeira()));
+                ImageIcon img = new ImageIcon(img_bf);
+                img = new ImageIcon(img.getImage().getScaledInstance(44, 32, java.awt.Image.SCALE_DEFAULT));
+                imagemNacionalidadePista.setIcon(img);
+                
+            } catch (IOException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {}
+        });
+        painelCadastroPista.setVisible(true);
+    }//GEN-LAST:event_botaoCadastrarPistaActionPerformed
+
+    private void botaoVoltar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltar3ActionPerformed
+        esconderTelas();
+        painelPrincipal.setVisible(true);
+    }//GEN-LAST:event_botaoVoltar3ActionPerformed
+
+    private void botaoConfirmarCadastroPistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfirmarCadastroPistaActionPerformed
+        String nome = inputNomePista.getText();
+        String id = inputIdPista.getText();
+        String nacionalidade = (String) selectNacionalidadePista.getSelectedItem();
+        if(nacionalidade == "<Selecionar Nacionalidade>"){
+            return;
+        }
+        Pista pistaCadastrada = autorama.cadastrarPista(id, nome, nacionalidade);
+       
+        if(pistaCadastrada != null){
+            JOptionPane.showMessageDialog(rootPane, "Pista cadastrada com sucesso!");
+            inputNomePista.setText("");
+        }
+        esconderTelas();
+        painelPrincipal.setVisible(true);
+    }//GEN-LAST:event_botaoConfirmarCadastroPistaActionPerformed
                               
     
     /**
@@ -1008,6 +1180,7 @@ public class TelaInicial extends javax.swing.JFrame {
         painelCadastroPilotos.setVisible(false);
         painelCadastroEquipes.setVisible(false);
         painelPrincipal.setVisible(false);
+        painelCadastroPista.setVisible(false);
     }
     
     public void limpaTabela(){
@@ -1181,6 +1354,19 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         }
     }
+    
+    private void preencheNacionalidadePista(){
+        selectNacionalidadePista.removeAllItems();
+        selectNacionalidadePista.addItem("<Selecionar Nacionalidade>");
+        Iterator itr = autorama.getPaises().iterator();
+        while(itr.hasNext()){
+            Object o = itr.next();
+            if(o  instanceof Pais){
+                Pais pais = (Pais)o;
+                selectNacionalidadePista.addItem(pais.getNome());
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> SelectEquipeCarro;
@@ -1189,14 +1375,18 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton botaoCadastrarCarros;
     private javax.swing.JButton botaoCadastrarEquipes;
     private javax.swing.JButton botaoCadastrarPilotos;
+    private javax.swing.JButton botaoCadastrarPista;
     private javax.swing.JButton botaoConfirmarCadastroCarro;
     private javax.swing.JButton botaoConfirmarCadastroEquipe;
     private javax.swing.JButton botaoConfirmarCadastroPiloto;
+    private javax.swing.JButton botaoConfirmarCadastroPista;
     private javax.swing.JButton botaoVoltar;
     private javax.swing.JButton botaoVoltar1;
     private javax.swing.JButton botaoVoltar2;
+    private javax.swing.JButton botaoVoltar3;
     private javax.swing.JLabel imagemNacionalidadeEquipe;
     private javax.swing.JLabel imagemNacionalidadePiloto;
+    private javax.swing.JLabel imagemNacionalidadePista;
     private javax.swing.JTextField inputAnoEquipe;
     private javax.swing.JTextField inputApelidoEquipe;
     private javax.swing.JTextField inputApelidoPiloto;
@@ -1204,10 +1394,12 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JTextField inputIdCarro;
     private javax.swing.JTextField inputIdEquipe;
     private javax.swing.JTextField inputIdPiloto;
+    private javax.swing.JTextField inputIdPista;
     private javax.swing.JTextField inputMarcaCarro;
     private javax.swing.JTextField inputModeloCarro;
     private javax.swing.JTextField inputNomeEquipe;
     private javax.swing.JTextField inputNomePiloto;
+    private javax.swing.JTextField inputNomePista;
     private javax.swing.JTextField inputNumeroCarro;
     private javax.swing.JTextField inputPontosEquipe;
     private javax.swing.JTextField inputPontosPiloto;
@@ -1226,12 +1418,15 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
@@ -1242,9 +1437,11 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JPanel painelCadastroCarros;
     private javax.swing.JPanel painelCadastroEquipes;
     private javax.swing.JPanel painelCadastroPilotos;
+    private javax.swing.JPanel painelCadastroPista;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JComboBox<String> selectAtividadePiloto;
     private javax.swing.JComboBox<String> selectCarroEquipe;
@@ -1252,6 +1449,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> selectEquipePiloto;
     private javax.swing.JComboBox<String> selectNacionalidadeEquipe;
     private javax.swing.JComboBox<String> selectNacionalidadePiloto;
+    private javax.swing.JComboBox<String> selectNacionalidadePista;
     private javax.swing.JComboBox<String> selectPilotoCarro;
     private javax.swing.JComboBox<String> selectPilotoEquipe;
     private javax.swing.JTable tabelaCarrosEquipe;

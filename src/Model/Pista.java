@@ -20,11 +20,10 @@ public class Pista {
     private Time recordePista;
     private Piloto donoRecorde;
 
-    public Pista(String id, String nome, String pais, BufferedImage imagem) {
+    public Pista(String id, String nome, String pais) {
         this.id = id;
         this.nome = nome;
         this.pais = pais;
-        this.imagem = imagem;
     }
 
     public String getId() {

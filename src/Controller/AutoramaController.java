@@ -26,6 +26,7 @@ public class AutoramaController {
     private final ArrayList <Piloto> pilotos;
     private final ArrayList <Equipe> equipes;
     private final ArrayList <Carro> carros;
+    private final ArrayList <Pista> pistas;
     public String url;
     public int porta;
     public String serial;
@@ -40,6 +41,7 @@ public class AutoramaController {
         this.paises = new ArrayList ();
         this.equipes = new ArrayList ();
         this.carros = new ArrayList ();
+        this.pistas = new ArrayList ();
         
         try {
             this.lerPaises();
@@ -66,6 +68,12 @@ public class AutoramaController {
         return equipe;
     }
     
+    public Pista cadastrarPista (String id, String nome, String pais){
+        Pista pista = new Pista (id, nome, pais);
+        pistas.add(pista);
+        return pista;
+    }
+    
     public ArrayList getPilotos() {
         return pilotos;
     }
@@ -80,6 +88,10 @@ public class AutoramaController {
     
     public ArrayList getPaises() {
         return paises;
+    }
+    
+    public ArrayList getPistas() {
+        return pistas;
     }
     
     public void iniciarservidor(String url, int porta) throws Exception{
