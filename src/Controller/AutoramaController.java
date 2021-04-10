@@ -51,6 +51,16 @@ public class AutoramaController {
     }
     
     public Piloto cadastrarPiloto(Piloto piloto) {
+        if(piloto.getCarro() != null){
+            int i = this.carros.indexOf(piloto.getCarro());
+            this.carros.get(i).setPiloto(piloto);
+        }
+        if(piloto.getEquipe() != null){
+            int i = this.equipes.indexOf(piloto.getEquipe());
+            ArrayList<Piloto> listaPilotosEquipe = this.equipes.get(i).getListaPilotos();
+            listaPilotosEquipe.add(piloto);
+            this.equipes.get(i).setListaPilotos(listaPilotosEquipe);
+        }
         pilotos.add(piloto);
         return piloto;
     }
@@ -61,6 +71,24 @@ public class AutoramaController {
     }
     
     public Equipe cadastrarEquipe(Equipe equipe){
+        Iterator itr = equipe.getListaPilotos().iterator();
+        while(itr.hasNext()){
+            Object o = itr.next();
+            if(o  instanceof Piloto){
+                Piloto piloto = (Piloto) o;
+                int index = this.pilotos.indexOf(piloto);
+                this.pilotos.get(index).setEquipe(equipe);
+            }
+        }
+        Iterator itr2 = equipe.getListaCarros().iterator();
+        while(itr2.hasNext()){
+            Object o = itr2.next();
+            if(o  instanceof Carro){
+                Carro carro = (Carro) o;
+                int index = this.carros.indexOf(carro);
+                 this.carros.get(index).setEquipe(equipe);
+            }
+        }
         equipes.add(equipe);
         return equipe;
     }

@@ -36,6 +36,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private final Dimension dimensaoPadrao;
     private ArrayList <Piloto> listaPilotosEquipe;
     private ArrayList <Carro> listaCarrosEquipe;
+    private ArrayList <Carro> listaCarrosQualificacao;
     
     public TelaInicial(AutoramaController autorama) {
         this.autorama = autorama;
@@ -49,6 +50,7 @@ public class TelaInicial extends javax.swing.JFrame {
         painelCadastroEquipes.setPreferredSize(this.dimensaoPadrao);
         painelCadastroPista.setPreferredSize(this.dimensaoPadrao);
         this.listaCarrosEquipe = new ArrayList();
+        this.listaCarrosQualificacao = new ArrayList();
         this.listaPilotosEquipe = new ArrayList();
         painelPrincipal.setVisible(true);
     }
@@ -153,7 +155,7 @@ public class TelaInicial extends javax.swing.JFrame {
         botaoConfirmarCadastroPista = new javax.swing.JButton();
         painelQualificacao = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaPilotosQualificacao = new javax.swing.JTable();
         selectPilotoQualificacao = new javax.swing.JComboBox<>();
         botaoAdicionarPilotoQualificcao = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -164,6 +166,7 @@ public class TelaInicial extends javax.swing.JFrame {
         duracaoQualifiacao = new javax.swing.JSpinner();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        botaoVoltar4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -754,7 +757,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(botaoCadastrarPista)
                 .addGap(18, 18, 18)
                 .addComponent(botaoQualificacao)
-                .addContainerGap(585, Short.MAX_VALUE))
+                .addContainerGap(221, Short.MAX_VALUE))
         );
 
         painelCadastroPista.setBackground(new java.awt.Color(255, 255, 255));
@@ -857,7 +860,7 @@ public class TelaInicial extends javax.swing.JFrame {
         painelQualificacao.setMinimumSize(new java.awt.Dimension(817, 547));
         painelQualificacao.setPreferredSize(new java.awt.Dimension(817, 547));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaPilotosQualificacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -865,7 +868,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 "Nome", "Apelido", "Nacionalidade", "Equipe", "Carro"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelaPilotosQualificacao);
 
         selectPilotoQualificacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         selectPilotoQualificacao.addActionListener(new java.awt.event.ActionListener() {
@@ -875,6 +878,11 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         botaoAdicionarPilotoQualificcao.setText("+");
+        botaoAdicionarPilotoQualificcao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAdicionarPilotoQualificcaoActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Piloto");
 
@@ -889,6 +897,13 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel20.setText("Duração (min.)");
 
+        botaoVoltar4.setText("Cancelar");
+        botaoVoltar4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoVoltar4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelQualificacaoLayout = new javax.swing.GroupLayout(painelQualificacao);
         painelQualificacao.setLayout(painelQualificacaoLayout);
         painelQualificacaoLayout.setHorizontalGroup(
@@ -896,6 +911,7 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelQualificacaoLayout.createSequentialGroup()
                 .addContainerGap(115, Short.MAX_VALUE)
                 .addGroup(painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoVoltar4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(painelQualificacaoLayout.createSequentialGroup()
@@ -942,7 +958,9 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addGroup(painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(voltasQualificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(duracaoQualifiacao, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(203, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                .addComponent(botaoVoltar4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1280,6 +1298,30 @@ public class TelaInicial extends javax.swing.JFrame {
     private void selectPilotoQualificacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPilotoQualificacaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_selectPilotoQualificacaoActionPerformed
+
+    private void botaoAdicionarPilotoQualificcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarPilotoQualificcaoActionPerformed
+        String selecionado = (String) selectPilotoQualificacao.getSelectedItem();
+        if(selecionado != "<Selecionar Piloto>"){
+            DefaultTableModel tabela = (DefaultTableModel)tabelaPilotosQualificacao.getModel();
+            Piloto piloto = buscaPilotoNome(selecionado);
+            if(this.listaCarrosQualificacao.contains(piloto.getCarro())){
+                JOptionPane.showMessageDialog(rootPane, "O carro associado a este piloto já está na pista.");
+                selectPilotoQualificacao.removeItem((Object) selecionado);
+                return;
+            }
+            tabela.addRow (new String [] {piloto.getNome(), piloto.getApelido(), piloto.getNacionalidade(), piloto.getEquipe().getNome(), piloto.getCarro().getMarca()}); 
+            selectPilotoQualificacao.removeItem((Object) selecionado);
+            listaCarrosQualificacao.add(piloto.getCarro());
+        } else{
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma opção.");
+        }
+    }//GEN-LAST:event_botaoAdicionarPilotoQualificcaoActionPerformed
+
+    private void botaoVoltar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltar4ActionPerformed
+        esconderTelas();
+        limpaTabelaQualificacao();
+        painelPrincipal.setVisible(true);
+    }//GEN-LAST:event_botaoVoltar4ActionPerformed
                               
     
     /**
@@ -1340,6 +1382,18 @@ public class TelaInicial extends javax.swing.JFrame {
         if (tblRemove2.getRowCount() > 0){
             for (int i=1;i<=tblRemove2.getRowCount();i++){
                 tblRemove2.removeRow(0);
+            }            
+        }
+
+    }
+    
+    public void limpaTabelaQualificacao(){
+        DefaultTableModel tblRemove1 = (DefaultTableModel)tabelaPilotosQualificacao.getModel();
+        this.listaCarrosQualificacao.clear();
+
+        if (tblRemove1.getRowCount() > 0){
+            for (int i=1;i<=tblRemove1.getRowCount();i++){
+                tblRemove1.removeRow(0);
             }            
         }
 
@@ -1439,7 +1493,7 @@ public class TelaInicial extends javax.swing.JFrame {
             Object o = itr.next();
             if(o  instanceof Piloto){
                 Piloto piloto = (Piloto)o;
-                if(piloto.getCarro() != null){
+                if(piloto.getCarro() != null && piloto.isEmAtividade() && piloto.getEquipe() != null){
                     selectPilotoQualificacao.addItem(piloto.getNome());
                 }
             }
@@ -1544,6 +1598,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton botaoVoltar1;
     private javax.swing.JButton botaoVoltar2;
     private javax.swing.JButton botaoVoltar3;
+    private javax.swing.JButton botaoVoltar4;
     private javax.swing.JSpinner duracaoQualifiacao;
     private javax.swing.JLabel imagemNacionalidadeEquipe;
     private javax.swing.JLabel imagemNacionalidadePiloto;
@@ -1605,7 +1660,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel painelCadastroCarros;
     private javax.swing.JPanel painelCadastroEquipes;
     private javax.swing.JPanel painelCadastroPilotos;
@@ -1625,6 +1679,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> selectPistaQualificacao;
     private javax.swing.JTable tabelaCarrosEquipe;
     private javax.swing.JTable tabelaPilotosEquipe;
+    private javax.swing.JTable tabelaPilotosQualificacao;
     private javax.swing.JSpinner voltasQualificacao;
     // End of variables declaration//GEN-END:variables
 }
