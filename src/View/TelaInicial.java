@@ -17,7 +17,10 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -102,8 +105,6 @@ public class TelaInicial extends javax.swing.JFrame {
         inputAnoEquipe = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
         inputIdEquipe = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listaPilotosEquipe = new javax.swing.JList<>();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
@@ -118,13 +119,15 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         botaoVoltar2 = new javax.swing.JButton();
         selectNacionalidadeEquipe = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        botaoAdicionarPiloto = new javax.swing.JButton();
+        botaoAdicionarCarro = new javax.swing.JButton();
         selectPilotoEquipe = new javax.swing.JComboBox<>();
         selectCarroEquipe = new javax.swing.JComboBox<>();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        listaPilotosEquipe1 = new javax.swing.JList<>();
         imagemNacionalidadeEquipe = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabelaPilotosEquipe = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabelaCarrosEquipe = new javax.swing.JTable();
         painelPrincipal = new javax.swing.JPanel();
         botaoCadastrarCarros = new javax.swing.JButton();
         botaoCadastrarPilotos = new javax.swing.JButton();
@@ -448,13 +451,6 @@ public class TelaInicial extends javax.swing.JFrame {
 
         inputIdEquipe.setEditable(false);
 
-        listaPilotosEquipe.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(listaPilotosEquipe);
-
         jLabel25.setText("Pilotos");
 
         jLabel26.setText("Pontos");
@@ -495,9 +491,19 @@ public class TelaInicial extends javax.swing.JFrame {
 
         selectNacionalidadeEquipe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setText("+");
+        botaoAdicionarPiloto.setText("+");
+        botaoAdicionarPiloto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAdicionarPilotoActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("+");
+        botaoAdicionarCarro.setText("+");
+        botaoAdicionarCarro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAdicionarCarroActionPerformed(evt);
+            }
+        });
 
         selectPilotoEquipe.setEditable(true);
         selectPilotoEquipe.addActionListener(new java.awt.event.ActionListener() {
@@ -509,15 +515,28 @@ public class TelaInicial extends javax.swing.JFrame {
         selectCarroEquipe.setEditable(true);
         selectCarroEquipe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        listaPilotosEquipe1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(listaPilotosEquipe1);
-
         imagemNacionalidadeEquipe.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         imagemNacionalidadeEquipe.setText(" ");
+
+        tabelaPilotosEquipe.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Pilotos "
+            }
+        ));
+        jScrollPane3.setViewportView(tabelaPilotosEquipe);
+
+        tabelaCarrosEquipe.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Carros "
+            }
+        ));
+        jScrollPane4.setViewportView(tabelaCarrosEquipe);
 
         javax.swing.GroupLayout painelCadastroEquipesLayout = new javax.swing.GroupLayout(painelCadastroEquipes);
         painelCadastroEquipes.setLayout(painelCadastroEquipesLayout);
@@ -527,9 +546,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
                         .addGap(158, 158, 158)
-                        .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1)
-                            .addComponent(botaoVoltar2, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)))
+                        .addComponent(botaoVoltar2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
                         .addGap(160, 160, 160)
                         .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -561,27 +578,28 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
                         .addComponent(inputAnoEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(selectNacionalidadeEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(imagemNacionalidadeEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(131, 131, 131))
                     .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
-                        .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
                                 .addComponent(selectPilotoEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
-                            .addComponent(jLabel25))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botaoAdicionarPiloto))
+                            .addComponent(jLabel25)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                         .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel21)
                             .addGroup(painelCadastroEquipesLayout.createSequentialGroup()
                                 .addComponent(selectCarroEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2))
-                            .addComponent(jScrollPane2)
-                            .addComponent(botaoConfirmarCadastroEquipe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(botaoAdicionarCarro))
+                            .addComponent(botaoConfirmarCadastroEquipe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGap(185, 185, 185))))
         );
         painelCadastroEquipesLayout.setVerticalGroup(
@@ -624,14 +642,14 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(selectPilotoEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoAdicionarPiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(selectCarroEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botaoAdicionarCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
-                .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
+                .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
                 .addGroup(painelCadastroEquipesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoVoltar2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoConfirmarCadastroEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -836,6 +854,26 @@ public class TelaInicial extends javax.swing.JFrame {
     private void inputApelidoEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputApelidoEquipeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputApelidoEquipeActionPerformed
+
+    private void botaoAdicionarPilotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarPilotoActionPerformed
+        String selecionado = (String) selectPilotoEquipe.getSelectedItem();
+        if(selecionado != "<Selecionar Piloto>"){
+            DefaultTableModel tabela = (DefaultTableModel) tabelaPilotosEquipe.getModel();
+            tabela.addRow (new String [] {selecionado}); 
+        } else{
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma opção.");
+        }
+    }//GEN-LAST:event_botaoAdicionarPilotoActionPerformed
+
+    private void botaoAdicionarCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarCarroActionPerformed
+        String selecionado = (String) selectCarroEquipe.getSelectedItem();
+        if(selecionado != "<Selecionar Carro>"){
+            DefaultTableModel tabela = (DefaultTableModel) tabelaCarrosEquipe.getModel();
+            tabela.addRow (new String [] {selecionado});
+        } else{
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma opção.");
+        }
+    }//GEN-LAST:event_botaoAdicionarCarroActionPerformed
                               
     
     /**
@@ -986,6 +1024,8 @@ public class TelaInicial extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> SelectEquipeCarro;
+    private javax.swing.JButton botaoAdicionarCarro;
+    private javax.swing.JButton botaoAdicionarPiloto;
     private javax.swing.JButton botaoCadastrarCarros;
     private javax.swing.JButton botaoCadastrarEquipes;
     private javax.swing.JButton botaoCadastrarPilotos;
@@ -1012,8 +1052,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JTextField inputPontosEquipe;
     private javax.swing.JTextField inputPontosPiloto;
     private javax.swing.JTextField inputTagCarro;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1040,13 +1078,11 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JList<String> listaPilotosEquipe;
-    private javax.swing.JList<String> listaPilotosEquipe1;
     private javax.swing.JPanel painelCadastroCarros;
     private javax.swing.JPanel painelCadastroEquipes;
     private javax.swing.JPanel painelCadastroPilotos;
@@ -1059,5 +1095,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> selectNacionalidadePiloto;
     private javax.swing.JComboBox<String> selectPilotoCarro;
     private javax.swing.JComboBox<String> selectPilotoEquipe;
+    private javax.swing.JTable tabelaCarrosEquipe;
+    private javax.swing.JTable tabelaPilotosEquipe;
     // End of variables declaration//GEN-END:variables
 }
