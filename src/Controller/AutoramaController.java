@@ -50,20 +50,17 @@ public class AutoramaController {
         }
     }
     
-    public Piloto cadastrarPiloto(String id, String nome, String apelido, String nacionalidade, boolean emAtividade) {
-        Piloto piloto = new Piloto(id, nome, apelido,  nacionalidade, emAtividade);
+    public Piloto cadastrarPiloto(Piloto piloto) {
         pilotos.add(piloto);
         return piloto;
     }
     
-    public Carro cadastrarCarro(String id, String tag, String modelo, String marca, String numeroCarro) {
-        Carro carro = new Carro(id, tag, modelo,  marca, numeroCarro);
+    public Carro cadastrarCarro(Carro carro) {
         carros.add(carro);
         return carro;
     }
     
-    public Equipe cadastrarEquipe(String id, String nome, String apelido, String nacionalidade, String ano){
-        Equipe equipe = new Equipe (id, nome, apelido, nacionalidade, ano);
+    public Equipe cadastrarEquipe(Equipe equipe){
         equipes.add(equipe);
         return equipe;
     }
@@ -92,6 +89,13 @@ public class AutoramaController {
     
     public ArrayList getPistas() {
         return pistas;
+    }
+    
+    public void setCarroPiloto(Piloto piloto, Carro carro){
+        int i = this.pilotos.indexOf(piloto);
+        Piloto pilotoModificado = this.pilotos.get(i);
+        pilotoModificado.setCarro(carro);
+        this.pilotos.add(i, pilotoModificado);
     }
     
     public void iniciarservidor(String url, int porta) throws Exception{

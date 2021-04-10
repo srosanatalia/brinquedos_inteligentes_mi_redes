@@ -24,6 +24,8 @@ public class Carro {
         this.modelo = modelo;
         this.marca = marca;
         this.numeroCarro = numeroCarro;
+        this.piloto = null;
+        this.equipe = null;
     }
 
     public String getId() {

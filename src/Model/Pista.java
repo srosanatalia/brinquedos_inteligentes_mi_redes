@@ -24,6 +24,8 @@ public class Pista {
         this.id = id;
         this.nome = nome;
         this.pais = pais;
+        this.donoRecorde = null;
+        this.recordePista = null;
     }
 
     public String getId() {

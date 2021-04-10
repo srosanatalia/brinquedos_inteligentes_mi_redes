@@ -868,6 +868,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         selectPilotoQualificacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selectPilotoQualificacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectPilotoQualificacaoActionPerformed(evt);
+            }
+        });
 
         botaoAdicionarPilotoQualificcao.setText("+");
 
@@ -1005,7 +1010,7 @@ public class TelaInicial extends javax.swing.JFrame {
         String idCarro = inputIdCarro.getText();
         String pilotoSelecionado = (String) selectPilotoCarro.getSelectedItem();
         String equipeSelecionada = (String) SelectEquipeCarro.getSelectedItem();
-        Carro carroCadastrado = autorama.cadastrarCarro(idCarro, "TAGTESTE", modeloCarro, marcaCarro, numeroCarro);
+        Carro carroCadastrado = new Carro(idCarro, "TAGTESTE", modeloCarro, marcaCarro, numeroCarro);
         if(pilotoSelecionado != "<Selecionar Piloto>"){
             Piloto piloto = buscaPilotoNome(pilotoSelecionado);
             if(piloto != null){
@@ -1019,6 +1024,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         }
         if(carroCadastrado != null){
+            autorama.cadastrarCarro(carroCadastrado);
             JOptionPane.showMessageDialog(rootPane, "Carro cadastrado com sucesso!");
             inputMarcaCarro.setText("");
             inputModeloCarro.setText("");
@@ -1045,7 +1051,7 @@ public class TelaInicial extends javax.swing.JFrame {
         if(statusAtividade == "Nao"){
             emAtividade = false;
         }
-        Piloto pilotoCadastrado = autorama.cadastrarPiloto(id, nome, apelido,  nacionalidade, emAtividade);
+        Piloto pilotoCadastrado = new Piloto(id, nome, apelido,  nacionalidade, emAtividade);
         if(equipeSelecionada != "<Selecionar Equipe>"){
             Equipe equipe = buscaEquipeNome(equipeSelecionada);
             if(equipe != null){
@@ -1059,6 +1065,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         }
         if(pilotoCadastrado != null){
+            autorama.cadastrarPiloto(pilotoCadastrado);
             JOptionPane.showMessageDialog(rootPane, "Piloto cadastrado com sucesso!");
             inputIdPiloto.setText("");
             inputNomePiloto.setText("");
@@ -1176,10 +1183,11 @@ public class TelaInicial extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Insira pilotos e carros.");
             return;
         }
-        Equipe equipeCadastrada = autorama.cadastrarEquipe(id, nome, apelido, nacionalidade, ano);
+        Equipe equipeCadastrada = new Equipe(id, nome, apelido, nacionalidade, ano);
         equipeCadastrada.setLisatCarros(this.listaCarrosEquipe);
         equipeCadastrada.setListaPilotos(this.listaPilotosEquipe);
         if(equipeCadastrada != null){
+            autorama.cadastrarEquipe(equipeCadastrada);
             JOptionPane.showMessageDialog(rootPane, "Equipe cadastrada com sucesso!");
             inputNomeEquipe.setText("");
             inputApelidoEquipe.setText("");
@@ -1265,8 +1273,13 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void botaoQualificacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoQualificacaoActionPerformed
         esconderTelas();
+        preenchePilotosQualificacao();
         painelQualificacao.setVisible(true);
     }//GEN-LAST:event_botaoQualificacaoActionPerformed
+
+    private void selectPilotoQualificacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPilotoQualificacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectPilotoQualificacaoActionPerformed
                               
     
     /**
@@ -1348,7 +1361,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }
     
     private Carro buscaCarroMarca(String marca){
-        Iterator itr = autorama.getPilotos().iterator();
+        Iterator itr = autorama.getCarros().iterator();
         Carro carro = null;
         while(itr.hasNext()){
             Object o = itr.next();
@@ -1413,6 +1426,21 @@ public class TelaInicial extends javax.swing.JFrame {
                 Piloto piloto = (Piloto)o;
                 if(piloto.getEquipe()== null){
                     selectPilotoEquipe.addItem(piloto.getNome());
+                }
+            }
+        }
+    }
+    
+    private void preenchePilotosQualificacao(){ //Preenche select pilotos da tela de qualificacao
+        selectPilotoQualificacao.removeAllItems();
+        selectPilotoQualificacao.addItem("<Selecionar Piloto>");
+        Iterator itr = autorama.getPilotos().iterator();
+        while(itr.hasNext()){
+            Object o = itr.next();
+            if(o  instanceof Piloto){
+                Piloto piloto = (Piloto)o;
+                if(piloto.getCarro() != null){
+                    selectPilotoQualificacao.addItem(piloto.getNome());
                 }
             }
         }

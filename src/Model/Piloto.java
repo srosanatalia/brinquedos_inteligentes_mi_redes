@@ -31,6 +31,8 @@ public class Piloto {
         this.nacionalidade = nacionalidade;
         this.emAtividade = emAtividade;
         this.pontos = 0;
+        this.carro = null;
+        this.equipe = null;
     }
 
     public String getId() {
