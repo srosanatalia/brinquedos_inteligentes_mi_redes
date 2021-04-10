@@ -850,6 +850,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoCadastrarPilotosActionPerformed
 
     private void botaoCadastrarEquipesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarEquipesActionPerformed
+        limpaTabela();
         int id = autorama.getEquipes().size() + 1;
         inputIdEquipe.setText(Integer.toString(id));
         inputPontosEquipe.setText("000");
@@ -975,6 +976,22 @@ public class TelaInicial extends javax.swing.JFrame {
         painelCadastroPilotos.setVisible(false);
         painelCadastroEquipes.setVisible(false);
         painelPrincipal.setVisible(false);
+    }
+    
+    public void limpaTabela(){
+        DefaultTableModel tblRemove1 = (DefaultTableModel)tabelaPilotosEquipe.getModel();
+        DefaultTableModel tblRemove2 = (DefaultTableModel)tabelaCarrosEquipe.getModel();
+        if (tblRemove1.getRowCount() > 0){
+            for (int i=1;i<=tblRemove1.getRowCount();i++){
+                tblRemove1.removeRow(0);
+            }            
+        }
+        if (tblRemove2.getRowCount() > 0){
+            for (int i=1;i<=tblRemove2.getRowCount();i++){
+                tblRemove2.removeRow(0);
+            }            
+        }
+
     }
     
     private Piloto buscaPilotoNome(String nome){
