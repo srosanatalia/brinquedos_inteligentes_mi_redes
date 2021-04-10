@@ -60,6 +60,12 @@ public class AutoramaController {
         return carro;
     }
     
+    public Equipe cadastrarEquipe(String id, String nome, String apelido, String nacionalidade, String ano){
+        Equipe equipe = new Equipe (id, nome, apelido, nacionalidade, ano);
+        equipes.add(equipe);
+        return equipe;
+    }
+    
     public ArrayList getPilotos() {
         return pilotos;
     }

@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +34,8 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     private AutoramaController autorama;
     private final Dimension dimensaoPadrao;
+    private ArrayList <Piloto> listaPilotosEquipe;
+    private ArrayList <Carro> listaCarrosEquipe;
     
     public TelaInicial(AutoramaController autorama) {
         this.autorama = autorama;
@@ -43,6 +46,8 @@ public class TelaInicial extends javax.swing.JFrame {
         painelCadastroCarros.setPreferredSize(this.dimensaoPadrao);
         painelCadastroPilotos.setPreferredSize(this.dimensaoPadrao);
         painelCadastroEquipes.setPreferredSize(this.dimensaoPadrao);
+        this.listaCarrosEquipe = new ArrayList();
+        this.listaPilotosEquipe = new ArrayList();
         painelPrincipal.setVisible(true);
     }
     public TelaInicial() {
@@ -907,6 +912,27 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoVoltar2ActionPerformed
 
     private void botaoConfirmarCadastroEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfirmarCadastroEquipeActionPerformed
+        String nome = inputNomeEquipe.getText();
+        String apelido = inputApelidoEquipe.getText();
+        String ano = inputAnoEquipe.getText();
+        String id = inputIdEquipe.getText();
+        String nacionalidade = (String) selectNacionalidadeEquipe.getSelectedItem();
+        if(nacionalidade == "<Selecionar Nacionalidade>"){
+            return;
+        }
+        if(this.listaCarrosEquipe.isEmpty() || this.listaPilotosEquipe.isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Insira pilotos e carros.");
+            return;
+        }
+        Equipe equipeCadastrada = autorama.cadastrarEquipe(id, nome, apelido, nacionalidade, ano);
+        equipeCadastrada.setLisatCarros(this.listaCarrosEquipe);
+        equipeCadastrada.setListaPilotos(this.listaPilotosEquipe);
+        if(equipeCadastrada != null){
+            JOptionPane.showMessageDialog(rootPane, "Equipe cadastrada com sucesso!");
+            inputNomeEquipe.setText("");
+            inputApelidoEquipe.setText("");
+            inputAnoEquipe.setText("");
+        }
         esconderTelas();
         painelPrincipal.setVisible(true);
     }//GEN-LAST:event_botaoConfirmarCadastroEquipeActionPerformed
@@ -920,6 +946,9 @@ public class TelaInicial extends javax.swing.JFrame {
         if(selecionado != "<Selecionar Piloto>"){
             DefaultTableModel tabela = (DefaultTableModel) tabelaPilotosEquipe.getModel();
             tabela.addRow (new String [] {selecionado}); 
+            Piloto piloto = buscaPilotoNome(selecionado);
+            this.listaPilotosEquipe.add(piloto);
+            selectPilotoEquipe.removeItem((Object) selecionado);
         } else{
             JOptionPane.showMessageDialog(rootPane, "Selecione uma opção.");
         }
@@ -930,6 +959,9 @@ public class TelaInicial extends javax.swing.JFrame {
         if(selecionado != "<Selecionar Carro>"){
             DefaultTableModel tabela = (DefaultTableModel) tabelaCarrosEquipe.getModel();
             tabela.addRow (new String [] {selecionado});
+            Carro carro = buscaCarroMarca(selecionado);
+            this.listaCarrosEquipe.add(carro);
+            selectCarroEquipe.removeItem((Object) selecionado);
         } else{
             JOptionPane.showMessageDialog(rootPane, "Selecione uma opção.");
         }
@@ -981,6 +1013,9 @@ public class TelaInicial extends javax.swing.JFrame {
     public void limpaTabela(){
         DefaultTableModel tblRemove1 = (DefaultTableModel)tabelaPilotosEquipe.getModel();
         DefaultTableModel tblRemove2 = (DefaultTableModel)tabelaCarrosEquipe.getModel();
+        this.listaCarrosEquipe.clear();
+        this.listaPilotosEquipe.clear();
+
         if (tblRemove1.getRowCount() > 0){
             for (int i=1;i<=tblRemove1.getRowCount();i++){
                 tblRemove1.removeRow(0);

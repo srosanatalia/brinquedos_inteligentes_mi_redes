@@ -23,13 +23,13 @@ public class Equipe {
     private ArrayList <Carro> listaCarros;
     private int pontos;
 
-    public Equipe(String id, String nome, String apelido, String nacionalidade, String ano, BufferedImage logo) {
+    public Equipe(String id, String nome, String apelido, String nacionalidade, String ano) {
         this.id = id;
         this.nome = nome;
         this.apelido = apelido;
         this.nacionalidade = nacionalidade;
         this.ano = ano;
-        this.logo = logo;
+        this.pontos = 0;
     }
 
     
