@@ -67,7 +67,6 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         selectPilotoCarro = new javax.swing.JComboBox<>();
         SelectEquipeCarro = new javax.swing.JComboBox<>();
-        jLabel18 = new javax.swing.JLabel();
         inputIdCarro = new javax.swing.JTextField();
         botaoConfirmarCadastroCarro = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
@@ -77,6 +76,7 @@ public class TelaInicial extends javax.swing.JFrame {
         inputTagCarro = new javax.swing.JTextField();
         inputModeloCarro = new javax.swing.JTextField();
         botaoVoltar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         painelCadastroPilotos = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel9 = new javax.swing.JLabel();
@@ -93,7 +93,6 @@ public class TelaInicial extends javax.swing.JFrame {
         selectEquipePiloto = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         selectAtividadePiloto = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
         inputIdPiloto = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         inputPontosPiloto = new javax.swing.JTextField();
@@ -164,8 +163,6 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jLabel18.setText("Cor");
-
         inputIdCarro.setEditable(false);
 
         botaoConfirmarCadastroCarro.setText("Cadastrar");
@@ -183,6 +180,8 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel12.setText("Modelo");
 
+        inputTagCarro.setEditable(false);
+
         botaoVoltar.setText("Cancelar");
         botaoVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,16 +189,20 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Ler TAG");
+
         javax.swing.GroupLayout painelCadastroCarrosLayout = new javax.swing.GroupLayout(painelCadastroCarros);
         painelCadastroCarros.setLayout(painelCadastroCarrosLayout);
         painelCadastroCarrosLayout.setHorizontalGroup(
             painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelCadastroCarrosLayout.createSequentialGroup()
                 .addGap(210, 210, 210)
-                .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel13)
-                    .addComponent(inputIdCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18)
+                    .addGroup(painelCadastroCarrosLayout.createSequentialGroup()
+                        .addComponent(inputIdCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(240, 240, 240)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroCarrosLayout.createSequentialGroup()
                             .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,7 +235,9 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGap(65, 65, 65)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(inputIdCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inputIdCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -259,9 +264,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(selectPilotoCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SelectEquipeCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                 .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoConfirmarCadastroCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -311,8 +314,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 selectAtividadePilotoActionPerformed(evt);
             }
         });
-
-        jLabel6.setText("Foto");
 
         inputIdPiloto.setEditable(false);
 
@@ -371,7 +372,6 @@ public class TelaInicial extends javax.swing.JFrame {
                                     .addComponent(inputIdPiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                             .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel6)
                                 .addComponent(jLabel7)
                                 .addComponent(jLabel5)
                                 .addComponent(jLabel4)
@@ -429,9 +429,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(selectCarroPiloto)
                     .addComponent(selectEquipePiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelCadastroPilotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel6))
+                .addComponent(jLabel9)
                 .addGap(18, 18, 18)
                 .addComponent(selectAtividadePiloto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -743,11 +741,72 @@ public class TelaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoConfirmarCadastroCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfirmarCadastroCarroActionPerformed
+        String marcaCarro = inputMarcaCarro.getText();
+        String modeloCarro = inputModeloCarro.getText();
+        String numeroCarro = inputNumeroCarro.getText();
+        String tagCarro = inputTagCarro.getText();
+        String idCarro = inputIdCarro.getText();
+        String pilotoSelecionado = (String) selectPilotoCarro.getSelectedItem();
+        String equipeSelecionada = (String) SelectEquipeCarro.getSelectedItem();
+        Carro carroCadastrado = autorama.cadastrarCarro(idCarro, "TAGTESTE", modeloCarro, marcaCarro, numeroCarro);
+        if(pilotoSelecionado != "<Selecionar Piloto>"){
+            Piloto piloto = buscaPilotoNome(pilotoSelecionado);
+            if(piloto != null){
+                carroCadastrado.setPiloto(piloto);
+            }
+        }
+        if(equipeSelecionada != "<Selecionar Equipe>"){
+            Equipe equipe = buscaEquipeNome(equipeSelecionada);
+            if(equipe != null){
+                carroCadastrado.setEquipe(equipe);
+            }
+        }
+        if(carroCadastrado != null){
+            JOptionPane.showMessageDialog(rootPane, "Carro cadastrado com sucesso!");
+            inputMarcaCarro.setText("");
+            inputModeloCarro.setText("");
+            inputNumeroCarro.setText("");
+            inputTagCarro.setText("");
+            inputIdCarro.setText("");
+        }
         esconderTelas();
         painelPrincipal.setVisible(true);
     }//GEN-LAST:event_botaoConfirmarCadastroCarroActionPerformed
 
     private void botaoConfirmarCadastroPilotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfirmarCadastroPilotoActionPerformed
+        String id = inputIdPiloto.getText();
+        String nome = inputNomePiloto.getText();
+        String apelido = inputApelidoPiloto.getText();
+        String nacionalidade = (String) selectNacionalidadePiloto.getSelectedItem();
+        String equipeSelecionada = (String) selectEquipePiloto.getSelectedItem();
+        String carroSelecionado = (String) selectCarroPiloto.getSelectedItem();
+        if(nacionalidade == "<Selecionar Nacionalidade>"){
+            return;
+        }
+        String statusAtividade = (String) selectAtividadePiloto.getSelectedItem();
+        boolean emAtividade = true;
+        if(statusAtividade == "Nao"){
+            emAtividade = false;
+        }
+        Piloto pilotoCadastrado = autorama.cadastrarPiloto(id, nome, apelido,  nacionalidade, emAtividade);
+        if(equipeSelecionada != "<Selecionar Equipe>"){
+            Equipe equipe = buscaEquipeNome(equipeSelecionada);
+            if(equipe != null){
+                pilotoCadastrado.setEquipe(equipe);
+            }
+        }
+        if(carroSelecionado != "<Selecionar Carro>"){
+            Carro carro = buscaCarroMarca(carroSelecionado);
+            if(carro != null){
+                pilotoCadastrado.setCarro(carro);
+            }
+        }
+        if(pilotoCadastrado != null){
+            JOptionPane.showMessageDialog(rootPane, "Piloto cadastrado com sucesso!");
+            inputIdPiloto.setText("");
+            inputNomePiloto.setText("");
+            inputApelidoPiloto.setText("");
+        }
         esconderTelas();
         painelPrincipal.setVisible(true);
     }//GEN-LAST:event_botaoConfirmarCadastroPilotoActionPerformed
@@ -918,6 +977,51 @@ public class TelaInicial extends javax.swing.JFrame {
         painelPrincipal.setVisible(false);
     }
     
+    private Piloto buscaPilotoNome(String nome){
+        Iterator itr = autorama.getPilotos().iterator();
+        Piloto piloto = null;
+        while(itr.hasNext()){
+            Object o = itr.next();
+            if(o  instanceof Piloto){
+                piloto = (Piloto)o;
+                if(piloto.getNome() == nome){
+                    return piloto;
+                }
+            }
+        }
+        return piloto;
+    }
+    
+    private Carro buscaCarroMarca(String marca){
+        Iterator itr = autorama.getPilotos().iterator();
+        Carro carro = null;
+        while(itr.hasNext()){
+            Object o = itr.next();
+            if(o  instanceof Carro){
+                carro = (Carro)o;
+                if(carro.getMarca() == marca){
+                    return carro;
+                }
+            }
+        }
+        return carro;
+    }
+    
+    private Equipe buscaEquipeNome(String nome){
+        Iterator itr = autorama.getEquipes().iterator();
+        Equipe equipe = null;
+        while(itr.hasNext()){
+            Object o = itr.next();
+            if(o  instanceof Equipe){
+                equipe = (Equipe)o;
+                if(equipe.getNome() == nome){
+                    return equipe;
+                }
+            }
+        }
+        return equipe;
+    }
+    
     private void preenchePilotos(){ //Preenche select pilotos da tela de cadastro de pilotos
         selectPilotoCarro.removeAllItems();
         selectPilotoCarro.addItem("<Selecionar Piloto>");
@@ -952,7 +1056,9 @@ public class TelaInicial extends javax.swing.JFrame {
             Object o = itr.next();
             if(o  instanceof Piloto){
                 Piloto piloto = (Piloto)o;
-                selectPilotoEquipe.addItem(piloto.getNome());
+                if(piloto.getEquipe()== null){
+                    selectPilotoEquipe.addItem(piloto.getNome());
+                }
             }
         }
     }
@@ -965,7 +1071,9 @@ public class TelaInicial extends javax.swing.JFrame {
             Object o = itr.next();
             if(o  instanceof Carro){
                 Carro carro = (Carro)o;
-                selectCarroEquipe.addItem(carro.getMarca());
+                if(carro.getEquipe() == null){
+                    selectCarroEquipe.addItem(carro.getMarca());
+                }
             }
         }
     }
@@ -1052,6 +1160,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JTextField inputPontosEquipe;
     private javax.swing.JTextField inputPontosPiloto;
     private javax.swing.JTextField inputTagCarro;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1061,7 +1170,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1074,7 +1182,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

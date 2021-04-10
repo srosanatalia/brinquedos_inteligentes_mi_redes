@@ -14,17 +14,15 @@ public class Carro {
     private String tag;
     private String modelo;
     private String marca;
-    private String corPredominante;
-    private int numeroCarro;
+    private String numeroCarro;
     private Piloto piloto;
     private Equipe equipe;
 
-    public Carro(String id, String tag, String modelo, String marca, String corPredominante, int numeroCarro) {
+    public Carro(String id, String tag, String modelo, String marca, String numeroCarro) {
         this.id = id;
         this.tag = tag;
         this.modelo = modelo;
         this.marca = marca;
-        this.corPredominante = corPredominante;
         this.numeroCarro = numeroCarro;
     }
 
@@ -60,19 +58,11 @@ public class Carro {
         this.marca = marca;
     }
 
-    public String getCorPredominante() {
-        return corPredominante;
-    }
-
-    public void setCorPredominante(String corPredominante) {
-        this.corPredominante = corPredominante;
-    }
-
-    public int getNumeroCarro() {
+    public String getNumeroCarro() {
         return numeroCarro;
     }
 
-    public void setNumeroCarro(int numeroCarro) {
+    public void setNumeroCarro(String numeroCarro) {
         this.numeroCarro = numeroCarro;
     }
 

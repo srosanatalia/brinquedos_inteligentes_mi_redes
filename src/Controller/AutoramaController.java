@@ -48,10 +48,16 @@ public class AutoramaController {
         }
     }
     
-    public boolean cadastrarPiloto(String id, String nome, String apelido, String nacionalidade, boolean emAtividade) {
+    public Piloto cadastrarPiloto(String id, String nome, String apelido, String nacionalidade, boolean emAtividade) {
         Piloto piloto = new Piloto(id, nome, apelido,  nacionalidade, emAtividade);
         pilotos.add(piloto);
-        return pilotos.contains(piloto);
+        return piloto;
+    }
+    
+    public Carro cadastrarCarro(String id, String tag, String modelo, String marca, String numeroCarro) {
+        Carro carro = new Carro(id, tag, modelo,  marca, numeroCarro);
+        carros.add(carro);
+        return carro;
     }
     
     public ArrayList getPilotos() {

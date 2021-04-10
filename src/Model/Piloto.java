@@ -17,7 +17,7 @@ public class Piloto {
     private String nome;
     private String apelido;
     private BufferedImage foto;
-    private Date dataNascimento;
+    private String dataNascimento;
     private String nacionalidade;
     private Carro carro;
     private Equipe equipe;
@@ -30,6 +30,7 @@ public class Piloto {
         this.apelido = apelido;
         this.nacionalidade = nacionalidade;
         this.emAtividade = emAtividade;
+        this.pontos = 0;
     }
 
     public String getId() {
@@ -64,11 +65,11 @@ public class Piloto {
         this.foto = foto;
     }
 
-    public Date getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
