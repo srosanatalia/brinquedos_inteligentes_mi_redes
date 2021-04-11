@@ -23,7 +23,7 @@ class ClientThread(threading.Thread):
             if len(data):
                 request, body = data.split('\n')
                 print(f"Cliente ({self.ip}:{self.port}) chamou a rota: {request}")
-                self.controller.routes(request, body)
+                self.controller.routes(self, request, body)
 
         print(f"{bcolors.RED}[-]{bcolors.COLOR_OFF} Cliente {self.ip}:{str(self.port)} desconectado...")
         self.controller.remove_client(self)

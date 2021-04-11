@@ -5,6 +5,16 @@ import sys
 from bcolors import bcolors
 from ServerController import ServerController
 
+# Função para encerramento de programa com ctrl+c
+def end_execution_handler(sig, frame):
+    sys.stdout.write('\b\b')
+    response = input(f"{bcolors.YELLOW}Deseja mesmo encerrar o servidor? (Y/n) {bcolors.COLOR_OFF}")
+    if response == 'Y' or response == 'y':
+        print(f"{bcolors.BRED}Servidor finalizado...{bcolors.COLOR_OFF}")
+        sys.exit(0)
+    else:
+        print(f"{bcolors.GREEN}Servidor continua em execução...{bcolors.COLOR_OFF}")
+
 # Código para caso seja digitado ctrl+c não exibir error
 signal.signal(signal.SIGINT, end_execution_handler)
 
@@ -29,13 +39,3 @@ while True:
 
     controller.add_client(ip, port, clientsock)
 
-
-# Função para encerramento de programa com ctrl+c
-def end_execution_handler(sig, frame):
-    sys.stdout.write('\b\b')
-    response = input(f"{bcolors.YELLOW}Deseja mesmo encerrar o servidor? (Y/n) {bcolors.COLOR_OFF}")
-    if response == 'Y' or response == 'y':
-        print(f"{bcolors.BRED}Servidor finalizado...{bcolors.COLOR_OFF}")
-        sys.exit(0)
-    else:
-        print(f"{bcolors.GREEN}Servidor continua em execução...{bcolors.COLOR_OFF}")

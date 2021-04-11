@@ -15,7 +15,7 @@ class ServerController:
             if start_rfid == 'Y' or start_rfid == 'y':
                 with open('configs/rfid.json', 'r') as file:
                     data = json.load(file)
-                    self.__start_connection_rfid__(data)
+                    self.__start_connection_rfid(data)
         print('')
 
     def add_client(self, ip, port, clientsock):
@@ -30,20 +30,25 @@ class ServerController:
     def set_sensor(self, sensor):
         self.sensor = sensor
 
-    def routes(self, request, body):
+    def routes(self, client, request, body):
         method, url = request.split(' ')
 
         if method == 'POST' and url == '/rfid/config':
-            self.__post_rfid_config__(body)
+            response = self.__post_rfid_config(body)
+        elif method == 'GET' and url == '/rfid/tags':
+            response = self.__get_rfid_tags()
+        
+        client.clientsock.sendall(f"OK\n{response}".encode())
 
-    def __post_rfid_config__(self, body):
+    def __post_rfid_config(self, body):
         data = json.loads(body)
         with open('configs/rfid.json', 'w') as file:
             json.dump(data, file, indent=2)
 
-        self.__start_connection_rfid__(data)
+        self.__start_connection_rfid(data)
+        return ''
     
-    def __start_connection_rfid__(self, data):
+    def __start_connection_rfid(self, data):
         sensor = SensorThread(
             self,
             data['serial'], 
@@ -56,3 +61,6 @@ class ServerController:
         sensor.run()
         if self.sensor != None:
             print(f"{bcolors.GREEN}Conexão com RFID iniciado... {bcolors.COLOR_OFF}")
+    
+    def __get_rfid_tags(self):
+        return "{'tags':[b'E2002047381502180820C296', b'0000000000000000C0002403']}"
