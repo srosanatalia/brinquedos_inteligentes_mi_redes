@@ -3,6 +3,7 @@ import os.path
 
 from ClientThread import ClientThread
 from SensorThread import SensorThread
+from Producer import Producer
 from bcolors import bcolors
 
 class ServerController:
@@ -10,12 +11,12 @@ class ServerController:
     sensor = None
     
     def __init__(self):
-        if os.path.isfile('configs/rfid.json'):
-            start_rfid = input(f"{bcolors.YELLOW}Arquivo de configuração do RFID existente. Deseja iniciar conexão? (Y/n) {bcolors.COLOR_OFF}")
-            if start_rfid == 'Y' or start_rfid == 'y':
-                with open('configs/rfid.json', 'r') as file:
-                    data = json.load(file)
-                    self.__start_connection_rfid(data)
+        # if os.path.isfile('configs/rfid.json'):
+        #     start_rfid = input(f"{bcolors.YELLOW}Arquivo de configuração do RFID existente. Deseja iniciar conexão? (Y/n) {bcolors.COLOR_OFF}")
+        #     if start_rfid == 'Y' or start_rfid == 'y':
+        #         with open('configs/rfid.json', 'r') as file:
+        #             data = json.load(file)
+        #             self.__start_connection_rfid(data)
         print('')
 
     def add_client(self, ip, port, clientsock):
@@ -37,6 +38,8 @@ class ServerController:
             response = self.__post_rfid_config(body)
         elif method == 'GET' and url == '/rfid/tags':
             response = self.__get_rfid_tags()
+        elif method == 'GET' and url == '/teste':
+            response = self.__get_teste()
         
         client.clientsock.sendall(f"OK\n{response}".encode())
 
@@ -63,4 +66,15 @@ class ServerController:
             print(f"{bcolors.GREEN}Conexão com RFID iniciado... {bcolors.COLOR_OFF}")
     
     def __get_rfid_tags(self):
-        return "{'tags':[b'E2002047381502180820C296', b'0000000000000000C0002403']}"
+        # return "{'tags':[b'E2002047381502180820C296', b'0000000000000000C0002403']}"
+        return self.sensor.get_tags()
+
+    def __get_teste(self):
+        buffer = __buffer_sensor__()
+        producer = Producer(buffer, self.sensor)
+        producer.start_qualification([], 60, 300)
+
+        return ''
+
+class __buffer_sensor__:
+    buffer = []

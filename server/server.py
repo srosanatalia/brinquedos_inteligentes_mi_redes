@@ -21,7 +21,8 @@ signal.signal(signal.SIGINT, end_execution_handler)
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 host = ''
-port = int(input(f"{bcolors.YELLOW}Digite a porta desejada: {bcolors.COLOR_OFF}"))
+# port = int(input(f"{bcolors.YELLOW}Digite a porta desejada: {bcolors.COLOR_OFF}"))
+port = 5022
 while True:
     try:
         serversocket.bind((host, port))
