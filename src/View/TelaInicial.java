@@ -85,7 +85,7 @@ public class TelaInicial extends javax.swing.JFrame {
         inputTagCarro = new javax.swing.JTextField();
         inputModeloCarro = new javax.swing.JTextField();
         botaoVoltar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        botaoLerTAG = new javax.swing.JButton();
         painelCadastroPilotos = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel9 = new javax.swing.JLabel();
@@ -225,7 +225,12 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Ler TAG");
+        botaoLerTAG.setText("Ler TAG");
+        botaoLerTAG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoLerTAGActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelCadastroCarrosLayout = new javax.swing.GroupLayout(painelCadastroCarros);
         painelCadastroCarros.setLayout(painelCadastroCarrosLayout);
@@ -238,7 +243,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addGroup(painelCadastroCarrosLayout.createSequentialGroup()
                         .addComponent(inputIdCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(240, 240, 240)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(botaoLerTAG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroCarrosLayout.createSequentialGroup()
                             .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,7 +278,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelCadastroCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inputIdCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botaoLerTAG, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -757,7 +762,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(botaoCadastrarPista)
                 .addGap(18, 18, 18)
                 .addComponent(botaoQualificacao)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addContainerGap(423, Short.MAX_VALUE))
         );
 
         painelCadastroPista.setBackground(new java.awt.Color(255, 255, 255));
@@ -815,9 +820,7 @@ public class TelaInicial extends javax.swing.JFrame {
                                 .addGroup(painelCadastroPistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel24)
                                     .addComponent(selectNacionalidadePista, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelCadastroPistaLayout.createSequentialGroup()
-                                .addComponent(inputIdPista, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(inputIdPista, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(painelCadastroPistaLayout.createSequentialGroup()
                                 .addComponent(jLabel30)
                                 .addGap(459, 459, 459))
@@ -1002,9 +1005,9 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 364, Short.MAX_VALUE)
-                    .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(0, 366, Short.MAX_VALUE)))
+                    .addGap(0, 445, Short.MAX_VALUE)
+                    .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)
+                    .addGap(0, 447, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -1292,6 +1295,21 @@ public class TelaInicial extends javax.swing.JFrame {
     private void botaoQualificacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoQualificacaoActionPerformed
         esconderTelas();
         preenchePilotosQualificacao();
+        preenchePistas();
+        selectPistaQualificacao.addActionListener((ActionEvent e) -> {
+            try {
+                Pista pista = buscaPistaNome(selectPistaQualificacao.getSelectedItem().toString());
+                Pais pais = autorama.getPais(pista.getPais());
+                
+                BufferedImage img_bf = ImageIO.read(new File(pais.getBandeira()));
+                ImageIcon img = new ImageIcon(img_bf);
+                img = new ImageIcon(img.getImage().getScaledInstance(44, 32, java.awt.Image.SCALE_DEFAULT));
+                imagemNacionalidadePistaQualificacao.setIcon(img);
+                
+            } catch (IOException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {}
+        });
         painelQualificacao.setVisible(true);
     }//GEN-LAST:event_botaoQualificacaoActionPerformed
 
@@ -1322,6 +1340,10 @@ public class TelaInicial extends javax.swing.JFrame {
         limpaTabelaQualificacao();
         painelPrincipal.setVisible(true);
     }//GEN-LAST:event_botaoVoltar4ActionPerformed
+
+    private void botaoLerTAGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLerTAGActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoLerTAGActionPerformed
                               
     
     /**
@@ -1414,6 +1436,21 @@ public class TelaInicial extends javax.swing.JFrame {
         return piloto;
     }
     
+    private Pista buscaPistaNome(String nome){
+        Iterator itr = autorama.getPistas().iterator();
+        Pista pista = null;
+        while(itr.hasNext()){
+            Object o = itr.next();
+            if(o  instanceof Pista){
+                pista = (Pista)o;
+                if(pista.getNome() == nome){
+                    return pista;
+                }
+            }
+        }
+        return pista;
+    }
+    
     private Carro buscaCarroMarca(String marca){
         Iterator itr = autorama.getCarros().iterator();
         Carro carro = null;
@@ -1442,6 +1479,19 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         }
         return equipe;
+    }
+    
+    private void preenchePistas(){ //Preenche select pistas da tela de configuração
+        selectPistaQualificacao.removeAllItems();
+        selectPistaQualificacao.addItem("<Selecionar Pista>");
+        Iterator itr = autorama.getPistas().iterator();
+        while(itr.hasNext()){
+            Object o = itr.next();
+            if(o  instanceof Pista){
+                Pista pista = (Pista)o;
+                selectPistaQualificacao.addItem(pista.getNome());
+            }
+        }
     }
     
     private void preenchePilotos(){ //Preenche select pilotos da tela de cadastro de pilotos
@@ -1593,6 +1643,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton botaoConfirmarCadastroEquipe;
     private javax.swing.JButton botaoConfirmarCadastroPiloto;
     private javax.swing.JButton botaoConfirmarCadastroPista;
+    private javax.swing.JButton botaoLerTAG;
     private javax.swing.JButton botaoQualificacao;
     private javax.swing.JButton botaoVoltar;
     private javax.swing.JButton botaoVoltar1;
@@ -1621,7 +1672,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JTextField inputPontosEquipe;
     private javax.swing.JTextField inputPontosPiloto;
     private javax.swing.JTextField inputTagCarro;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

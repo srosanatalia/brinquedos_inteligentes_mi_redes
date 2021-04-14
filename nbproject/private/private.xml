@@ -3,14 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/nati_/Documents/NetBeansProjects/Problema01_BrinquedosInteligentes/src/Model/Piloto.java</file>
             <file>file:/C:/Users/nati_/Documents/NetBeansProjects/Problema01_BrinquedosInteligentes/src/Model/Equipe.java</file>
-            <file>file:/C:/Users/nati_/Documents/NetBeansProjects/Problema01_BrinquedosInteligentes/src/Model/ClienteTCP.java</file>
-            <file>file:/C:/Users/nati_/Documents/NetBeansProjects/Problema01_BrinquedosInteligentes/src/View/TelaConfiguracao.java</file>
+            <file>file:/C:/Users/nati_/Documents/NetBeansProjects/Problema01_BrinquedosInteligentes/src/Model/Pista.java</file>
             <file>file:/C:/Users/nati_/Documents/NetBeansProjects/Problema01_BrinquedosInteligentes/src/Controller/AutoramaController.java</file>
             <file>file:/C:/Users/nati_/Documents/NetBeansProjects/Problema01_BrinquedosInteligentes/src/Model/Carro.java</file>
-            <file>file:/C:/Users/nati_/Documents/NetBeansProjects/Problema01_BrinquedosInteligentes/src/View/Autorama.java</file>
             <file>file:/C:/Users/nati_/Documents/NetBeansProjects/Problema01_BrinquedosInteligentes/src/View/TelaInicial.java</file>
-            <file>file:/C:/Users/nati_/Documents/NetBeansProjects/Problema01_BrinquedosInteligentes/src/View/AutoramaInterface.java</file>
+            <file>file:/C:/Users/nati_/Documents/NetBeansProjects/Problema01_BrinquedosInteligentes/src/Model/Partida.java</file>
         </group>
     </open-files>
 </project-private>
