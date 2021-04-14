@@ -2,6 +2,8 @@ import mercury
 import sys
 import socket
 import threading
+import time
+from datetime import datetime
 
 from bcolors import bcolors
 
@@ -23,7 +25,7 @@ class SensorThread():
             reader = mercury.Reader(self.serial, baudrate=self.baudrate)
             reader.set_region(self.region)
             reader.set_read_plan([self.antenna], self.protocol, read_power=self.frequency)
-            print(reader.read())
+            reader.read()
             self.reader = reader
             self.controller.set_sensor(self)
         # except:
@@ -32,3 +34,8 @@ class SensorThread():
     def get_tags(self):
         tags = list(map(lambda t: t.epc, self.reader.read()))
         return '{"tags":'+str(tags)+'}'
+
+    def read_data(self, handle_data, runtime):
+        self.reader.start_reading(lambda tag: handle_data(tag.epc, tag.rssi, datetime.fromtimestamp(tag.timestamp)))
+        time.sleep(runtime)
+        self.reader.stop_reading()

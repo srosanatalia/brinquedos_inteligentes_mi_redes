@@ -1,4 +1,5 @@
 import time
+from datetime import datetime
 
 class Producer:
     def __init__(self, buffer, sensor):
@@ -6,13 +7,7 @@ class Producer:
         self.sensor = sensor
     
     def start_qualification(self, tags, min_lap_time, max_time):
-        self.sensor.reader.enable_stats(stats_received)
-        self.sensor.reader.start_reading(lambda tag: print(tag))
-        time.sleep(2.4)
-        self.sensor.reader.stop_reading()
+        self.sensor.read_data(teste, 5)
 
-def stats_received(stats):
-    print({"temp" : stats.temperature})
-    print({"antenna" : stats.antenna})
-    print({"protocol" : stats.protocol})
-    print({"frequency" : stats.frequency})
+def teste(epc, rssi, timestamp):
+    print(f"epc: {epc} - rssi: {rssi} - timestamp: {timestamp}")
