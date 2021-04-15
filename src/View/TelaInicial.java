@@ -1342,7 +1342,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoVoltar4ActionPerformed
 
     private void botaoLerTAGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLerTAGActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_botaoLerTAGActionPerformed
                               
     
