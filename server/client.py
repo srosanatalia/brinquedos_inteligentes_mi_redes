@@ -2,7 +2,10 @@
 
 import socket, time, sys
 
-# print('GET /race/config\n{"min_time_speedway":"60", "max_time_qualification":"300", "num_laps_race":"5", "cars":[b\'E2000017221101241890547C\', b\'E20000172211012518905484\']}')
+# cars = {}
+# cars['teste1'] = ({"teste": 1, "a": "a"})
+# cars['teste2'] = ({"teste": 2, "a": "b"})
+# print(cars)
 # sys.exit(0)
 
 # create a socket object
@@ -29,17 +32,12 @@ data = s.recv(2048).decode()
 print(data)
 time.sleep(3)
 
-s.sendall('POST /teste\n'.encode())
-data = s.recv(2048).decode()
-print(data)
-time.sleep(3)
-
 s.sendall('POST /race/config\n{"min_time_speedway":"60", "max_time_qualification":"300", "num_laps_race":"5", "cars":["b\'E2000017221101241890547C\'", "b\'E20000172211012518905484\'"]}'.encode())
 data = s.recv(2048).decode()
 print(data)
 time.sleep(3)
 
-s.sendall('GET /race/qualification/start\n'.encode())
+s.sendall('POST /race/qualification/start\n'.encode())
 data = s.recv(2048).decode()
 print(data)
 time.sleep(3)

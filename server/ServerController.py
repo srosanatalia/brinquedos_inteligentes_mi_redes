@@ -78,14 +78,13 @@ class ServerController:
 
     def __post_race_config(self, data):
         self.race = data
-        # buffer = __buffer_sensor__()
-        # producer = Producer(buffer, self.sensor)
-        # producer.start_qualification([], 60, 300)
-        # print(data)
+        self.buffer = __buffer_sensor__()
+        self.producer = Producer(self.buffer, self.sensor, self.race, 'qualification')
 
         return ''
 
     def __start_qualification(self):
+        self.producer.start_qualification()
         return ''
 
 class __buffer_sensor__:
