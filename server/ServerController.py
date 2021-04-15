@@ -34,17 +34,24 @@ class ServerController:
     def routes(self, client, request, body):
         method, url = request.split(' ')
 
+        if body != '':
+            body = json.loads(body)
+
         if method == 'POST' and url == '/rfid/config':
             response = self.__post_rfid_config(body)
         elif method == 'GET' and url == '/rfid/tags':
             response = self.__get_rfid_tags()
-        elif method == 'GET' and url == '/teste':
-            response = self.__get_teste()
+        elif method == 'POST' and url == '/race/config':
+            response = self.__post_race_config(body)
+        elif method == 'POST' and url == '/race/qualification/start':
+            response = self.__start_qualification()
+        else:
+            client.clientsock.sendall(f"NOT_FOUND\n".encode())
+            return
         
         client.clientsock.sendall(f"OK\n{response}".encode())
 
-    def __post_rfid_config(self, body):
-        data = json.loads(body)
+    def __post_rfid_config(self, data):
         with open('configs/rfid.json', 'w') as file:
             json.dump(data, file, indent=2)
 
@@ -69,11 +76,16 @@ class ServerController:
         # return "{'tags':[b'E2002047381502180820C296', b'0000000000000000C0002403']}"
         return self.sensor.get_tags()
 
-    def __get_teste(self):
-        buffer = __buffer_sensor__()
-        producer = Producer(buffer, self.sensor)
-        producer.start_qualification([], 60, 300)
+    def __post_race_config(self, data):
+        self.race = data
+        # buffer = __buffer_sensor__()
+        # producer = Producer(buffer, self.sensor)
+        # producer.start_qualification([], 60, 300)
+        # print(data)
 
+        return ''
+
+    def __start_qualification(self):
         return ''
 
 class __buffer_sensor__:
