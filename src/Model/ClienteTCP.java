@@ -7,10 +7,12 @@ package Model;
 
 import java.awt.HeadlessException;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
@@ -37,15 +39,17 @@ public class ClienteTCP {
             dos.write(rota);
             dos.flush();
             
-            DataInputStream mensagemRecebida = new DataInputStream(cliente.getInputStream());
-            int length = mensagemRecebida.read();
-            System.out.println(length);// read length of incoming message
-            if(length>0) {
-                byte[] message = new byte[length];
-                mensagemRecebida.readFully(message, 0, message.length); // read the message
-            }
+            BufferedReader entrada = new BufferedReader (new InputStreamReader(cliente.getInputStream()));
             
-            System.out.println(mensagemRecebida.toString());
+//            DataInputStream mensagemRecebida = new DataInputStream(cliente.getInputStream());
+//            int length = mensagemRecebida.read();
+//            System.out.println(length);// read length of incoming message
+//            if(length>0) {
+//                byte[] message = new byte[length];
+//                mensagemRecebida.readFully(message, 0, message.length); // read the message
+//            }
+            
+            System.out.println(entrada.readLine());
             
             String rotaGET = "GET /rfid/tags\\n";
             byte[] rota2 = rotaPOST.getBytes();
