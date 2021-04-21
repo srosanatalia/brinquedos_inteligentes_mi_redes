@@ -1,11 +1,11 @@
 #!/usr/bin/python3           # This is client.py file
 
 import socket, time, sys
+from datetime import datetime, timedelta
 
-# cars = {}
-# cars['teste1'] = ({"teste": 1, "a": "a"})
-# cars['teste2'] = ({"teste": 2, "a": "b"})
-# print(cars)
+# time_end = datetime.now() + timedelta(seconds=10)
+# while datetime.now() <= time_end:
+#     print(datetime.now())
 # sys.exit(0)
 
 # create a socket object
@@ -22,22 +22,22 @@ port = 5022
 # connection to hostname on the port.
 s.connect((host, port))                               
 
-s.sendall('POST /rfid/config\n{"serial":"tmr:///dev/ttyUSB0", "baudrate":"230400", "region":"NA2", "protocol":"GEN2", "antenna":"1", "frequency":"1500"}'.encode())
-data = s.recv(2048).decode()
+s.sendall('POST /rfid/config\n{"serial":"tmr:///dev/ttyUSB0", "baudrate":"230400", "region":"NA2", "protocol":"GEN2", "antenna":"1", "frequency":"1500"}'.encode("utf-8"))
+data = s.recv(2048).decode("utf-8")
 print(data)
 time.sleep(3)
 
-s.sendall('GET /rfid/tags\n'.encode())
-data = s.recv(2048).decode()
+s.sendall('GET /rfid/tags\n'.encode("utf-8"))
+data = s.recv(2048).decode("utf-8")
 print(data)
 time.sleep(3)
 
-s.sendall('POST /race/config\n{"min_time_speedway":"60", "max_time_qualification":"300", "num_laps_race":"5", "cars":["b\'E2000017221101241890547C\'", "b\'E20000172211012518905484\'"]}'.encode())
-data = s.recv(2048).decode()
+s.sendall('POST /race/config\n{"min_time_speedway":"45", "max_time_qualification":"150", "num_laps_race":"5", "cars":["E2000017221101241890547C", "E20000172211012518905484"]}'.encode("utf-8"))
+data = s.recv(2048).decode("utf-8")
 print(data)
 time.sleep(3)
 
-s.sendall('POST /race/qualification/start\n'.encode())
-data = s.recv(2048).decode()
+s.sendall('POST /race/qualification/start\n'.encode("utf-8"))
+data = s.recv(2048).decode("utf-8")
 print(data)
 time.sleep(3)

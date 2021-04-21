@@ -35,7 +35,8 @@ class SensorThread():
         tags = list(map(lambda t: t.epc, self.reader.read()))
         return '{"tags":'+str(tags)+'}'
 
-    def read_data(self, handle_data, runtime):
+    def read_data(self, handle_data):
         self.reader.start_reading(lambda tag: handle_data(tag.epc, tag.rssi, datetime.fromtimestamp(tag.timestamp)))
-        time.sleep(runtime)
+
+    def stop_read_data(self):
         self.reader.stop_reading()

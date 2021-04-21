@@ -46,10 +46,10 @@ class ServerController:
         elif method == 'POST' and url == '/race/qualification/start':
             response = self.__start_qualification()
         else:
-            client.clientsock.sendall(f"NOT_FOUND\n".encode())
+            client.clientsock.sendall(f"NOT_FOUND\n".encode("utf-8"))
             return
         
-        client.clientsock.sendall(f"OK\n{response}".encode())
+        client.clientsock.sendall(f"OK\n{response}".encode("utf-8"))
 
     def __post_rfid_config(self, data):
         with open('configs/rfid.json', 'w') as file:
@@ -73,7 +73,6 @@ class ServerController:
             print(f"{bcolors.GREEN}Conexão com RFID iniciado... {bcolors.COLOR_OFF}")
     
     def __get_rfid_tags(self):
-        # return "{'tags':[b'E2002047381502180820C296', b'0000000000000000C0002403']}"
         return self.sensor.get_tags()
 
     def __post_race_config(self, data):
@@ -89,3 +88,10 @@ class ServerController:
 
 class __buffer_sensor__:
     buffer = []
+
+    def add(self, data):
+        print(data)
+        self.buffer.append(data)
+
+    def remove(self):
+        return self.buffer.pop(0)
