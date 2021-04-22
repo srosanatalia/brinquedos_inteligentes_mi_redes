@@ -25,7 +25,6 @@ class SensorThread():
             reader = mercury.Reader(self.serial, baudrate=self.baudrate)
             reader.set_region(self.region)
             reader.set_read_plan([self.antenna], self.protocol, read_power=self.frequency)
-            reader.read()
             self.reader = reader
             self.controller.set_sensor(self)
         # except:
