@@ -15,6 +15,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,44 +27,71 @@ import java.net.Socket;
 public class ClienteTCP {
     private String url;
     private int porta;
+    public Socket cliente;
+    public BufferedReader entrada;
+    public ArrayList tags;
 
     public ClienteTCP(String url, int porta) {
         this.url = url;
         this.porta = porta;
+        this.tags = new ArrayList();
     }
     
     public void leituraTag() throws ClassNotFoundException{
         try {
-            Socket cliente = new Socket(this.url, this.porta);
-            System.out.println("Conexão iniciada");
-            DataOutputStream dos = new DataOutputStream(cliente.getOutputStream());
-            String rotaPOST = "POST /rfid/config\n{\"serial\":\"tmr:///dev/ttyUSB0\", \"baudrate\":\"230400\", \"region\":\"NA2\", \"protocol\":\"GEN2\", \"antenna\":\"1\", \"frequency\":\"1500\"}";
-            byte[] rota = rotaPOST.getBytes();
-            dos.write(rota);
-            dos.flush();
-            
-            BufferedReader entrada = new BufferedReader (new InputStreamReader(cliente.getInputStream()));
-            
-//            DataInputStream mensagemRecebida = new DataInputStream(cliente.getInputStream());
-//            int length = mensagemRecebida.read();
-//            System.out.println(length);// read length of incoming message
-//            if(length>0) {
-//                byte[] message = new byte[length];
-//                mensagemRecebida.readFully(message, 0, message.length); // read the message
-//            }
-            
-            System.out.println(entrada.readLine());
-            
-            String rotaGET = "GET /rfid/tags\\n";
-            byte[] rota2 = rotaPOST.getBytes();
-            dos.write(rota2);
-            dos.flush();
-            
-            DataInputStream mensagemRecebida2 = new DataInputStream(cliente.getInputStream());
-            
+            this.cliente = new Socket(this.url, this.porta);
+            this.entrada = new BufferedReader (new InputStreamReader(this.cliente.getInputStream(), "UTF-8"));
+            if(cliente.isConnected()){
+                System.out.println("Conexão iniciada");
+                String tags=null;
+                DataOutputStream dos = new DataOutputStream(this.cliente.getOutputStream());
+                
+                String rotaPOST = "POST /rfid/config\n{\"serial\":\"tmr:///dev/ttyUSB0\", \"baudrate\":\"230400\", \"region\":\"NA2\", \"protocol\":\"GEN2\", \"antenna\":\"1\", \"frequency\":\"1500\"}";
+                byte[] rota = rotaPOST.getBytes();
+                dos.write(rota);
+                dos.flush();
+
+                String rotaGET = "GET /rfid/tags\n";
+                byte[] rota2 = rotaGET.getBytes();
+                dos.write(rota2);
+                dos.flush();
+                
+                new Thread(leituraTag).start();
+            }
           }
           catch(HeadlessException | IOException e) {
             System.out.println("Erro: " + e.getMessage());
           }
-      }
+    }
+
+    public ArrayList getTags() {
+        return tags;
+    }
+    
+    private Runnable leituraTag = new Runnable() {
+        public void run() {
+            String tag = "";
+            while(true){
+                try {
+                    if(entrada.ready()){
+                        char c = (char)entrada.read();
+                        tag += c;
+                        if(c == 33){
+                           if(tag.contains("tags")){
+                                String[] textoSeparado = tag.split("'");
+                                for (int i = 0; i < textoSeparado.length; i++) {
+                                    if(textoSeparado[i].length() == 24){
+                                        tags.add(textoSeparado[i]);
+                                        System.out.println(textoSeparado[i]);
+                                    }
+                                }
+                           }
+                        }
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(ClienteTCP.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+       }
+    };
 }

@@ -37,6 +37,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private ArrayList <Piloto> listaPilotosEquipe;
     private ArrayList <Carro> listaCarrosEquipe;
     private ArrayList <Carro> listaCarrosQualificacao;
+    private ArrayList tagsUsadas;
     
     public TelaInicial(AutoramaController autorama) {
         this.autorama = autorama;
@@ -52,6 +53,7 @@ public class TelaInicial extends javax.swing.JFrame {
         this.listaCarrosEquipe = new ArrayList();
         this.listaCarrosQualificacao = new ArrayList();
         this.listaPilotosEquipe = new ArrayList();
+        this.tagsUsadas = new ArrayList();
         painelPrincipal.setVisible(true);
     }
     public TelaInicial() {
@@ -1031,7 +1033,7 @@ public class TelaInicial extends javax.swing.JFrame {
         String idCarro = inputIdCarro.getText();
         String pilotoSelecionado = (String) selectPilotoCarro.getSelectedItem();
         String equipeSelecionada = (String) SelectEquipeCarro.getSelectedItem();
-        Carro carroCadastrado = new Carro(idCarro, "TAGTESTE", modeloCarro, marcaCarro, numeroCarro);
+        Carro carroCadastrado = new Carro(idCarro, tagCarro, modeloCarro, marcaCarro, numeroCarro);
         if(pilotoSelecionado != "<Selecionar Piloto>"){
             Piloto piloto = buscaPilotoNome(pilotoSelecionado);
             if(piloto != null){
@@ -1342,7 +1344,19 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoVoltar4ActionPerformed
 
     private void botaoLerTAGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLerTAGActionPerformed
-        
+        ArrayList tags = autorama.getTags();
+        if(!tags.isEmpty()){
+            for (int i = 0; i < tags.size(); i++) {
+                System.out.println(tags.get(i));
+                System.out.println(this.tagsUsadas.contains(tags.get(i)));
+                if(!this.tagsUsadas.contains(tags.get(i))){
+                    inputTagCarro.setText((String) tags.get(i));
+                    tagsUsadas.add(tags.get(i));
+                    return;
+                }
+            }
+        }
+        JOptionPane.showMessageDialog(rootPane, "Nenhuma Tag disponível!");
     }//GEN-LAST:event_botaoLerTAGActionPerformed
                               
     

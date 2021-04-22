@@ -35,6 +35,7 @@ public class AutoramaController {
     public String protocol;
     public String antenna;
     public String frequency;
+    public ClienteTCP Cliente;
     
     public AutoramaController() {
         this.pilotos = new ArrayList ();
@@ -107,6 +108,10 @@ public class AutoramaController {
         return equipes;
     }
     
+    public ArrayList getTags() {
+        return this.Cliente.tags;
+    }
+    
     public ArrayList getCarros() {
         return carros;
     }
@@ -138,7 +143,7 @@ public class AutoramaController {
     private Runnable cliente = new Runnable() {
         public void run() {
             try{
-                ClienteTCP Cliente = new ClienteTCP(url, porta);
+                Cliente = new ClienteTCP(url, porta);
                 Cliente.leituraTag();
             } catch (Exception e){}
        }
