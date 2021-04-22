@@ -1,4 +1,3 @@
-import time
 from datetime import datetime, timedelta
 import threading
 import sys
@@ -7,6 +6,7 @@ class Producer(threading.Thread):
     def __init__(self, buffer, sensor, race_config, type):
         threading.Thread.__init__(self)
         self.buffer = buffer 
+        self.type = type 
         self.sensor = sensor
         self.min_lap_time = int(race_config['min_time_speedway'])
         self.cars = {}
@@ -23,12 +23,16 @@ class Producer(threading.Thread):
                 self.max_time_end = int(race_config['max_time_qualification'])
         elif type == 'race':
             self.num_laps = race_config['num_laps_race']
-        
     
-    def start_qualification(self):
+    def run(self):
+        if self.type == 'qualification':
+            self.__start_qualification()
+    
+    def __start_qualification(self):
         self.time_start = datetime.now()
         self.time_end = self.time_start + timedelta(seconds=self.max_time_end)
         self.time_next_read = self.time_start + timedelta(seconds=self.min_lap_time)
+        self.buffer.add(self.time_start)
         for car in self.cars:
             self.cars[car]['next_start_read'] = self.time_start + timedelta(seconds=self.min_lap_time)
             self.cars[car]['first_read_lap'] = self.time_start
@@ -41,6 +45,8 @@ class Producer(threading.Thread):
                 continue
             self.sensor.stop_read_data()
             self.cars_ended_lap = []
+        self.buffer.add("QUALIFICATION_COMPLETED")
+        print("QUALIFICATION_COMPLETED_PRODUCER")
 
     def treat_data(self, epc, rssi, timestamp):
         try:

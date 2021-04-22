@@ -3,9 +3,30 @@
 import socket, time, sys
 from datetime import datetime, timedelta
 
-# time_end = datetime.now() + timedelta(seconds=10)
-# while datetime.now() <= time_end:
-#     print(datetime.now())
+# format_time = '%M:%S.%f'
+# now = datetime.now()
+# new_now = datetime.now()
+# few_seconds = new_now + timedelta(seconds=3)
+# print(str(few_seconds - now)[2:])
+
+# a = []
+# a.insert(0, 'a')
+# a.insert(2, 'c')
+# a.insert(1, 'b')
+# a[0] = '*'
+# print(a)
+
+# teste = [
+#     {'name':'Homer', 'age':39, 'time':datetime.now()+ timedelta(seconds=3)}, 
+#     {'name':'Bart', 'age':10, 'time':datetime.now()+ timedelta(seconds=5)}, 
+#     {'name':'Marge', 'age':35, 'time':datetime.now()}
+# ]
+# print(teste)
+# newlist = sorted(teste, key=lambda k: k['time'], reverse=True)
+# print(newlist)
+# for a in newlist:
+#     a['a'] = 1
+# print(newlist)
 # sys.exit(0)
 
 # create a socket object
@@ -32,7 +53,7 @@ data = s.recv(2048).decode("utf-8")
 print(data)
 time.sleep(2)
 
-s.sendall('POST /race/config\n{"min_time_speedway":"30", "max_time_qualification":"90", "num_laps_race":"5", "cars":["E2000017221101241890547C", "E20000172211012518905484"]}'.encode("utf-8"))
+s.sendall('POST /race/config\n{"min_time_speedway":"20", "max_time_qualification":"60", "num_laps_race":"5", "cars":["E2000017221101241890547C", "E20000172211012518905484", "E20000172211013118905493"]}'.encode("utf-8"))
 data = s.recv(2048).decode("utf-8")
 print(data)
 time.sleep(2)

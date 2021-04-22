@@ -4,6 +4,7 @@ import os.path
 from ClientThread import ClientThread
 from SensorThread import SensorThread
 from Producer import Producer
+from Consumer import Consumer
 from bcolors import bcolors
 
 class ServerController:
@@ -79,19 +80,23 @@ class ServerController:
         self.race = data
         self.buffer = __buffer_sensor__()
         self.producer = Producer(self.buffer, self.sensor, self.race, 'qualification')
+        self.consumer = Consumer(self.buffer, self.race, 'qualification')
 
         return ''
 
     def __start_qualification(self):
-        self.producer.start_qualification()
+        self.producer.start()
+        self.consumer.start()
         return ''
 
 class __buffer_sensor__:
     buffer = []
 
     def add(self, data):
-        print(data)
         self.buffer.append(data)
 
     def remove(self):
         return self.buffer.pop(0)
+
+    def is_empty(self):
+        return not self.buffer
