@@ -17,7 +17,7 @@ class ClientThread(threading.Thread):
         data = '.'
         while True and len(data):
             try:
-                data = self.clientsock.recv(2048).decode()
+                data = self.clientsock.recv(2048).decode("utf-8")
             except ConnectionResetError:
                 break
             if len(data):

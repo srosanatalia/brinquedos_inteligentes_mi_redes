@@ -25,7 +25,6 @@ class SensorThread():
             reader = mercury.Reader(self.serial, baudrate=self.baudrate)
             reader.set_region(self.region)
             reader.set_read_plan([self.antenna], self.protocol, read_power=self.frequency)
-            reader.read()
             self.reader = reader
             self.controller.set_sensor(self)
         # except:
@@ -35,7 +34,8 @@ class SensorThread():
         tags = list(map(lambda t: t.epc, self.reader.read()))
         return '{"tags":'+str(tags)+'}'
 
-    def read_data(self, handle_data, runtime):
+    def read_data(self, handle_data):
         self.reader.start_reading(lambda tag: handle_data(tag.epc, tag.rssi, datetime.fromtimestamp(tag.timestamp)))
-        time.sleep(runtime)
+
+    def stop_read_data(self):
         self.reader.stop_reading()
