@@ -61,4 +61,9 @@ time.sleep(2)
 s.sendall('POST /race/qualification/start\n'.encode("utf-8"))
 data = s.recv(2048).decode("utf-8")
 print(data)
-time.sleep(2)
+
+while True:
+    data = s.recv(2048).decode("utf-8")
+    print(data)
+    if data == 'OK\n{"msg": "QUALIFICATION_COMPLETED"}!':
+        break

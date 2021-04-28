@@ -46,6 +46,8 @@ class ServerController:
             response = self.__post_race_config(body)
         elif method == 'POST' and url == '/race/qualification/start':
             response = self.__start_qualification()
+        elif method == 'POST' and url == '/race/start':
+            response = self.__start_race()
         else:
             client.clientsock.sendall(f"NOT_FOUND\n".encode("utf-8"))
             return
@@ -79,12 +81,17 @@ class ServerController:
     def __post_race_config(self, data):
         self.race = data
         self.buffer = __buffer_sensor__()
-        self.producer = Producer(self.buffer, self.sensor, self.race, 'qualification')
-        self.consumer = Consumer(self.buffer, self.race, 'qualification')
+        self.producer = Producer(self.buffer, self.sensor, self.race)
+        self.consumer = Consumer(self.buffer, self.race, self.clients)
 
         return ''
 
     def __start_qualification(self):
+        self.producer.start()
+        self.consumer.start()
+        return ''
+
+    def __start_race(self):
         self.producer.start()
         self.consumer.start()
         return ''

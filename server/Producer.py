@@ -3,30 +3,30 @@ import threading
 import sys
 
 class Producer(threading.Thread):
-    def __init__(self, buffer, sensor, race_config, type):
+    def __init__(self, buffer, sensor, race_config):
         threading.Thread.__init__(self)
         self.buffer = buffer 
-        self.type = type 
+        self.type = 'qualification' 
         self.sensor = sensor
         self.min_lap_time = int(race_config['min_time_speedway'])
         self.cars = {}
         self.num_cars = 0
         self.current_lap = 0
         self.time_next_read = None
+        self.num_laps = race_config['num_laps_race']
+        self.max_time = race_config['max_time_qualification']
+        self.cars_ended_lap = []
 
-        if type == 'qualification':
-            self.max_time = race_config['max_time_qualification']
-            self.cars_ended_lap = []
-            for car in race_config['cars']:
-                self.cars[bytes(car, "utf-8")] = {"current_lap": 0, "first_read_lap": None, "next_start_read": None}
-                self.num_cars += 1
-                self.max_time_end = int(race_config['max_time_qualification'])
-        elif type == 'race':
-            self.num_laps = race_config['num_laps_race']
+        for car in race_config['cars']:
+            self.cars[bytes(car, "utf-8")] = {"current_lap": 0, "first_read_lap": None, "next_start_read": None}
+            self.num_cars += 1
+            self.max_time_end = int(race_config['max_time_qualification'])
     
     def run(self):
         if self.type == 'qualification':
             self.__start_qualification()
+        # if self.type == 'race':
+            # self.__start_race()
     
     def __start_qualification(self):
         self.time_start = datetime.now()
@@ -40,15 +40,16 @@ class Producer(threading.Thread):
         while datetime.now() <= self.time_end:
             while datetime.now() < self.time_next_read:
                 continue
-            self.sensor.read_data(self.treat_data)
+            self.sensor.read_data(self.treat_data_qualification)
             while len(self.cars_ended_lap) != self.num_cars or datetime.now() > timeout:
                 continue
             self.sensor.stop_read_data()
             self.cars_ended_lap = []
         self.buffer.add("QUALIFICATION_COMPLETED")
         print("QUALIFICATION_COMPLETED_PRODUCER")
+        self.type = 'race'
 
-    def treat_data(self, epc, rssi, timestamp):
+    def treat_data_qualification(self, epc, rssi, timestamp):
         try:
             if epc in self.cars.keys():
                 if timestamp >= self.cars[epc]['next_start_read']:

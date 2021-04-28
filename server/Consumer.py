@@ -1,19 +1,21 @@
 import threading
 
 class Consumer(threading.Thread):
-    def __init__(self, buffer, race_config, type):
+    def __init__(self, buffer, race_config, clients):
         threading.Thread.__init__(self)
         self.buffer = buffer 
-        self.type = type
+        self.clients = clients 
+        self.type = 'qualification'
         self.cars = {}
 
-        if self.type == 'qualification':
-            for car in race_config['cars']:
-                self.cars[bytes(car, "utf-8")] = {"laps": []}
+        for car in race_config['cars']:
+            self.cars[bytes(car, "utf-8")] = {"laps": []}
 
     def run(self):
         if self.type == 'qualification':
             self.__consume_qualification()
+        # if self.type == 'race':
+        #     self.__consume_race()
 
     def __consume_qualification(self):
         while self.buffer.is_empty():
@@ -37,6 +39,9 @@ class Consumer(threading.Thread):
             else:
                 break
         print("QUALIFICATION COMPLETED")
+        self.type = 'race'
+        for client in self.clients:
+            client.clientsock.sendall('OK\n{"msg": "QUALIFICATION_COMPLETED"}!'.encode("utf-8"))
 
     def __update_qualification(self, data, type):
         if data['lap'] == 1:
@@ -49,7 +54,9 @@ class Consumer(threading.Thread):
         elif type == 'new':
             self.cars[data['epc']]['laps'].insert((data['lap']-1), {'rssi': data['rssi'], 'time': time, 'timestamp': data['timestamp']})
 
-        print(self.__get_result_qualification())
+        result = self.__get_result_qualification()
+        for client in self.clients:
+            client.clientsock.sendall(f"OK\n{result}!".encode("utf-8"))
 
     def __get_result_qualification(self):
         result = []
