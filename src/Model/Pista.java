@@ -16,16 +16,26 @@ public class Pista {
     private String id; 
     private String nome;
     private String pais;
+    private String tempoPista;
     private BufferedImage imagem;
     private Time recordePista;
     private Piloto donoRecorde;
 
-    public Pista(String id, String nome, String pais) {
+    public Pista(String id, String nome, String pais, String tempo) {
         this.id = id;
         this.nome = nome;
         this.pais = pais;
         this.donoRecorde = null;
         this.recordePista = null;
+        this.tempoPista = tempo;
+    }
+
+    public String getTempoPista() {
+        return tempoPista;
+    }
+
+    public void setTempoPista(String tempoPista) {
+        this.tempoPista = tempoPista;
     }
 
     public String getId() {

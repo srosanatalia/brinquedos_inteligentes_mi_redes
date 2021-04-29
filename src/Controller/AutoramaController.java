@@ -13,6 +13,7 @@ import java.util.Scanner;
 import Model.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -94,8 +95,8 @@ public class AutoramaController {
         return equipe;
     }
     
-    public Pista cadastrarPista (String id, String nome, String pais){
-        Pista pista = new Pista (id, nome, pais);
+    public Pista cadastrarPista (String id, String nome, String pais, String tempo){
+        Pista pista = new Pista (id, nome, pais, tempo);
         pistas.add(pista);
         return pista;
     }
@@ -148,6 +149,14 @@ public class AutoramaController {
             } catch (Exception e){}
        }
     };
+    
+    public void configurarQualificacao(String url) throws IOException{
+        Cliente.configurarQualificacao(url);
+    }
+    
+    public void iniciarQualificacao(String url) throws IOException{
+        Cliente.iniciarQualificacao(url);
+    }
     
     public void criarJsonRfid(String serial, String baudrate, String region, String protocol, String antenna, String frequency){
         this.serial = serial;

@@ -57,11 +57,31 @@ public class ClienteTCP {
                 dos.flush();
                 
                 new Thread(leituraTag).start();
+                
+               
             }
           }
           catch(HeadlessException | IOException e) {
             System.out.println("Erro: " + e.getMessage());
           }
+    }
+    
+    public void configurarQualificacao(String url) throws IOException{
+        DataOutputStream dos = new DataOutputStream(this.cliente.getOutputStream());
+        
+        String rotaQUAL = url;
+        byte[] rota3 = rotaQUAL.getBytes();
+        dos.write(rota3);
+        dos.flush();
+    }
+    
+    public void iniciarQualificacao(String url) throws IOException{
+        DataOutputStream dos = new DataOutputStream(this.cliente.getOutputStream());
+        
+        String rotaQUALINI = url;
+        byte[] rota3 = rotaQUALINI.getBytes();
+        dos.write(rota3);
+        dos.flush();
     }
 
     public ArrayList getTags() {
