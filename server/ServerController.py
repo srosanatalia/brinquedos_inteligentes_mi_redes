@@ -80,27 +80,23 @@ class ServerController:
 
     def __post_race_config(self, data):
         self.race = data
-        self.buffer = __buffer_sensor__()
-        self.producer = Producer(self.buffer, self.sensor, self.race)
-        self.consumer = Consumer(self.buffer, self.race, self.clients)
 
         return ''
 
     def __start_qualification(self):
-        self.producer.start()
-        self.consumer.start()
+        self.buffer = __buffer_sensor__()
+        self.producer_qualification = Producer(self.buffer, self.sensor, self.race, 'qualification')
+        self.consumer_qualification = Consumer(self.buffer, self.race, self.clients, 'qualification')
+        self.producer_qualification.start()
+        self.consumer_qualification.start()
         return ''
 
     def __start_race(self):
         self.buffer = __buffer_sensor__()
-
-        self.producer.set_type('race')
-        self.producer.set_buffer(self.buffer)
-        self.consumer.set_type('race')
-        self.consumer.set_buffer(self.buffer)
-
-        self.producer.start()
-        self.consumer.start()
+        self.producer_race = Producer(self.buffer, self.sensor, self.race, 'race')
+        self.consumer_race = Consumer(self.buffer, self.race, self.clients, 'race')
+        self.producer_race.start()
+        self.consumer_race.start()
         return ''
 
 class __buffer_sensor__:

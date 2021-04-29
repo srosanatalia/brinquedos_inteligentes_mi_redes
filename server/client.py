@@ -35,15 +35,15 @@ data = s.recv(2048).decode("utf-8")
 print(data)
 time.sleep(2)
 
-s.sendall('POST /race/qualification/start\n'.encode("utf-8"))
-data = s.recv(2048).decode("utf-8")
-print(data)
+# s.sendall('POST /race/qualification/start\n'.encode("utf-8"))
+# data = s.recv(2048).decode("utf-8")
+# print(data)
 
-while True:
-    data = s.recv(2048).decode("utf-8")
-    print(data)
-    if data == 'QUALIFICATION_COMPLETED!':
-        break
+# while True:
+#     data = s.recv(2048).decode("utf-8")
+#     print(data)
+#     if data == 'QUALIFICATION_COMPLETED!':
+#         break
 
 time.sleep(2)
 s.sendall('POST /race/start\n'.encode("utf-8"))

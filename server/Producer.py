@@ -3,10 +3,10 @@ import threading
 import sys
 
 class Producer(threading.Thread):
-    def __init__(self, buffer, sensor, race_config):
+    def __init__(self, buffer, sensor, race_config, type):
         threading.Thread.__init__(self)
         self.buffer = buffer 
-        self.type = 'qualification' 
+        self.type = type 
         self.sensor = sensor
         self.min_lap_time = int(race_config['min_time_speedway'])
         self.cars = {}
@@ -22,12 +22,6 @@ class Producer(threading.Thread):
             self.cars[bytes(car, "utf-8")] = {"current_lap": 0, "first_read_lap": None, "next_start_read": None}
             self.num_cars += 1
             self.max_time_end = int(race_config['max_time_qualification'])
-    
-    def set_type(self, type):
-        self.type = type
-
-    def set_buffer(self, buffer):
-        self.buffer = buffer
 
     def run(self):
         if self.type == 'qualification':
@@ -63,11 +57,11 @@ class Producer(threading.Thread):
             self.cars[car]['next_start_read'] = self.time_start + timedelta(seconds=self.min_lap_time)
             self.cars[car]['first_read_lap'] = self.time_start
         timeout = self.time_start + timedelta(seconds=self.max_time_end+self.min_lap_time*2)
-        while len(self.cars_ended_race) != self.num_cars or datetime.now() > timeout:
+        while len(self.cars_ended_race) != self.num_cars and datetime.now() < timeout:
             while datetime.now() < self.time_next_read:
                 continue
             self.sensor.read_data(self.treat_data)
-            while len(self.cars_ended_lap) != self.num_cars or datetime.now() < timeout or len(self.cars_ended_race) == self.num_cars:
+            while len(self.cars_ended_lap) != self.num_cars or datetime.now() < timeout or len(self.cars_ended_race) != self.num_cars:
                 continue
             self.sensor.stop_read_data()
             self.cars_ended_lap = []
@@ -91,7 +85,7 @@ class Producer(threading.Thread):
                 else:
                     if epc not in self.cars_ended_lap:
                         self.cars_ended_lap.append(epc)
-                    if type == 'race' and epc not in self.cars_ended_race and self.cars[epc]['current_lap'] == self.num_laps:
+                    if self.type == 'race' and epc not in self.cars_ended_race and self.cars[epc]['current_lap'] == self.num_laps:
                         self.cars_ended_race.append(epc)
         except Exception as e:
             self.sensor.stop_read_data()

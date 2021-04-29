@@ -1,21 +1,15 @@
 import threading
 
 class Consumer(threading.Thread):
-    def __init__(self, buffer, race_config, clients):
+    def __init__(self, buffer, race_config, clients, type):
         threading.Thread.__init__(self)
         self.buffer = buffer 
         self.clients = clients 
-        self.type = 'qualification'
+        self.type = type
         self.cars = {}
 
         for car in race_config['cars']:
             self.cars[bytes(car, "utf-8")] = {"laps": []}
-
-    def set_type(self, type):
-        self.type = type
-
-    def set_buffer(self, buffer):
-        self.buffer = buffer
 
     def run(self):
         self.__consume()
@@ -114,7 +108,7 @@ class Consumer(threading.Thread):
 
     def __get_result_race(self):
         result = []
-        best_time_qualification = None
+        best_time_race = None
         for car in self.cars:
             result_car = {'epc': car, 'race_time': None, 'best_time': None, 'time_lap': None, 'laps': len(self.cars[car]['laps'])}
             for lap in self.cars[car]['laps']:
@@ -126,17 +120,16 @@ class Consumer(threading.Thread):
 
                 if (not result_car['best_time']) or (lap['time'] < result_car['best_time']):
                     result_car['best_time'] = lap['time']
-                    if (not best_time_qualification) or (lap['time'] < best_time_qualification):
-                        best_time_qualification = lap['time']
             if result_car['best_time'] != None:
                 result.append(result_car)
         
-        result_order = sorted(result, key=lambda k: k['best_time'])
+        result_order = sorted(result, key=lambda k: (k['laps'], k['race_time']))
         for car in result_order:
-            if car['best_time'] == best_time_qualification:
-                car['time'] = car['best_time']
+            if (not best_time_race):
+                best_time_race = car['race_time']
             else:
-                car['time'] = car['best_time'] - best_time_qualification
+                car['race_time'] = car['race_time'] - best_time_race
+            car['race_time'] = str(car['race_time'])[2:]
+            car['time_lap'] = str(car['time_lap'])[2:]
             car['best_time'] = str(car['best_time'])[2:]
-            car['time'] = str(car['time'])[2:]
         return result_order
