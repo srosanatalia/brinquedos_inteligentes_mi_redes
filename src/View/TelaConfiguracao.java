@@ -248,7 +248,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
 
     private void botaoConfiguracaoPadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfiguracaoPadraoActionPerformed
         try {
-            autoramaController.iniciarservidor("augusto.ddns.net", 5022);
+            autoramaController.iniciarservidor("127.0.0.1", 8000);
             autoramaController.criarJsonRfid("tmr:///dev/ttyUSB0", "115200", "NA2", "GEN2", "1", "1500");
         } catch (Exception ex) {
             Logger.getLogger(TelaConfiguracao.class.getName()).log(Level.SEVERE, null, ex);

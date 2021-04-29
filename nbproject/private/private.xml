@@ -5,8 +5,11 @@
         <group>
             <file>file:/C:/Users/nati_/Documents/NetBeansProjects/Problema01_BrinquedosInteligentes/src/View/TelaConfiguracao.java</file>
             <file>file:/C:/Users/nati_/Documents/NetBeansProjects/Problema01_BrinquedosInteligentes/src/Model/ClienteTCP.java</file>
+            <file>file:/C:/Users/nati_/Documents/NetBeansProjects/Problema01_BrinquedosInteligentes/src/Model/Pista.java</file>
             <file>file:/C:/Users/nati_/Documents/NetBeansProjects/Problema01_BrinquedosInteligentes/src/Controller/AutoramaController.java</file>
             <file>file:/C:/Users/nati_/Documents/NetBeansProjects/Problema01_BrinquedosInteligentes/src/View/TelaInicial.java</file>
+            <file>file:/C:/Users/nati_/Documents/NetBeansProjects/Problema01_BrinquedosInteligentes/src/Model/Partida.java</file>
+            <file>file:/C:/Users/nati_/Documents/NetBeansProjects/Problema01_BrinquedosInteligentes/src/Model/Pais.java</file>
         </group>
     </open-files>
 </project-private>
