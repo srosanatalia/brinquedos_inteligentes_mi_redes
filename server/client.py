@@ -3,29 +3,6 @@
 import socket, time, sys
 from datetime import datetime, timedelta
 
-# format_time = '%M:%S.%f'
-# now = datetime.now()
-# new_now = datetime.now()
-# few_seconds = new_now + timedelta(seconds=3)
-# print(str(few_seconds - now)[2:])
-
-# a = []
-# a.insert(0, 'a')
-# a.insert(2, 'c')
-# a.insert(1, 'b')
-# a[0] = '*'
-# print(a)
-
-# teste = [
-#     {'name':'Homer', 'age':39, 'time':datetime.now()+ timedelta(seconds=3)}, 
-#     {'name':'Bart', 'age':10, 'time':datetime.now()+ timedelta(seconds=5)}, 
-#     {'name':'Marge', 'age':35, 'time':datetime.now()}
-# ]
-# print(teste)
-# newlist = sorted(teste, key=lambda k: k['time'], reverse=True)
-# print(newlist)
-# for a in newlist:
-#     a['a'] = 1
 # print(newlist)
 # sys.exit(0)
 
@@ -65,5 +42,16 @@ print(data)
 while True:
     data = s.recv(2048).decode("utf-8")
     print(data)
-    if data == 'OK\n{"msg": "QUALIFICATION_COMPLETED"}!':
+    if data == 'QUALIFICATION_COMPLETED!':
+        break
+
+time.sleep(2)
+s.sendall('POST /race/start\n'.encode("utf-8"))
+data = s.recv(2048).decode("utf-8")
+print(data)
+
+while True:
+    data = s.recv(2048).decode("utf-8")
+    print(data)
+    if data == 'RACE_COMPLETED!':
         break

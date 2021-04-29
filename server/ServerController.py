@@ -92,6 +92,13 @@ class ServerController:
         return ''
 
     def __start_race(self):
+        self.buffer = __buffer_sensor__()
+
+        self.producer.set_type('race')
+        self.producer.set_buffer(self.buffer)
+        self.consumer.set_type('race')
+        self.consumer.set_buffer(self.buffer)
+
         self.producer.start()
         self.consumer.start()
         return ''
