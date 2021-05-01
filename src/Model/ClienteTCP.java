@@ -86,7 +86,7 @@ public class ClienteTCP {
     
     public void iniciarQualificacao(String url, ArrayList carros) throws IOException{
         this.carros = carros;
-        System.out.println("tá vazio?"+this.carros.isEmpty());
+        
         DataOutputStream dos = new DataOutputStream(this.cliente.getOutputStream());
         
         String rotaQUALINI = url;
@@ -103,12 +103,18 @@ public class ClienteTCP {
     
     public String getCarro(String tag){
         Iterator itr = this.carros.iterator();
+        System.out.println("tá vazio?"+this.carros.isEmpty());
         Carro carro = null;
         while(itr.hasNext()){
+            System.out.println(1);
             Object o = itr.next();
             if(o  instanceof Carro){
+                System.out.println(2);
                 carro = (Carro)o;
-                if(carro.getTag() == tag){
+                System.out.println("Carro Tag "+carro.getTag());
+                System.out.println("Tag "+tag);
+                if(carro.getTag().contains(tag)){
+                    System.out.println(carro.getMarca());
                     return carro.getModelo();
                 }
             }
@@ -138,7 +144,6 @@ public class ClienteTCP {
                            else{
                                if(!tag.contains("RACE_COMPLETED!")){
                                     String dados = tag;
-                                    System.out.println("dados " + dados);
                                     ArrayList <String> resultadoCorrida = new ArrayList();
                                     dados = dados.replaceAll("OK","");
                                     dados = dados.replaceAll(" ","");
@@ -155,8 +160,8 @@ public class ClienteTCP {
                                     String[] textoSeparado =dados.split("'");
                                     for (int i = 0; i <textoSeparado.length; ++i){ 
                                         if(textoSeparado[i].contains("epc")){
-                                            System.out.println(textoSeparado[i+2]);
-                                            resultadoCorrida.add(getCarro(textoSeparado[i+2]));
+                                            String tagCarro = textoSeparado[i+2];
+                                            resultadoCorrida.add(getCarro(tagCarro));
                                         }
                                         else if(textoSeparado[i].contains("race_time")){
                                             resultadoCorrida.add(textoSeparado[i+2]);
