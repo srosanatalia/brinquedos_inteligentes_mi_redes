@@ -174,6 +174,7 @@ public class TelaInicial extends javax.swing.JFrame {
         voltasQualificacao = new javax.swing.JTextField();
         duracaoQualificacao = new javax.swing.JTextField();
         iniciarQualificacao = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         painelResultado = new javax.swing.JPanel();
         botaoVoltar5 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -946,42 +947,54 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelQualificacaoLayout = new javax.swing.GroupLayout(painelQualificacao);
         painelQualificacao.setLayout(painelQualificacaoLayout);
         painelQualificacaoLayout.setHorizontalGroup(
             painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelQualificacaoLayout.createSequentialGroup()
+            .addGroup(painelQualificacaoLayout.createSequentialGroup()
                 .addContainerGap(115, Short.MAX_VALUE)
                 .addGroup(painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addGroup(painelQualificacaoLayout.createSequentialGroup()
-                        .addComponent(selectPilotoQualificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(botaoAdicionarPilotoQualificcao, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelQualificacaoLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelQualificacaoLayout.createSequentialGroup()
                         .addGroup(painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
                             .addGroup(painelQualificacaoLayout.createSequentialGroup()
-                                .addComponent(selectPistaQualificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(selectPilotoQualificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(imagemNacionalidadePistaQualificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel18))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19)
-                            .addComponent(voltasQualificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(50, 50, 50)
-                        .addGroup(painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel20)
-                            .addComponent(duracaoQualificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(painelQualificacaoLayout.createSequentialGroup()
-                            .addComponent(botaoVoltar4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(58, 58, 58)
-                            .addComponent(botaoContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(41, 41, 41)
-                            .addComponent(iniciarQualificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(90, 90, 90))
+                                .addComponent(botaoAdicionarPilotoQualificcao, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painelQualificacaoLayout.createSequentialGroup()
+                                .addGroup(painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painelQualificacaoLayout.createSequentialGroup()
+                                        .addComponent(selectPistaQualificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(imagemNacionalidadePistaQualificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel18))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel19)
+                                    .addComponent(voltasQualificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(50, 50, 50)
+                                .addGroup(painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel20)
+                                    .addComponent(duracaoQualificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(painelQualificacaoLayout.createSequentialGroup()
+                                    .addComponent(botaoVoltar4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(58, 58, 58)
+                                    .addComponent(botaoContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(41, 41, 41)
+                                    .addComponent(iniciarQualificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(90, 90, 90))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelQualificacaoLayout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(129, 129, 129))))
         );
         painelQualificacaoLayout.setVerticalGroup(
             painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1005,7 +1018,9 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(imagemNacionalidadePistaQualificacao, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addComponent(duracaoQualificacao)
                     .addComponent(voltasQualificacao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(60, 60, 60)
                 .addGroup(painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoVoltar4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1503,8 +1518,20 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void iniciarQualificacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarQualificacaoActionPerformed
         try {
-            esconderTelas();
-            painelResultado.setVisible(true);
+//            esconderTelas();
+//            painelResultado.setVisible(true);
+//            ArrayList <String> testeArray = new ArrayList();
+//            String teste = "[{'epc': b'E2000017221101321890548C', 'race_time': '01:02.159929', 'best_time': '00:19.766000', 'time_lap': '00:21.978000', 'laps': 3}]!";
+//            String[] textoSeparado = teste.split("'");
+//            System.out.println(testeArray.toString());
+//            for (int i = 0; i < textoSeparado.length; i++) {
+//                if(textoSeparado[i].length() == 24){
+//                    testeArray.add(textoSeparado[i]);
+//                    System.out.println(textoSeparado[i]);
+//                }
+//            }
+            
+            
             autorama.iniciarQualificacao("POST /race/start\n");
             
 //            DefaultTableModel tabela = (DefaultTableModel)tabelaPilotosQualificacao.getModel();
@@ -1527,6 +1554,39 @@ public class TelaInicial extends javax.swing.JFrame {
         esconderTelas();
         painelPrincipal.setVisible(true);
     }//GEN-LAST:event_botaoVoltar5ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String teste = "[{'epc': b'E20000172211012518905484', 'race_time': '00:20.275681', 'best_time': '00:10.012000', 'time_lap': '00:10.012000', 'laps': 2}, {'epc': b'E20000172211011718905474', 'race_time': '00:00.058000', 'best_time': '00:09.765000', 'time_lap': '00:09.765000', 'laps': 2}]!";
+        teste = teste.replaceAll(" ","");
+        teste = teste.replaceAll("\\[","");
+        teste = teste.replaceAll("\\{","");
+        teste = teste.replaceAll("\\n","");
+        teste = teste.replaceAll(",","");
+        teste = teste.replaceAll("\\}","");
+        teste = teste.replaceAll("\\]","");
+        teste = teste.replaceAll("!","");
+        teste = teste.replaceAll(":","");
+        System.out.println(teste);
+
+        String[] textoSeparado = teste.split("'");
+        for (int i = 0; i <textoSeparado.length; ++i){ 
+            if(textoSeparado[i].contains("epc")){
+                System.out.println(textoSeparado[i+2]);
+            }
+            else if(textoSeparado[i].contains("race_time")){
+                System.out.println(textoSeparado[i+2]);
+            }
+            else if(textoSeparado[i].contains("best_time")){
+                System.out.println(textoSeparado[i+2]);
+            }
+            else if(textoSeparado[i].contains("time_lap")){
+                System.out.println(textoSeparado[i+2]);
+            }
+            else if(textoSeparado[i].contains("laps")){
+                System.out.println(textoSeparado[i+1]);
+            }
+        } 
+    }//GEN-LAST:event_jButton1ActionPerformed
                               
     
     /**
@@ -1860,6 +1920,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JTextField inputPontosPiloto;
     private javax.swing.JTextField inputTagCarro;
     private javax.swing.JTextField inputTempoPista;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

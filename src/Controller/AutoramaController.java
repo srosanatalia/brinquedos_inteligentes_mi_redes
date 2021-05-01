@@ -155,7 +155,7 @@ public class AutoramaController {
     }
     
     public void iniciarQualificacao(String url) throws IOException{
-        Cliente.iniciarQualificacao(url);
+        Cliente.iniciarQualificacao(url, getCarros());
     }
     
     public void criarJsonRfid(String serial, String baudrate, String region, String protocol, String antenna, String frequency){
