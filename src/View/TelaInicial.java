@@ -1528,7 +1528,7 @@ public class TelaInicial extends javax.swing.JFrame {
 //            }
             
             
-            autorama.iniciarQualificacao("POST /race/start\n");
+            autorama.iniciarQualificacao("POST /race/qualification/start\n");
             
 //            DefaultTableModel tabela = (DefaultTableModel)tabelaPilotosQualificacao.getModel();
 //            Piloto piloto = buscaPilotoNome(selecionado);

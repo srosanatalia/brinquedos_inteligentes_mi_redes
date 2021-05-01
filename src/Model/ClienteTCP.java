@@ -6,6 +6,7 @@
 package Model;
 
 import View.TelaCorrida;
+import View.TelaQualificacao;
 import java.awt.HeadlessException;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -35,8 +36,10 @@ public class ClienteTCP {
     public BufferedReader entrada;
     public ArrayList tags;
     private ArrayList resultadoGeral;
+    private ArrayList resultadoGeralQualificacao;
     private ArrayList carros;
-    private TelaCorrida frame = new TelaCorrida();
+    private TelaCorrida frameCorrida = new TelaCorrida();
+//    private TelaQualificacao frameQualificacao = new TelaQualificacao();
 
     public ClienteTCP(String url, int porta) {
         this.url = url;
@@ -44,6 +47,7 @@ public class ClienteTCP {
         this.tags = new ArrayList();
         this.carros = new ArrayList();
         this.resultadoGeral = new ArrayList();
+        this.resultadoGeralQualificacao = new ArrayList();
     }
     
     public void leituraTag() throws ClassNotFoundException{
@@ -55,7 +59,7 @@ public class ClienteTCP {
                 String tags=null;
                 DataOutputStream dos = new DataOutputStream(this.cliente.getOutputStream());
                 
-                String rotaPOST = "POST /rfid/config\n{\"serial\":\"tmr:///dev/ttyUSB0\", \"baudrate\":\"230400\", \"region\":\"NA2\", \"protocol\":\"GEN2\", \"antenna\":\"1\", \"frequency\":\"1500\"}";
+                String rotaPOST = "POST /rfid/config\n{\"serial\":\"tmr:///dev/ttyUSB0\", \"baudrate\":\"230400\", \"region\":\"NA2\", \"protocol\":\"GEN2\", \"antenna\":\"1\", \"frequency\":\"1800\"}";
                 byte[] rota = rotaPOST.getBytes();
                 dos.write(rota);
                 dos.flush();
@@ -93,8 +97,19 @@ public class ClienteTCP {
         byte[] rota3 = rotaQUALINI.getBytes();
         dos.write(rota3);
         dos.flush();
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        frameCorrida.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frameCorrida.setVisible(true);
+    }
+    
+    public void iniciarCorrida(String url) throws IOException{
+        this.carros = carros;
+        
+        DataOutputStream dos = new DataOutputStream(this.cliente.getOutputStream());
+        
+        String rotaCORINI = url;
+        byte[] rota4 = rotaCORINI.getBytes();
+        dos.write(rota4);
+        dos.flush();
     }
 
     public ArrayList getTags() {
@@ -115,7 +130,7 @@ public class ClienteTCP {
                 System.out.println("Tag "+tag);
                 if(carro.getTag().contains(tag)){
                     System.out.println(carro.getMarca());
-                    return carro.getModelo();
+                    return carro.getNumeroCarro();
                 }
             }
         }
@@ -142,7 +157,7 @@ public class ClienteTCP {
                                 tag = "";
                            }
                            else{
-                               if(!tag.contains("RACE_COMPLETED!")){
+                               if(!tag.contains("RACE_COMPLETED!") && tag.contains("epc") && tag.contains("laps") && !tag.contains("QUALIFICATION_COMPLETED!")){
                                     String dados = tag;
                                     ArrayList <String> resultadoCorrida = new ArrayList();
                                     dados = dados.replaceAll("OK","");
@@ -175,13 +190,53 @@ public class ClienteTCP {
                                         else if(textoSeparado[i].contains("laps")){
                                             resultadoCorrida.add(textoSeparado[i+1]);
                                             resultadoGeral.add(resultadoCorrida);
-                                            frame.preencheResultado(resultadoCorrida);
+                                            frameCorrida.preencheResultado(resultadoCorrida);
                                         }
                                     } 
-                               } else{
-                                   frame.sucesso();
+                               } else if(!tag.contains("RACE_COMPLETED!") && tag.contains("epc") && !tag.contains("laps") && !tag.contains("QUALIFICATION_COMPLETED!") ){
+                                   String dados = tag;
+                                    ArrayList <String> resultadoQualificacao = new ArrayList();
+                                    dados = dados.replaceAll("OK","");
+                                    dados = dados.replaceAll(" ","");
+                                    dados = dados.replaceAll("\\[","");
+                                    dados = dados.replaceAll("\\{","");
+                                    dados = dados.replaceAll("\\n","");
+                                    dados = dados.replaceAll(",","");
+                                    dados = dados.replaceAll("\\}","");
+                                    dados = dados.replaceAll("\\]","");
+                                    dados = dados.replaceAll("!","");
+                                    dados = dados.replaceAll(":","");
+                                    System.out.println(dados);
+                                    tag = "";
+                                    String[] textoSeparado =dados.split("'");
+                                    for (int i = 0; i <textoSeparado.length; ++i){ 
+                                        if(textoSeparado[i].contains("epc")){
+                                            String tagCarro = textoSeparado[i+2];
+                                            resultadoQualificacao.add(getCarro(tagCarro));
+                                        }
+                                        else if(textoSeparado[i].contains("best_time")){
+                                            resultadoQualificacao.add(textoSeparado[i+2]);
+                                        }
+                                        else if(textoSeparado[i].contains("time")){
+                                            resultadoQualificacao.add(textoSeparado[i+2]);
+                                            resultadoGeralQualificacao.add(resultadoQualificacao);
+                                            frameCorrida.preencheResultadoQualificacao(resultadoQualificacao);
+                                        }
+                                    } 
+                               } 
+                               else if(tag.contains("RACE_COMPLETED!")){
+                                   tag = "";
+                                   frameCorrida.sucesso();
                                    System.out.println("Completou!");
-                               }                               
+                               }   
+                               else if(tag.contains("QUALIFICATION_COMPLETED!")){
+                                   tag = "";
+                                   frameCorrida.sucessoQualificacao();
+                                   System.out.println("Completou Qualificação!");
+                                   frameCorrida.setaCorrida(true);
+                                   frameCorrida.setaQualificacao(false);
+                                   iniciarCorrida("POST /race/start\n");
+                               }   
                            }
                         }
                     }

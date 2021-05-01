@@ -25,6 +25,8 @@ public class TelaCorrida extends javax.swing.JFrame {
     public TelaCorrida() {
         initComponents();
         this.dimensaoPadrao = new Dimension(817, 547);
+        painelQualificacao.setVisible(true);
+        painelResultado.setVisible(false);
     }
 
     /**
@@ -39,6 +41,11 @@ public class TelaCorrida extends javax.swing.JFrame {
         painelResultado = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaResultado = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        painelQualificacao = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabelaResultadoQualificacao = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(817, 547));
@@ -59,21 +66,72 @@ public class TelaCorrida extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tabelaResultado);
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel2.setText("CORRIDA");
+
         javax.swing.GroupLayout painelResultadoLayout = new javax.swing.GroupLayout(painelResultado);
         painelResultado.setLayout(painelResultadoLayout);
         painelResultadoLayout.setHorizontalGroup(
             painelResultadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelResultadoLayout.createSequentialGroup()
-                .addContainerGap(122, Short.MAX_VALUE)
+                .addContainerGap(82, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(119, 119, 119))
+            .addGroup(painelResultadoLayout.createSequentialGroup()
+                .addGap(331, 331, 331)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelResultadoLayout.setVerticalGroup(
             painelResultadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelResultadoLayout.createSequentialGroup()
-                .addContainerGap(109, Short.MAX_VALUE)
+                .addContainerGap(47, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(83, 83, 83))
+        );
+
+        painelQualificacao.setBackground(new java.awt.Color(255, 255, 255));
+        painelQualificacao.setMaximumSize(new java.awt.Dimension(817, 547));
+        painelQualificacao.setMinimumSize(new java.awt.Dimension(817, 547));
+        painelQualificacao.setPreferredSize(new java.awt.Dimension(817, 547));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel1.setText("QUALIFICAÇÃO");
+
+        tabelaResultadoQualificacao.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Carro", "Melhor Tempo", "Tempo de Volta"
+            }
+        ));
+        jScrollPane3.setViewportView(tabelaResultadoQualificacao);
+
+        javax.swing.GroupLayout painelQualificacaoLayout = new javax.swing.GroupLayout(painelQualificacao);
+        painelQualificacao.setLayout(painelQualificacaoLayout);
+        painelQualificacaoLayout.setHorizontalGroup(
+            painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelQualificacaoLayout.createSequentialGroup()
+                .addGroup(painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelQualificacaoLayout.createSequentialGroup()
+                        .addGap(277, 277, 277)
+                        .addComponent(jLabel1))
+                    .addGroup(painelQualificacaoLayout.createSequentialGroup()
+                        .addGap(97, 97, 97)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(104, Short.MAX_VALUE))
+        );
+        painelQualificacaoLayout.setVerticalGroup(
+            painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelQualificacaoLayout.createSequentialGroup()
+                .addContainerGap(47, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -83,12 +141,22 @@ public class TelaCorrida extends javax.swing.JFrame {
             .addGap(0, 857, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(painelResultado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 857, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(painelQualificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 547, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(painelResultado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(painelQualificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
@@ -133,13 +201,34 @@ public class TelaCorrida extends javax.swing.JFrame {
         DefaultTableModel tabela = (DefaultTableModel)tabelaResultado.getModel();
         tabela.addRow (new String [] {resultado.get(0), resultado.get(1), resultado.get(2), resultado.get(3), resultado.get(4)}); 
     }
+    public void preencheResultadoQualificacao (ArrayList <String> resultado){
+        DefaultTableModel tabela = (DefaultTableModel)tabelaResultadoQualificacao.getModel();
+        tabela.addRow (new String [] {resultado.get(0), resultado.get(1), resultado.get(2)}); 
+    }
     public void sucesso (){
         JOptionPane.showMessageDialog(rootPane, "Corrida Finalizada!");
     }
-
+    
+    public void sucessoQualificacao (){
+        JOptionPane.showMessageDialog(rootPane, "Qualificacao Finalizada! Deseja Iniciar a corrida?");
+    }
+    
+    public void setaQualificacao (boolean seta){
+        painelQualificacao.setVisible(seta);
+    }
+    
+    public void setaCorrida (boolean seta){
+        painelResultado.setVisible(seta);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JPanel painelQualificacao;
     private javax.swing.JPanel painelResultado;
     private javax.swing.JTable tabelaResultado;
+    private javax.swing.JTable tabelaResultadoQualificacao;
     // End of variables declaration//GEN-END:variables
 }
