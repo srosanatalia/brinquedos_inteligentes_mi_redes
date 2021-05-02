@@ -1,4 +1,5 @@
 import threading
+import time
 
 class Consumer(threading.Thread):
     def __init__(self, buffer, race_config, clients, type):
@@ -32,12 +33,7 @@ class Consumer(threading.Thread):
 
             data = self.buffer.remove()
             if data != msg_finished:
-                if len(self.cars[data['epc']]['laps']) == data['lap']:
-                    lap_current_lap = self.cars[data['epc']]['laps'][data['lap']-1]
-                    if data['rssi'] > lap_current_lap['rssi']:
-                        self.__update(data, 'update')
-                else:
-                    self.__update(data, 'new')
+                self.__update(data)
             else:
                 break
         if self.type == 'qualification':
@@ -45,24 +41,22 @@ class Consumer(threading.Thread):
         elif self.type == 'race':
             print("RACE COMPLETED")
         for client in self.clients:
+            time.sleep(1)
             client.clientsock.sendall(f'{msg_finished}!'.encode("utf-8"))
     
-    def __update(self, data, type):
+    def __update(self, data):
         if self.type == 'qualification':
-            self.__update_qualification(data, type)
+            self.__update_qualification(data)
         elif self.type == 'race':
-            self.__update_race(data, type)
+            self.__update_race(data)
 
-    def __update_qualification(self, data, type):
+    def __update_qualification(self, data):
         if data['lap'] == 1:
             time = data['timestamp'] - self.time_start
         else:
             time = data['timestamp'] - self.cars[data['epc']]['laps'][data['lap']-2]['timestamp']
 
-        if type == 'update':
-            self.cars[data['epc']]['laps'][data['lap']-1] = {'rssi': data['rssi'], 'time': time, 'timestamp': data['timestamp']}
-        elif type == 'new':
-            self.cars[data['epc']]['laps'].insert((data['lap']-1), {'rssi': data['rssi'], 'time': time, 'timestamp': data['timestamp']})
+        self.cars[data['epc']]['laps'].insert((data['lap']-1), {'time': time, 'timestamp': data['timestamp']})
 
         result = self.__get_result_qualification()
         for client in self.clients:
@@ -84,23 +78,20 @@ class Consumer(threading.Thread):
         result_order = sorted(result, key=lambda k: k['best_time'])
         for car in result_order:
             if car['best_time'] == best_time_qualification:
-                car['time'] = car['best_time']
+                car['time'] = str(car['best_time'])[2:]
             else:
                 car['time'] = car['best_time'] - best_time_qualification
+                car['time'] = '+'+str(car['time'])[2:]
             car['best_time'] = str(car['best_time'])[2:]
-            car['time'] = str(car['time'])[2:]
         return result_order
 
-    def __update_race(self, data, type):
+    def __update_race(self, data):
         if data['lap'] == 1:
             time = data['timestamp'] - self.time_start
         else:
             time = data['timestamp'] - self.cars[data['epc']]['laps'][data['lap']-2]['timestamp']
 
-        if type == 'update':
-            self.cars[data['epc']]['laps'][data['lap']-1] = {'rssi': data['rssi'], 'time': time, 'timestamp': data['timestamp']}
-        elif type == 'new':
-            self.cars[data['epc']]['laps'].insert((data['lap']-1), {'rssi': data['rssi'], 'time': time, 'timestamp': data['timestamp']})
+        self.cars[data['epc']]['laps'].insert((data['lap']-1), {'time': time, 'timestamp': data['timestamp']})
 
         result = self.__get_result_race()
         for client in self.clients:
@@ -123,13 +114,23 @@ class Consumer(threading.Thread):
             if result_car['best_time'] != None:
                 result.append(result_car)
         
-        result_order = sorted(result, key=lambda k: (k['laps'], k['race_time']))
+        result_order = multisort(list(result), (('laps', True), ('race_time', False)))
         for car in result_order:
             if (not best_time_race):
                 best_time_race = car['race_time']
+                car['race_time'] = str(car['race_time'])[2:]
+                laps_best_time_race = car['laps']
             else:
-                car['race_time'] = car['race_time'] - best_time_race
-            car['race_time'] = str(car['race_time'])[2:]
+                if car['laps'] == laps_best_time_race:
+                    car['race_time'] = car['race_time'] - best_time_race
+                    car['race_time'] = '+'+str(car['race_time'])[2:]
+                else:
+                    car['race_time'] = f"+{laps_best_time_race - car['laps']} voltas"
             car['time_lap'] = str(car['time_lap'])[2:]
             car['best_time'] = str(car['best_time'])[2:]
         return result_order
+        
+def multisort(xs, specs):
+    for key, reverse in reversed(specs):
+        xs.sort(key=lambda k: key, reverse=reverse)
+    return xs

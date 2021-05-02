@@ -12,12 +12,12 @@ class ServerController:
     sensor = None
     
     def __init__(self):
-        # if os.path.isfile('configs/rfid.json'):
-        #     start_rfid = input(f"{bcolors.YELLOW}Arquivo de configuração do RFID existente. Deseja iniciar conexão? (Y/n) {bcolors.COLOR_OFF}")
-        #     if start_rfid == 'Y' or start_rfid == 'y':
-        #         with open('configs/rfid.json', 'r') as file:
-        #             data = json.load(file)
-        #             self.__start_connection_rfid(data)
+        if os.path.isfile('configs/rfid.json'):
+            start_rfid = input(f"{bcolors.YELLOW}Arquivo de configuração do RFID existente. Deseja iniciar conexão? (Y/n) {bcolors.COLOR_OFF}")
+            if start_rfid == 'Y' or start_rfid == 'y':
+                with open('configs/rfid.json', 'r') as file:
+                    data = json.load(file)
+                    self.__start_connection_rfid(data)
         print('')
 
     def add_client(self, ip, port, clientsock):
