@@ -174,7 +174,6 @@ public class TelaInicial extends javax.swing.JFrame {
         voltasQualificacao = new javax.swing.JTextField();
         duracaoQualificacao = new javax.swing.JTextField();
         iniciarQualificacao = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         painelResultado = new javax.swing.JPanel();
         botaoVoltar5 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -924,7 +923,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel19.setText("Voltas");
 
-        jLabel20.setText("Duração (min.)");
+        jLabel20.setText("Duração (seg.)");
 
         botaoVoltar4.setText("Cancelar");
         botaoVoltar4.addActionListener(new java.awt.event.ActionListener() {
@@ -944,13 +943,6 @@ public class TelaInicial extends javax.swing.JFrame {
         iniciarQualificacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 iniciarQualificacaoActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Teste Tag");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
             }
         });
 
@@ -988,8 +980,7 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addComponent(botaoContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(41, 41, 41)
                             .addComponent(iniciarQualificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(90, 90, 90))
         );
         painelQualificacaoLayout.setVerticalGroup(
@@ -1014,9 +1005,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(imagemNacionalidadePistaQualificacao, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addComponent(duracaoQualificacao)
                     .addComponent(voltasQualificacao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(57, 57, 57)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addGroup(painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoVoltar4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1459,7 +1448,6 @@ public class TelaInicial extends javax.swing.JFrame {
         if(!tags.isEmpty()){
             for (int i = 0; i < tags.size(); i++) {
                 System.out.println(tags.get(i));
-                System.out.println(this.tagsUsadas.contains(tags.get(i)));
                 if(!this.tagsUsadas.contains(tags.get(i))){
                     inputTagCarro.setText((String) tags.get(i));
                     tagsUsadas.add(tags.get(i));
@@ -1503,7 +1491,6 @@ public class TelaInicial extends javax.swing.JFrame {
         botaoContinuar.setEnabled(false);
         iniciarQualificacao.setEnabled(true);
         String rotaQUAL = "POST /race/config\n{\"min_time_speedway\":\""+tempoPista+"\", \"max_time_qualification\":\""+duracaoQualificacao.getText()+"\", \"num_laps_race\":\""+voltasQualificacao.getText()+"\", \"cars\":["+jsonTags+"]}";
-        System.out.println(rotaQUAL);
         
         try {
             autorama.configurarQualificacao(rotaQUAL);
@@ -1550,39 +1537,6 @@ public class TelaInicial extends javax.swing.JFrame {
         esconderTelas();
         painelPrincipal.setVisible(true);
     }//GEN-LAST:event_botaoVoltar5ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String teste = "[{'epc': b'E20000172211012518905484', 'race_time': '00:20.275681', 'best_time': '00:10.012000', 'time_lap': '00:10.012000', 'laps': 2}, {'epc': b'E20000172211011718905474', 'race_time': '00:00.058000', 'best_time': '00:09.765000', 'time_lap': '00:09.765000', 'laps': 2}]!";
-        teste = teste.replaceAll(" ","");
-        teste = teste.replaceAll("\\[","");
-        teste = teste.replaceAll("\\{","");
-        teste = teste.replaceAll("\\n","");
-        teste = teste.replaceAll(",","");
-        teste = teste.replaceAll("\\}","");
-        teste = teste.replaceAll("\\]","");
-        teste = teste.replaceAll("!","");
-        teste = teste.replaceAll(":","");
-        System.out.println(teste);
-
-        String[] textoSeparado = teste.split("'");
-        for (int i = 0; i <textoSeparado.length; ++i){ 
-            if(textoSeparado[i].contains("epc")){
-                System.out.println(textoSeparado[i+2]);
-            }
-            else if(textoSeparado[i].contains("race_time")){
-                System.out.println(textoSeparado[i+2]);
-            }
-            else if(textoSeparado[i].contains("best_time")){
-                System.out.println(textoSeparado[i+2]);
-            }
-            else if(textoSeparado[i].contains("time_lap")){
-                System.out.println(textoSeparado[i+2]);
-            }
-            else if(textoSeparado[i].contains("laps")){
-                System.out.println(textoSeparado[i+1]);
-            }
-        } 
-    }//GEN-LAST:event_jButton1ActionPerformed
                               
     
     /**
@@ -1916,7 +1870,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JTextField inputPontosPiloto;
     private javax.swing.JTextField inputTagCarro;
     private javax.swing.JTextField inputTempoPista;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

@@ -118,18 +118,12 @@ public class ClienteTCP {
     
     public String getCarro(String tag){
         Iterator itr = this.carros.iterator();
-        System.out.println("tá vazio?"+this.carros.isEmpty());
         Carro carro = null;
         while(itr.hasNext()){
-            System.out.println(1);
             Object o = itr.next();
             if(o  instanceof Carro){
-                System.out.println(2);
                 carro = (Carro)o;
-                System.out.println("Carro Tag "+carro.getTag());
-                System.out.println("Tag "+tag);
                 if(carro.getTag().contains(tag)){
-                    System.out.println(carro.getMarca());
                     return carro.getNumeroCarro();
                 }
             }
@@ -170,7 +164,8 @@ public class ClienteTCP {
                                     dados = dados.replaceAll("\\]","");
                                     dados = dados.replaceAll("!","");
                                     dados = dados.replaceAll(":","");
-                                    System.out.println(dados);
+                                    System.out.println("Corrida: "+dados);
+                                    frameCorrida.limpaTabelaCorrida();
                                     tag = "";
                                     String[] textoSeparado =dados.split("'");
                                     for (int i = 0; i <textoSeparado.length; ++i){ 
@@ -191,6 +186,7 @@ public class ClienteTCP {
                                             resultadoCorrida.add(textoSeparado[i+1]);
                                             resultadoGeral.add(resultadoCorrida);
                                             frameCorrida.preencheResultado(resultadoCorrida);
+                                            resultadoCorrida.clear();
                                         }
                                     } 
                                } else if(!tag.contains("RACE_COMPLETED!") && tag.contains("epc") && !tag.contains("laps") && !tag.contains("QUALIFICATION_COMPLETED!") ){
@@ -206,7 +202,8 @@ public class ClienteTCP {
                                     dados = dados.replaceAll("\\]","");
                                     dados = dados.replaceAll("!","");
                                     dados = dados.replaceAll(":","");
-                                    System.out.println(dados);
+                                    System.out.println("Qualificacao: "+dados);
+                                    frameCorrida.limpaTabelaQualificacao();
                                     tag = "";
                                     String[] textoSeparado =dados.split("'");
                                     for (int i = 0; i <textoSeparado.length; ++i){ 
@@ -221,6 +218,7 @@ public class ClienteTCP {
                                             resultadoQualificacao.add(textoSeparado[i+2]);
                                             resultadoGeralQualificacao.add(resultadoQualificacao);
                                             frameCorrida.preencheResultadoQualificacao(resultadoQualificacao);
+                                            resultadoQualificacao.clear();
                                         }
                                     } 
                                } 

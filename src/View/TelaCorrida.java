@@ -205,6 +205,19 @@ public class TelaCorrida extends javax.swing.JFrame {
         DefaultTableModel tabela = (DefaultTableModel)tabelaResultadoQualificacao.getModel();
         tabela.addRow (new String [] {resultado.get(0), resultado.get(1), resultado.get(2)}); 
     }
+    
+    public void limpaTabelaQualificacao(){
+        DefaultTableModel tabela = (DefaultTableModel)tabelaResultadoQualificacao.getModel();
+        while (tabela.getRowCount() > 0){
+            tabela.removeRow(0);
+        }
+    }
+    public void limpaTabelaCorrida(){
+        DefaultTableModel tabela = (DefaultTableModel)tabelaResultado.getModel();
+        while (tabela.getRowCount() > 0){
+            tabela.removeRow(0);
+        }
+    }
     public void sucesso (){
         JOptionPane.showMessageDialog(rootPane, "Corrida Finalizada!");
     }
