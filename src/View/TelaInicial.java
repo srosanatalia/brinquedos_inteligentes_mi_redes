@@ -1260,10 +1260,6 @@ public class TelaInicial extends javax.swing.JFrame {
         painelCadastroEquipes.setVisible(true);
     }//GEN-LAST:event_botaoCadastrarEquipesActionPerformed
 
-    private void selectPilotoCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPilotoCarroActionPerformed
-
-    }//GEN-LAST:event_selectPilotoCarroActionPerformed
-
     private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
         esconderTelas();
         painelPrincipal.setVisible(true);
@@ -1273,10 +1269,6 @@ public class TelaInicial extends javax.swing.JFrame {
         esconderTelas();
         painelPrincipal.setVisible(true);
     }//GEN-LAST:event_botaoVoltar1ActionPerformed
-
-    private void SelectEquipeCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectEquipeCarroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SelectEquipeCarroActionPerformed
 
     private void selectAtividadePilotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectAtividadePilotoActionPerformed
         // TODO add your handling code here:
@@ -1537,6 +1529,14 @@ public class TelaInicial extends javax.swing.JFrame {
         esconderTelas();
         painelPrincipal.setVisible(true);
     }//GEN-LAST:event_botaoVoltar5ActionPerformed
+
+    private void SelectEquipeCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectEquipeCarroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SelectEquipeCarroActionPerformed
+
+    private void selectPilotoCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPilotoCarroActionPerformed
+
+    }//GEN-LAST:event_selectPilotoCarroActionPerformed
                               
     
     /**
