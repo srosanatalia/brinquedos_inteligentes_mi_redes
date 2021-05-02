@@ -1,11 +1,10 @@
 import signal
 import socket
 import sys
-
 from bcolors import bcolors
 from ServerController import ServerController
 
-# Função para encerramento de programa com ctrl+c
+# Função para encerramento do programa com ctrl+c
 def end_execution_handler(sig, frame):
     sys.stdout.write('\b\b')
     response = input(f"{bcolors.YELLOW}Deseja mesmo encerrar o servidor? (Y/n) {bcolors.COLOR_OFF}")
@@ -15,17 +14,17 @@ def end_execution_handler(sig, frame):
     else:
         print(f"{bcolors.GREEN}Servidor continua em execução...{bcolors.COLOR_OFF}")
 
-# Código para caso seja digitado ctrl+c não exibir error
+# Código para não exibir error caso seja digitado ctrl+c 
 signal.signal(signal.SIGINT, end_execution_handler)
 
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 host = ''
-# port = int(input(f"{bcolors.YELLOW}Digite a porta desejada: {bcolors.COLOR_OFF}"))
 port = 5022
 while True:
     try:
         serversocket.bind((host, port))
+    # Erro será chamada caso a porta já esteja em uso
     except OSError:
         port = int(input(f"{bcolors.YELLOW}Porta já utilizada, por favor, digite outra: {bcolors.COLOR_OFF}"))
     else:
@@ -33,7 +32,7 @@ while True:
 controller = ServerController()
 print(f"{bcolors.GREEN}Servidor iniciado em augusto.ddns.net:{port}...{bcolors.COLOR_OFF}")
 
-
+# Loop infinito esperado conexões
 while True:
     serversocket.listen(4)
     (clientsock, (ip, port)) = serversocket.accept()

@@ -1,3 +1,5 @@
+# Classe para definir cores do terminal
+
 class bcolors:
     # Reset
     COLOR_OFF="\033[0m"       # Text Reset
