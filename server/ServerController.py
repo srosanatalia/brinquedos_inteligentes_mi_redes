@@ -2,7 +2,7 @@ import json
 import os.path
 
 from ClientThread import ClientThread
-from SensorThread import SensorThread
+from Sensor import Sensor
 from Producer import Producer
 from Consumer import Consumer
 from bcolors import bcolors
@@ -12,6 +12,10 @@ class ServerController:
     sensor = None
     
     def __init__(self):
+        '''
+        * Quando iniciado, o controller verifica se já existe arquivo de configuração do módulo de leitura,
+        * caso positivo, pergunta ao usuário se ele deseja iniciar a conexão com o leitor.
+        '''
         if os.path.isfile('configs/rfid.json'):
             start_rfid = input(f"{bcolors.YELLOW}Arquivo de configuração do RFID existente. Deseja iniciar conexão? (Y/n) {bcolors.COLOR_OFF}")
             if start_rfid == 'Y' or start_rfid == 'y':
@@ -32,12 +36,14 @@ class ServerController:
     def set_sensor(self, sensor):
         self.sensor = sensor
 
+    # Método com as definições das rotas existentes
     def routes(self, client, request, body):
         method, url = request.split(' ')
 
         if body != '':
             body = json.loads(body)
 
+        # Condicionais para chamar o método referente a rota chamada
         if method == 'POST' and url == '/rfid/config':
             response = self.__post_rfid_config(body)
         elif method == 'GET' and url == '/rfid/tags':
@@ -48,10 +54,11 @@ class ServerController:
             response = self.__start_qualification()
         elif method == 'POST' and url == '/race/start':
             response = self.__start_race()
-        else:
+        else: # Caso seja chamado uma rota que não existe, é enviado uma mensagem de 'NOT_FOUND'
             client.clientsock.sendall(f"NOT_FOUND\n".encode("utf-8"))
             return
         
+        # Envia para o cliente mensagem de 'OK' com resposta da rota
         client.clientsock.sendall(f"OK\n{response}".encode("utf-8"))
 
     def __post_rfid_config(self, data):
@@ -62,7 +69,7 @@ class ServerController:
         return ''
     
     def __start_connection_rfid(self, data):
-        sensor = SensorThread(
+        sensor = Sensor(
             self,
             data['serial'], 
             data['baudrate'], 
@@ -99,6 +106,7 @@ class ServerController:
         self.consumer_race.start()
         return ''
 
+# Classe de apoio para o modelo Produtor-Consumidor
 class __buffer_sensor__:
     buffer = []
 
