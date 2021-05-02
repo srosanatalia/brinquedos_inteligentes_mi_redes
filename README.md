@@ -1,9 +1,10 @@
 # Sistema de Autorama
 
-<p align="center">Script para extração de dados do <a href="http://lattes.cnpq.br/">portal Lattes</a>.</p>
+<p align="center">Projeto desenvolvido para o MI de Redes do curso de Engenharia da Computação da UEFS no semestre 2020.1</p>
 
 <!--ts-->
    * [Sobre](#sobre)
+   * [Funcionalidade](#funcionalidade)
    * [Como Rodar o Servidor](#como-rodar-o-servidor)
       * [Pré Requisitos do Servidor](#pré-requisitos-do-servidor)
       * [Rodando o Servidor](#rodando-o-servidor)
@@ -15,11 +16,17 @@
 
 ## Sobre
 
-Projeto desenvolvido para o MI de Redes do curso de Engenharia da Computação da UEFS no semestre 2020.1. O projeto consiste em um sistema de autorama usando um Raspberry Pi e um módulo de leitura RFID com suporte a TAGs, sendo separado por um servidos em python (para raspberry) e um cliente em java.
+O projeto consiste em um sistema de autorama de carros usando um Raspberry Pi e um módulo de leitura RFID com suporte a TAGs, sendo separado por um servidos em python (rodando no raspberry) e um cliente em java (rodando em qualquer máquina).
 
-<img src="screenshots/tela_inicial.png" alt="tela_inicial" width="500" height="400"/>
+<img src="screenshots/tela_inicial.png" alt="tela_inicial" width="320" height="250"/>
 
-<img src="screenshots/tela_configuracao_corrida.png" alt="tela_configuracao_corrida" width="500" height="400"/>
+<img src="screenshots/tela_configuracao_corrida.png" alt="tela_configuracao_corrida" width="320" height="250"/>
+
+## Funcionalidade
+- Cadastro de pilotos, carros, equipes e pistas
+- Configuração e gerenciamento de corrida:
+   - Etapa de qualificação
+   - Corrida
 
 ## Como Rodar o Servidor
 ### Pré Requisitos do Servidor
@@ -35,7 +42,8 @@ $ cd server
 # Execute o comando para rodar o projeto
 $ python3 server.py
 
-# Por padrão o projeto será iniciado na porta 5022, caso a porta já esteja em uso ele solicitará outra porta.
+# Por padrão o projeto será iniciado na porta 5022, 
+# caso a porta já esteja em uso ele solicitará outra porta.
 ```
 Com o servidor rodando os clientes poderão conectar e chamar as rotas seguindo o seguinte padrão:
 <blockquote>MÉTODO ROTA \quebra_de_linha BODY_EM_JSON</blockquote>
