@@ -208,14 +208,18 @@ public class TelaCorrida extends javax.swing.JFrame {
     
     public void limpaTabelaQualificacao(){
         DefaultTableModel tabela = (DefaultTableModel)tabelaResultadoQualificacao.getModel();
-        while (tabela.getRowCount() > 0){
-            tabela.removeRow(0);
+        if(tabela.getRowCount() > 0){
+            while (tabela.getRowCount() > 0){
+                tabela.removeRow(0);
+            }
         }
     }
     public void limpaTabelaCorrida(){
         DefaultTableModel tabela = (DefaultTableModel)tabelaResultado.getModel();
-        while (tabela.getRowCount() > 0){
-            tabela.removeRow(0);
+        if(tabela.getRowCount() > 0){
+            while (tabela.getRowCount() > 0){
+                tabela.removeRow(0);
+            }
         }
     }
     public void sucesso (){
