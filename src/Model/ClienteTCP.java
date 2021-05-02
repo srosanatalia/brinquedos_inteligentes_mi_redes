@@ -164,7 +164,7 @@ public class ClienteTCP {
                                     dados = dados.replaceAll("\\]","");
                                     dados = dados.replaceAll("!","");
                                     dados = dados.replaceAll(":","");
-                                    System.out.println("Corrida: "+dados);
+//                                    System.out.println("Corrida: "+dados);
                                     frameCorrida.limpaTabelaCorrida();
                                     tag = "";
                                     String[] textoSeparado =dados.split("'");
@@ -174,13 +174,34 @@ public class ClienteTCP {
                                             resultadoCorrida.add(getCarro(tagCarro));
                                         }
                                         else if(textoSeparado[i].contains("race_time")){
-                                            resultadoCorrida.add(textoSeparado[i+2]);
+                                            String tempoFormatado = "";
+                                            String tempo = textoSeparado[i+2];
+                                            if(tempo.length() > 9){
+                                                String seg = tempo.substring(tempo.length() - 9, tempo.length());
+                                                String min = tempo.substring(0, tempo.length() - 9);
+                                                tempoFormatado = min + ":" + seg;
+                                            }
+                                            resultadoCorrida.add(tempoFormatado);
                                         }
                                         else if(textoSeparado[i].contains("best_time")){
-                                            resultadoCorrida.add(textoSeparado[i+2]);
+                                            String tempoFormatado = "";
+                                            String tempo = textoSeparado[i+2];
+                                            if(tempo.length() > 9){
+                                                String seg = tempo.substring(tempo.length() - 9, tempo.length());
+                                                String min = tempo.substring(0, tempo.length() - 9);
+                                                tempoFormatado = min + ":" + seg;
+                                            }
+                                            resultadoCorrida.add(tempoFormatado);
                                         }
                                         else if(textoSeparado[i].contains("time_lap")){
-                                            resultadoCorrida.add(textoSeparado[i+2]);
+                                            String tempoFormatado = "";
+                                            String tempo = textoSeparado[i+2];
+                                            if(tempo.length() > 9){
+                                                String seg = tempo.substring(tempo.length() - 9, tempo.length());
+                                                String min = tempo.substring(0, tempo.length() - 9);
+                                                tempoFormatado = min + ":" + seg;
+                                            }
+                                            resultadoCorrida.add(tempoFormatado);
                                         }
                                         else if(textoSeparado[i].contains("laps")){
                                             resultadoCorrida.add(textoSeparado[i+1]);
@@ -202,7 +223,7 @@ public class ClienteTCP {
                                     dados = dados.replaceAll("\\]","");
                                     dados = dados.replaceAll("!","");
                                     dados = dados.replaceAll(":","");
-                                    System.out.println("Qualificacao: "+dados);
+//                                    System.out.println("Qualificacao: "+dados);
                                     frameCorrida.limpaTabelaQualificacao();
                                     tag = "";
                                     String[] textoSeparado =dados.split("'");
@@ -212,10 +233,24 @@ public class ClienteTCP {
                                             resultadoQualificacao.add(getCarro(tagCarro));
                                         }
                                         else if(textoSeparado[i].contains("best_time")){
-                                            resultadoQualificacao.add(textoSeparado[i+2]);
+                                            String tempoFormatado = "";
+                                            String tempo = textoSeparado[i+2];
+                                            if(tempo.length() > 9){
+                                                String seg = tempo.substring(tempo.length() - 9, tempo.length());
+                                                String min = tempo.substring(0, tempo.length() - 9);
+                                                tempoFormatado = min + ":" + seg;
+                                            }
+                                            resultadoQualificacao.add(tempoFormatado);
                                         }
                                         else if(textoSeparado[i].contains("time")){
-                                            resultadoQualificacao.add(textoSeparado[i+2]);
+                                            String tempoFormatado = "";
+                                            String tempo = textoSeparado[i+2];
+                                            if(tempo.length() > 9){
+                                                String seg = tempo.substring(tempo.length() - 9, tempo.length());
+                                                String min = tempo.substring(0, tempo.length() - 9);
+                                                tempoFormatado = min + ":" + seg;
+                                            }
+                                            resultadoQualificacao.add(tempoFormatado);
                                             resultadoGeralQualificacao.add(resultadoQualificacao);
                                             frameCorrida.preencheResultadoQualificacao(resultadoQualificacao);
                                             resultadoQualificacao.clear();

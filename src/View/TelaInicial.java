@@ -1447,7 +1447,7 @@ public class TelaInicial extends javax.swing.JFrame {
         ArrayList tags = autorama.getTags();
         if(!tags.isEmpty()){
             for (int i = 0; i < tags.size(); i++) {
-                System.out.println(tags.get(i));
+//                System.out.println(tags.get(i));
                 if(!this.tagsUsadas.contains(tags.get(i))){
                     inputTagCarro.setText((String) tags.get(i));
                     tagsUsadas.add(tags.get(i));
