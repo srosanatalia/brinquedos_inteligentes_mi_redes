@@ -18,8 +18,7 @@
 
 O projeto consiste em um sistema de autorama de carros usando um Raspberry Pi e um módulo de leitura RFID com suporte a TAGs, sendo separado por um servidos em python (rodando no raspberry) e um cliente em java (rodando em qualquer máquina).
 
-<img src="screenshots/tela_inicial.png" alt="tela_inicial" width="400" height="300"/>
-<img src="screenshots/tela_configuracao_corrida.png" alt="tela_configuracao_corrida" width="400" height="300"/>
+<img src="screenshots/tela_inicial.png" alt="tela_inicial" width="400" height="300"/> <img src="screenshots/tela_configuracao_corrida.png" alt="tela_configuracao_corrida" width="400" height="300"/>
 
 ## Funcionalidade
 - Cadastro de pilotos, carros, equipes e pistas
