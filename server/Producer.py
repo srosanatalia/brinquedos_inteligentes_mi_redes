@@ -42,7 +42,7 @@ class Producer(threading.Thread):
             while datetime.now() < self.time_next_read:
                 continue
             self.sensor.read_data(self.treat_data)
-            while len(self.cars_ended_lap) != self.num_cars or datetime.now() > timeout:
+            while len(self.cars_ended_lap) != self.num_cars and datetime.now() < timeout:
                 continue
             self.sensor.stop_read_data()
             self.cars_ended_lap = []
@@ -56,12 +56,12 @@ class Producer(threading.Thread):
         for car in self.cars:
             self.cars[car]['next_start_read'] = self.time_start + timedelta(seconds=self.min_lap_time)
             self.cars[car]['first_read_lap'] = self.time_start
-        timeout = self.time_start + timedelta(seconds=self.max_time_end+self.min_lap_time*2)
+        timeout = self.time_start + timedelta(seconds=self.min_lap_time*(self.num_laps+2))
         while len(self.cars_ended_race) != self.num_cars and datetime.now() < timeout:
             while datetime.now() < self.time_next_read:
                 continue
             self.sensor.read_data(self.treat_data)
-            while len(self.cars_ended_lap) != self.num_cars or datetime.now() < timeout or len(self.cars_ended_race) != self.num_cars:
+            while len(self.cars_ended_lap) != self.num_cars and datetime.now() < timeout and len(self.cars_ended_race) != self.num_cars:
                 continue
             self.sensor.stop_read_data()
             self.cars_ended_lap = []
@@ -72,16 +72,12 @@ class Producer(threading.Thread):
         try:
             if epc in self.cars.keys() and (type == 'qualification' or epc not in self.cars_ended_race):
                 if timestamp >= self.cars[epc]['next_start_read']:
-                    self.cars[epc]['limit_time_lap'] = self.cars[epc]['next_start_read'] + timedelta(seconds=5)
                     self.cars[epc]['current_lap'] += 1
-                    self.cars[epc]['first_read_lap'] = timestamp
-                    self.cars[epc]['next_start_read'] = self.cars[epc]['first_read_lap'] + timedelta(seconds=self.min_lap_time)
+                    self.cars[epc]['next_start_read'] = timestamp + timedelta(seconds=self.min_lap_time)
+                    self.buffer.add({"epc": epc, "timestamp": timestamp, "lap": self.cars[epc]['current_lap']})
                     if self.cars[epc]['current_lap'] > self.current_lap:
                         self.current_lap = self.cars[epc]['current_lap']
                         self.time_next_read = self.cars[epc]['next_start_read']
-                
-                if timestamp <= self.cars[epc]['limit_time_lap']:
-                    self.buffer.add({"epc": epc, "rssi": rssi, "timestamp": timestamp, "lap": self.cars[epc]['current_lap']})
                 else:
                     if epc not in self.cars_ended_lap:
                         self.cars_ended_lap.append(epc)

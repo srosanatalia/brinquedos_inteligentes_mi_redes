@@ -20,17 +20,17 @@ port = 5022
 # connection to hostname on the port.
 s.connect((host, port))                               
 
-s.sendall('POST /rfid/config\n{"serial":"tmr:///dev/ttyUSB0", "baudrate":"230400", "region":"NA2", "protocol":"GEN2", "antenna":"1", "frequency":"1500"}'.encode("utf-8"))
+s.sendall('POST /rfid/config\n{"serial":"tmr:///dev/ttyUSB0", "baudrate":"230400", "region":"NA2", "protocol":"GEN2", "antenna":"1", "frequency":"1800"}'.encode("utf-8"))
 data = s.recv(2048).decode("utf-8")
 print(data)
 time.sleep(2)
 
-s.sendall('GET /rfid/tags\n'.encode("utf-8"))
-data = s.recv(2048).decode("utf-8")
-print(data)
-time.sleep(2)
+# s.sendall('GET /rfid/tags\n'.encode("utf-8"))
+# data = s.recv(2048).decode("utf-8")
+# print(data)
+# time.sleep(2)
 
-s.sendall('POST /race/config\n{"min_time_speedway":"20", "max_time_qualification":"60", "num_laps_race":"5", "cars":["E2000017221101241890547C", "E20000172211012518905484", "E20000172211013118905493"]}'.encode("utf-8"))
+s.sendall('POST /race/config\n{"min_time_speedway":"20", "max_time_qualification":"60", "num_laps_race":"5", "cars":["E2000017221101241890547C", "E20000172211012518905484"]}'.encode("utf-8"))
 data = s.recv(2048).decode("utf-8")
 print(data)
 time.sleep(2)
@@ -45,7 +45,7 @@ time.sleep(2)
 #     if data == 'QUALIFICATION_COMPLETED!':
 #         break
 
-time.sleep(2)
+# time.sleep(2)
 s.sendall('POST /race/start\n'.encode("utf-8"))
 data = s.recv(2048).decode("utf-8")
 print(data)
