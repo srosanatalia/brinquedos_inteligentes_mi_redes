@@ -39,7 +39,6 @@ public class ClienteTCP {
     private ArrayList resultadoGeralQualificacao;
     private ArrayList carros;
     private TelaCorrida frameCorrida = new TelaCorrida();
-//    private TelaQualificacao frameQualificacao = new TelaQualificacao();
 
     public ClienteTCP(String url, int porta) {
         this.url = url;
@@ -50,6 +49,7 @@ public class ClienteTCP {
         this.resultadoGeralQualificacao = new ArrayList();
     }
     
+    //Método utilizado para leitura das tags
     public void leituraTag() throws ClassNotFoundException{
         try {
             this.cliente = new Socket(this.url, this.porta);
@@ -79,6 +79,7 @@ public class ClienteTCP {
           }
     }
     
+    //Recebe e envia a rota da configuração da qualificação
     public void configurarQualificacao(String url) throws IOException{
         DataOutputStream dos = new DataOutputStream(this.cliente.getOutputStream());
         
@@ -88,6 +89,7 @@ public class ClienteTCP {
         dos.flush();
     }
     
+    //Inicia qualificação
     public void iniciarQualificacao(String url, ArrayList carros) throws IOException{
         this.carros = carros;
         
@@ -101,6 +103,7 @@ public class ClienteTCP {
         frameCorrida.setVisible(true);
     }
     
+    //Inicia corrida
     public void iniciarCorrida(String url) throws IOException{
         this.carros = carros;
         
@@ -131,6 +134,7 @@ public class ClienteTCP {
         return "Desconhecido";
     }
     
+    //Thread para receber e tratar os dados recebidos do servidor
     private Runnable leituraTag = new Runnable() {
         public void run() {
             String tag = "";

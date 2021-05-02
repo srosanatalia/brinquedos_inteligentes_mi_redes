@@ -43,7 +43,15 @@ Antes de começar, você precisa ter instalado em sua máquina o [java 8+](https
 
 ### Rodando o Cliente
 
-Abra o projeto pelo netbeans...
+Abra o projeto pelo netbeans. Na primeira tela o botão "Utilizar configuração padrão" já está implementado para facilitar a configuração com a raspberry. 
+Após avançar na etapa de configuração, você será apresentado à tela de cadastro onde deverá seguir a seguinte ordem:
+- Cadastro de Carros (lembrando que não deve-se repetir o nome da marca);
+- Cadastro de Pilotos (lembrando de associar a um carro cadastrado);
+- Cadastro de Equipe;
+- Cadastro de Pista;
+- Qualificação;
+
+Apenas carros e pilotos que fazem parte de uma equipe podem participar da corrida.
 
 ## Tecnologias 🛠 
 
