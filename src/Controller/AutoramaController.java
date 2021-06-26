@@ -60,6 +60,10 @@ public class AutoramaController {
         if(piloto.getEquipe() != null){
             int i = this.equipes.indexOf(piloto.getEquipe());
             ArrayList<Piloto> listaPilotosEquipe = this.equipes.get(i).getListaPilotos();
+            if(!listaPilotosEquipe.isEmpty()){
+                listaPilotosEquipe.add(piloto);
+                this.equipes.get(i).setListaPilotos(listaPilotosEquipe);
+            }
             listaPilotosEquipe.add(piloto);
             this.equipes.get(i).setListaPilotos(listaPilotosEquipe);
         }
@@ -73,22 +77,26 @@ public class AutoramaController {
     }
     
     public Equipe cadastrarEquipe(Equipe equipe){
-        Iterator itr = equipe.getListaPilotos().iterator();
-        while(itr.hasNext()){
-            Object o = itr.next();
-            if(o  instanceof Piloto){
-                Piloto piloto = (Piloto) o;
-                int index = this.pilotos.indexOf(piloto);
-                this.pilotos.get(index).setEquipe(equipe);
+        if(!equipe.getListaPilotos().isEmpty()){
+            Iterator itr = equipe.getListaPilotos().iterator();
+            while(itr.hasNext()){
+                Object o = itr.next();
+                if(o  instanceof Piloto){
+                    Piloto piloto = (Piloto) o;
+                    int index = this.pilotos.indexOf(piloto);
+                    this.pilotos.get(index).setEquipe(equipe);
+                }
             }
         }
-        Iterator itr2 = equipe.getListaCarros().iterator();
-        while(itr2.hasNext()){
-            Object o = itr2.next();
-            if(o  instanceof Carro){
-                Carro carro = (Carro) o;
-                int index = this.carros.indexOf(carro);
-                 this.carros.get(index).setEquipe(equipe);
+        if(!equipe.getListaCarros().isEmpty()){
+            Iterator itr2 = equipe.getListaCarros().iterator();
+            while(itr2.hasNext()){
+                Object o = itr2.next();
+                if(o  instanceof Carro){
+                    Carro carro = (Carro) o;
+                    int index = this.carros.indexOf(carro);
+                     this.carros.get(index).setEquipe(equipe);
+                }
             }
         }
         equipes.add(equipe);
@@ -155,7 +163,7 @@ public class AutoramaController {
     }
     
     public void iniciarQualificacao(String url) throws IOException{
-        Cliente.iniciarQualificacao(url, getCarros());
+        Cliente.iniciarQualificacao(url, getCarros(), getPilotos());
     }
     
     public void criarJsonRfid(String serial, String baudrate, String region, String protocol, String antenna, String frequency){
@@ -195,6 +203,10 @@ public class AutoramaController {
             }
         }
         return null;
+    }
+
+    public void cadastrarEntidades() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

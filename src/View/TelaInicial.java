@@ -38,6 +38,8 @@ public class TelaInicial extends javax.swing.JFrame {
     private ArrayList <Carro> listaCarrosEquipe;
     private ArrayList <Carro> listaCarrosQualificacao;
     private ArrayList tagsUsadas;
+    private ArrayList carrosUsados;
+    private ArrayList teste;
     
     public TelaInicial(AutoramaController autorama) {
         this.autorama = autorama;
@@ -55,6 +57,8 @@ public class TelaInicial extends javax.swing.JFrame {
         this.listaCarrosQualificacao = new ArrayList();
         this.listaPilotosEquipe = new ArrayList();
         this.tagsUsadas = new ArrayList();
+        this.carrosUsados = new ArrayList();
+        this.teste = new ArrayList();
         painelPrincipal.setVisible(true);
     }
     public TelaInicial() {
@@ -145,6 +149,7 @@ public class TelaInicial extends javax.swing.JFrame {
         botaoCadastrarEquipes = new javax.swing.JButton();
         botaoCadastrarPista = new javax.swing.JButton();
         botaoQualificacao = new javax.swing.JButton();
+        usarCadastroPadrao = new javax.swing.JButton();
         painelCadastroPista = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
         selectNacionalidadePista = new javax.swing.JComboBox<>();
@@ -746,6 +751,13 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        usarCadastroPadrao.setText("Usar Cadastro Padrão");
+        usarCadastroPadrao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usarCadastroPadraoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(painelPrincipalLayout);
         painelPrincipalLayout.setHorizontalGroup(
@@ -757,13 +769,16 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(botaoCadastrarPilotos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botaoCadastrarCarros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botaoCadastrarPista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(botaoQualificacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(374, Short.MAX_VALUE))
+                    .addComponent(botaoQualificacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(usarCadastroPadrao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(356, Short.MAX_VALUE))
         );
         painelPrincipalLayout.setVerticalGroup(
             painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPrincipalLayout.createSequentialGroup()
                 .addGap(139, 139, 139)
+                .addComponent(usarCadastroPadrao)
+                .addGap(18, 18, 18)
                 .addComponent(botaoCadastrarCarros)
                 .addGap(18, 18, 18)
                 .addComponent(botaoCadastrarPilotos)
@@ -773,7 +788,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(botaoCadastrarPista)
                 .addGap(18, 18, 18)
                 .addComponent(botaoQualificacao)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addContainerGap(180, Short.MAX_VALUE))
         );
 
         painelCadastroPista.setBackground(new java.awt.Color(255, 255, 255));
@@ -889,14 +904,10 @@ public class TelaInicial extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome", "Apelido", "Nacionalidade", "Equipe", "Carro"
+                "Nome", "Nacionalidade", "Equipe", "Carro Marca", "Carro Modelo", "Carro n°", "Carro Tag"
             }
         ));
         jScrollPane1.setViewportView(tabelaPilotosQualificacao);
-        if (tabelaPilotosQualificacao.getColumnModel().getColumnCount() > 0) {
-            tabelaPilotosQualificacao.getColumnModel().getColumn(3).setHeaderValue("Equipe");
-            tabelaPilotosQualificacao.getColumnModel().getColumn(4).setHeaderValue("Carro");
-        }
 
         selectPilotoQualificacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         selectPilotoQualificacao.addActionListener(new java.awt.event.ActionListener() {
@@ -1421,7 +1432,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 selectPilotoQualificacao.removeItem((Object) selecionado);
                 return;
             }
-            tabela.addRow (new String [] {piloto.getNome(), piloto.getApelido(), piloto.getNacionalidade(), piloto.getEquipe().getNome(), piloto.getCarro().getMarca()}); 
+            tabela.addRow (new String [] {piloto.getNome(), piloto.getNacionalidade(), piloto.getEquipe().getNome(), piloto.getCarro().getMarca(), piloto.getCarro().getModelo(), piloto.getCarro().getNumeroCarro(), piloto.getCarro().getTag()}); 
             selectPilotoQualificacao.removeItem((Object) selecionado);
             listaCarrosQualificacao.add(piloto.getCarro());
         } else{
@@ -1537,6 +1548,104 @@ public class TelaInicial extends javax.swing.JFrame {
     private void selectPilotoCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPilotoCarroActionPerformed
 
     }//GEN-LAST:event_selectPilotoCarroActionPerformed
+    private String distribuiTags(){
+        ArrayList tags = autorama.getTags();
+        if(!tags.isEmpty()){
+            for (int i = 0; i < tags.size(); i++) {
+                if(!this.tagsUsadas.contains(tags.get(i))){
+//                  inputTagCarro.setText((String) tags.get(i));
+                    System.out.println(tags.get(i));
+                    tagsUsadas.add(tags.get(i));
+                    return (String) tags.get(i);
+                }
+            }
+        }
+        return "";
+    }
+    private Carro distribuiCarros(){
+        ArrayList carros = autorama.getCarros();
+        if(!carros.isEmpty()){
+            for (int i = 0; i < carros.size(); i++) {
+                if(!this.carrosUsados.contains(carros.get(i))){
+                    carrosUsados.add(carros.get(i));
+                    Carro carro = (Carro) carros.get(i);
+                    System.out.println(carro.getMarca());
+                    return carro;
+                }
+            }
+        }
+        return null;
+    }
+    private void usarCadastroPadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usarCadastroPadraoActionPerformed
+        if(autorama.getTags().isEmpty()){
+            return;
+        }
+        //equipes
+        Equipe equipeTurbo = new Equipe("1", "Equipe Turbo", "Turbo", "Brasil", "2021");
+        autorama.cadastrarEquipe(equipeTurbo);
+        Equipe equipeMaster = new Equipe("2", "Equipe Master", "Master", "Brasil", "2021");
+        autorama.cadastrarEquipe(equipeMaster);
+
+        //carros
+        Carro carroCadastrado = new Carro("1",  distribuiTags(), "Série 7 Sedã", "BMW", "1");
+        autorama.cadastrarCarro(carroCadastrado);
+        carroCadastrado = new Carro("2",  distribuiTags(), "Tiggo", "Chery", "2");
+        autorama.cadastrarCarro(carroCadastrado);
+        carroCadastrado = new Carro("3",  distribuiTags(), "Meriva", "GM/Chevrolet", "3");
+        autorama.cadastrarCarro(carroCadastrado);
+        carroCadastrado = new Carro("4",  distribuiTags(), "300C", "Chrysler", "4");
+        autorama.cadastrarCarro(carroCadastrado);
+        carroCadastrado = new Carro("5",  distribuiTags(), "C3", "Citroën", "5");
+        autorama.cadastrarCarro(carroCadastrado);
+        carroCadastrado = new Carro("6",  distribuiTags(), "Durango", "Dodge", "6");
+        autorama.cadastrarCarro(carroCadastrado);
+        carroCadastrado = new Carro("7",  distribuiTags(), "Effa M100", "Effa", "7");
+        autorama.cadastrarCarro(carroCadastrado);
+        carroCadastrado = new Carro("8",  distribuiTags(), "Pick-up", "Hafei", "8");
+        autorama.cadastrarCarro(carroCadastrado);
+        
+        //Pilotos
+        Piloto pilotoCadastrado = new Piloto("1", "Augusto", "Augusto",  "Brasil", true);
+        pilotoCadastrado.setCarro(distribuiCarros());
+        pilotoCadastrado.setEquipe(equipeTurbo);
+        autorama.cadastrarPiloto(pilotoCadastrado);
+        pilotoCadastrado = new Piloto("2", "Tales", "Tales",  "Brasil", true);
+        pilotoCadastrado.setCarro(distribuiCarros());
+        pilotoCadastrado.setEquipe(equipeTurbo);
+        autorama.cadastrarPiloto(pilotoCadastrado);
+        pilotoCadastrado = new Piloto("3", "Elisângela", "Elisângela",  "Brasil", true);
+        pilotoCadastrado.setCarro(distribuiCarros());
+        pilotoCadastrado.setEquipe(equipeMaster);
+        autorama.cadastrarPiloto(pilotoCadastrado);
+        pilotoCadastrado = new Piloto("4", "Natália", "Natália",  "Brasil", true);
+        pilotoCadastrado.setCarro(distribuiCarros());
+        pilotoCadastrado.setEquipe(equipeTurbo);
+        autorama.cadastrarPiloto(pilotoCadastrado);
+        pilotoCadastrado = new Piloto("5", "Laercio", "Laercio",  "Brasil", true);
+        pilotoCadastrado.setCarro(distribuiCarros());
+        pilotoCadastrado.setEquipe(equipeMaster);
+        autorama.cadastrarPiloto(pilotoCadastrado);
+        pilotoCadastrado = new Piloto("6", "João", "João",  "Brasil", true);
+        pilotoCadastrado.setCarro(distribuiCarros());
+        pilotoCadastrado.setEquipe(equipeTurbo);
+        autorama.cadastrarPiloto(pilotoCadastrado);
+        pilotoCadastrado = new Piloto("7", "Maria", "Maria",  "Brasil", true);
+        pilotoCadastrado.setCarro(distribuiCarros());
+        pilotoCadastrado.setEquipe(equipeMaster);
+        autorama.cadastrarPiloto(pilotoCadastrado);
+        pilotoCadastrado = new Piloto("8", "José", "José",  "Brasil", true);
+        pilotoCadastrado.setCarro(distribuiCarros());
+        pilotoCadastrado.setEquipe(equipeMaster);
+        autorama.cadastrarPiloto(pilotoCadastrado);
+        
+        //Pistas
+        Pista pistaCadastrada = autorama.cadastrarPista("1", "Av. Maria Quitéria", "Brasil", "30");
+        pistaCadastrada = autorama.cadastrarPista("2", "Av. Trasnordestina", "Brasil", "30");
+        pistaCadastrada = autorama.cadastrarPista("3", "Av. Getúlio Vargas", "Brasil", "30");
+        pistaCadastrada = autorama.cadastrarPista("4", "Av. Tomé de Souza", "Brasil", "30");
+        
+        JOptionPane.showMessageDialog(rootPane, "Cadastro padrão efetuado com sucesso!");
+    }//GEN-LAST:event_usarCadastroPadraoActionPerformed
                               
     
     /**
@@ -1737,7 +1846,7 @@ public class TelaInicial extends javax.swing.JFrame {
             Object o = itr.next();
             if(o  instanceof Piloto){
                 Piloto piloto = (Piloto)o;
-                if(piloto.getCarro() != null && piloto.isEmAtividade() && piloto.getEquipe() != null){
+                if(piloto.getCarro() != null && piloto.isEmAtividade() && piloto.getEquipe() != null && piloto.getCarro().getTag() != ""){
                     selectPilotoQualificacao.addItem(piloto.getNome());
                 }
             }
@@ -1932,6 +2041,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JTable tabelaPilotosEquipe;
     private javax.swing.JTable tabelaPilotosQualificacao;
     private javax.swing.JTable tabelaResultado;
+    private javax.swing.JButton usarCadastroPadrao;
     private javax.swing.JTextField voltasQualificacao;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,6 +9,8 @@ import Model.Piloto;
 import java.awt.Dimension;
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,6 +24,8 @@ public class TelaCorrida extends javax.swing.JFrame {
      * Creates new form TelaCorrida
      */
     private final Dimension dimensaoPadrao;
+    public int contadorQual = 0;
+    public int contadorCorr = 0;
     public TelaCorrida() {
         initComponents();
         this.dimensaoPadrao = new Dimension(817, 547);
@@ -42,10 +46,12 @@ public class TelaCorrida extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaResultado = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        contadorResultado = new javax.swing.JLabel();
         painelQualificacao = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabelaResultadoQualificacao = new javax.swing.JTable();
+        contadorQualificacao = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(817, 547));
@@ -61,7 +67,7 @@ public class TelaCorrida extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Carro", "Tempo de Corrida", "Melhor Tempo", "Tempo de Volta", "Voltas"
+                "Carro n°", "Piloto", "Tempo de Corrida", "Melhor Tempo", "Tempo de Volta", "Voltas"
             }
         ));
         jScrollPane2.setViewportView(tabelaResultado);
@@ -69,24 +75,32 @@ public class TelaCorrida extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel2.setText("CORRIDA");
 
+        contadorResultado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        contadorResultado.setText("Tempo 00:00:00");
+
         javax.swing.GroupLayout painelResultadoLayout = new javax.swing.GroupLayout(painelResultado);
         painelResultado.setLayout(painelResultadoLayout);
         painelResultadoLayout.setHorizontalGroup(
             painelResultadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelResultadoLayout.createSequentialGroup()
-                .addContainerGap(82, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(painelResultadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(painelResultadoLayout.createSequentialGroup()
+                        .addGap(331, 331, 331)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(contadorResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelResultadoLayout.createSequentialGroup()
+                        .addContainerGap(82, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(119, 119, 119))
-            .addGroup(painelResultadoLayout.createSequentialGroup()
-                .addGap(331, 331, 331)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelResultadoLayout.setVerticalGroup(
             painelResultadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelResultadoLayout.createSequentialGroup()
                 .addContainerGap(47, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addGroup(painelResultadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(contadorResultado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(83, 83, 83))
@@ -105,30 +119,35 @@ public class TelaCorrida extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Carro", "Melhor Tempo", "Tempo de Volta"
+                "Carro n°", "Carro Modelo", "Carro Piloto", "Melhor Tempo", "Tempo de Volta"
             }
         ));
         jScrollPane3.setViewportView(tabelaResultadoQualificacao);
+
+        contadorQualificacao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        contadorQualificacao.setText("Tempo 00:00:00");
 
         javax.swing.GroupLayout painelQualificacaoLayout = new javax.swing.GroupLayout(painelQualificacao);
         painelQualificacao.setLayout(painelQualificacaoLayout);
         painelQualificacaoLayout.setHorizontalGroup(
             painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelQualificacaoLayout.createSequentialGroup()
-                .addGroup(painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(97, 97, 97)
+                .addGroup(painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(painelQualificacaoLayout.createSequentialGroup()
-                        .addGap(277, 277, 277)
-                        .addComponent(jLabel1))
-                    .addGroup(painelQualificacaoLayout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1)
+                        .addGap(52, 52, 52)
+                        .addComponent(contadorQualificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(104, Short.MAX_VALUE))
         );
         painelQualificacaoLayout.setVerticalGroup(
             painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelQualificacaoLayout.createSequentialGroup()
                 .addContainerGap(47, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addGroup(painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(contadorQualificacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(73, 73, 73))
@@ -138,9 +157,9 @@ public class TelaCorrida extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 857, Short.MAX_VALUE)
+            .addGap(0, 817, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(painelResultado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 857, Short.MAX_VALUE))
+                .addComponent(painelResultado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -193,17 +212,46 @@ public class TelaCorrida extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaCorrida().setVisible(true);
+                
             }
         });
     }
-    
+    public void cronometroQualificacao (){
+        Timer tm = new Timer();
+        tm.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                contadorQual++;
+                int seg = contadorQual %60;
+                int min = contadorQual /60;
+                int hora = min /60;
+                min %= 60; //pra ficar só os minutos
+                contadorQualificacao.setText(String.format("Tempo %02d:%02d:%02d", hora, min, seg));
+
+            }
+        }, 1000, 1000);
+    }
+    public void cronometroCorrida (){
+        Timer tm = new Timer();
+        tm.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                contadorCorr++;
+                int seg = contadorCorr %60;
+                int min = contadorCorr /60;
+                int hora = min /60;
+                min %= 60; //pra ficar só os minutos
+                contadorResultado.setText(String.format("Tempo %02d:%02d:%02d", hora, min, seg));
+            }
+        }, 1000, 1000);
+    }
     public void preencheResultado (ArrayList <String> resultado){
         DefaultTableModel tabela = (DefaultTableModel)tabelaResultado.getModel();
-        tabela.addRow (new String [] {resultado.get(0), resultado.get(1), resultado.get(2), resultado.get(3), resultado.get(4)}); 
+        tabela.addRow (new String [] {resultado.get(0), resultado.get(1), resultado.get(2), resultado.get(3), resultado.get(4), resultado.get(5)}); 
     }
     public void preencheResultadoQualificacao (ArrayList <String> resultado){
         DefaultTableModel tabela = (DefaultTableModel)tabelaResultadoQualificacao.getModel();
-        tabela.addRow (new String [] {resultado.get(0), resultado.get(1), resultado.get(2)}); 
+        tabela.addRow (new String [] {resultado.get(0), resultado.get(1), resultado.get(2), resultado.get(3), resultado.get(4)}); 
     }
     
     public void limpaTabelaQualificacao(){
@@ -231,14 +279,22 @@ public class TelaCorrida extends javax.swing.JFrame {
     }
     
     public void setaQualificacao (boolean seta){
+        if(seta){
+            cronometroQualificacao();
+        }
         painelQualificacao.setVisible(seta);
     }
     
     public void setaCorrida (boolean seta){
+        if(seta){
+            cronometroCorrida();
+        }
         painelResultado.setVisible(seta);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel contadorQualificacao;
+    private javax.swing.JLabel contadorResultado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;

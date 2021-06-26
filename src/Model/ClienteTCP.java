@@ -38,6 +38,7 @@ public class ClienteTCP {
     private ArrayList resultadoGeral;
     private ArrayList resultadoGeralQualificacao;
     private ArrayList carros;
+    private ArrayList pilotos;
     private TelaCorrida frameCorrida = new TelaCorrida();
 
     public ClienteTCP(String url, int porta) {
@@ -45,6 +46,7 @@ public class ClienteTCP {
         this.porta = porta;
         this.tags = new ArrayList();
         this.carros = new ArrayList();
+        this.pilotos = new ArrayList();
         this.resultadoGeral = new ArrayList();
         this.resultadoGeralQualificacao = new ArrayList();
     }
@@ -90,8 +92,9 @@ public class ClienteTCP {
     }
     
     //Inicia qualificação
-    public void iniciarQualificacao(String url, ArrayList carros) throws IOException{
+    public void iniciarQualificacao(String url, ArrayList carros, ArrayList pilotos) throws IOException{
         this.carros = carros;
+        this.pilotos = pilotos;
         
         DataOutputStream dos = new DataOutputStream(this.cliente.getOutputStream());
         
@@ -101,6 +104,7 @@ public class ClienteTCP {
         dos.flush();
         frameCorrida.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frameCorrida.setVisible(true);
+        frameCorrida.cronometroQualificacao();
     }
     
     //Inicia corrida
@@ -119,7 +123,7 @@ public class ClienteTCP {
         return tags;
     }
     
-    public String getCarro(String tag){
+    public String getCarroNumero(String tag){
         Iterator itr = this.carros.iterator();
         Carro carro = null;
         while(itr.hasNext()){
@@ -128,6 +132,39 @@ public class ClienteTCP {
                 carro = (Carro)o;
                 if(carro.getTag().contains(tag)){
                     return carro.getNumeroCarro();
+                }
+            }
+        }
+        return "Desconhecido";
+    }
+    public String getCarroModelo(String tag){
+        Iterator itr = this.carros.iterator();
+        Carro carro = null;
+        while(itr.hasNext()){
+            Object o = itr.next();
+            if(o  instanceof Carro){
+                carro = (Carro)o;
+                if(carro.getTag().contains(tag)){
+                    return carro.getModelo();
+                }
+            }
+        }
+        return "Desconhecido";
+    }
+    public String getCarroPiloto(String tag){
+        Iterator itr = this.carros.iterator();
+        Carro carro = null;
+        while(itr.hasNext()){
+            Object o = itr.next();
+            if(o  instanceof Carro){
+                carro = (Carro)o;
+                if(carro.getTag().contains(tag)){
+                    for (int i = 0; i < this.pilotos.size(); i++) {
+                        Piloto piloto = (Piloto) this.pilotos.get(i);
+                        if(piloto.getCarro().equals(carro)){
+                            return piloto.getNome();
+                        }
+                    }
                 }
             }
         }
@@ -175,7 +212,8 @@ public class ClienteTCP {
                                     for (int i = 0; i <textoSeparado.length; ++i){ 
                                         if(textoSeparado[i].contains("epc")){
                                             String tagCarro = textoSeparado[i+2];
-                                            resultadoCorrida.add(getCarro(tagCarro));
+                                            resultadoCorrida.add(getCarroNumero(tagCarro));
+                                            resultadoCorrida.add(getCarroPiloto(tagCarro));
                                         }
                                         else if(textoSeparado[i].contains("race_time")){
                                             String tempoFormatado = "";
@@ -234,7 +272,9 @@ public class ClienteTCP {
                                     for (int i = 0; i <textoSeparado.length; ++i){ 
                                         if(textoSeparado[i].contains("epc")){
                                             String tagCarro = textoSeparado[i+2];
-                                            resultadoQualificacao.add(getCarro(tagCarro));
+                                            resultadoQualificacao.add(getCarroNumero(tagCarro));
+                                            resultadoQualificacao.add(getCarroModelo(tagCarro));
+                                            resultadoQualificacao.add(getCarroPiloto(tagCarro));
                                         }
                                         else if(textoSeparado[i].contains("best_time")){
                                             String tempoFormatado = "";

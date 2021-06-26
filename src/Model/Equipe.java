@@ -30,8 +30,8 @@ public class Equipe {
         this.nacionalidade = nacionalidade;
         this.ano = ano;
         this.pontos = 0;
-        this.listaCarros = null;
-        this.listaPilotos = null;
+        this.listaCarros = new ArrayList();
+        this.listaPilotos = new ArrayList();
     }
 
     

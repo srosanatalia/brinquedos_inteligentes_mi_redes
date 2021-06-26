@@ -1054,8 +1054,9 @@
                       <Component id="botaoCadastrarCarros" alignment="0" max="32767" attributes="0"/>
                       <Component id="botaoCadastrarPista" alignment="0" max="32767" attributes="0"/>
                       <Component id="botaoQualificacao" max="32767" attributes="0"/>
+                      <Component id="usarCadastroPadrao" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="374" max="32767" attributes="0"/>
+                  <EmptySpace pref="356" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1063,6 +1064,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="139" max="-2" attributes="0"/>
+                  <Component id="usarCadastroPadrao" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="botaoCadastrarCarros" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="botaoCadastrarPilotos" min="-2" max="-2" attributes="0"/>
@@ -1072,7 +1075,7 @@
                   <Component id="botaoCadastrarPista" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="botaoQualificacao" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="221" max="32767" attributes="0"/>
+                  <EmptySpace pref="180" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1116,6 +1119,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoQualificacaoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="usarCadastroPadrao">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Usar Cadastro Padr&#xe3;o"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usarCadastroPadraoActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -1408,12 +1419,14 @@
             <Component class="javax.swing.JTable" name="tabelaPilotosQualificacao">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="0">
+                  <Table columnCount="7" rowCount="0">
                     <Column editable="true" title="Nome" type="java.lang.Object"/>
-                    <Column editable="true" title="Apelido" type="java.lang.Object"/>
                     <Column editable="true" title="Nacionalidade" type="java.lang.Object"/>
                     <Column editable="true" title="Equipe" type="java.lang.Object"/>
-                    <Column editable="true" title="Carro" type="java.lang.Object"/>
+                    <Column editable="true" title="Carro Marca" type="java.lang.Object"/>
+                    <Column editable="true" title="Carro Modelo" type="java.lang.Object"/>
+                    <Column editable="true" title="Carro n&#xb0;" type="java.lang.Object"/>
+                    <Column editable="true" title="Carro Tag" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1434,12 +1447,22 @@
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title value="Equipe"/>
+                      <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title value="Carro"/>
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
