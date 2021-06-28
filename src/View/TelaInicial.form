@@ -87,9 +87,9 @@
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="0" pref="445" max="32767" attributes="0"/>
-                  <Component id="painelPrincipal" pref="749" max="32767" attributes="0"/>
-                  <EmptySpace min="0" pref="447" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="463" max="32767" attributes="0"/>
+                  <Component id="painelPrincipal" pref="791" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="464" max="32767" attributes="0"/>
               </Group>
           </Group>
           <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
@@ -731,7 +731,7 @@
                               <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
                               <Component id="jScrollPane3" alignment="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="113" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
@@ -1056,7 +1056,7 @@
                       <Component id="botaoQualificacao" max="32767" attributes="0"/>
                       <Component id="usarCadastroPadrao" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="356" max="32767" attributes="0"/>
+                  <EmptySpace pref="336" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1075,7 +1075,7 @@
                   <Component id="botaoCadastrarPista" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="botaoQualificacao" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="180" max="32767" attributes="0"/>
+                  <EmptySpace pref="394" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1328,7 +1328,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="115" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
@@ -1367,6 +1367,7 @@
                           </Group>
                           <Component id="jScrollPane1" min="-2" pref="612" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="tempoPista" alignment="0" min="-2" pref="211" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
               </Group>
@@ -1380,7 +1381,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="selectPilotoQualificacao" max="32767" attributes="0"/>
-                      <Component id="botaoAdicionarPilotoQualificcao" pref="32" max="32767" attributes="0"/>
+                      <Component id="botaoAdicionarPilotoQualificcao" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="93" max="-2" attributes="0"/>
@@ -1397,7 +1398,9 @@
                       <Component id="duracaoQualificacao" alignment="0" max="32767" attributes="0"/>
                       <Component id="voltasQualificacao" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="98" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="tempoPista" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="63" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="botaoVoltar4" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="botaoContinuar" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
@@ -1522,6 +1525,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectPistaQualificacaoActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -1571,6 +1577,11 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="iniciarQualificacaoActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="tempoPista">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Tempo pista:"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
