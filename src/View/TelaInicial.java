@@ -1394,7 +1394,6 @@ public class TelaInicial extends javax.swing.JFrame {
         String id = inputIdPista.getText();
         String tempo = inputTempoPista.getText();
         String nacionalidade = (String) selectNacionalidadePista.getSelectedItem();
-        System.out.println(nacionalidade);
         if(nacionalidade == "<Selecionar Nacionalidade>"){
             return;
         }
@@ -1655,8 +1654,8 @@ public class TelaInicial extends javax.swing.JFrame {
         //Pistas
         Pista pistaCadastrada = autorama.cadastrarPista("1", "Av. Maria Quitéria", "Brasil", "30");
         pistaCadastrada = autorama.cadastrarPista("2", "Av. Trasnordestina", "Brasil", "30");
-        pistaCadastrada = autorama.cadastrarPista("3", "Av. Getúlio Vargas", "Brasil", "30");
-        pistaCadastrada = autorama.cadastrarPista("4", "Av. Tomé de Souza", "Brasil", "30");
+        pistaCadastrada = autorama.cadastrarPista("3", "Av. Getúlio Vargas", "Brasil", "60");
+        pistaCadastrada = autorama.cadastrarPista("4", "Av. Tomé de Souza", "Brasil", "60");
         
         JOptionPane.showMessageDialog(rootPane, "Cadastro padrão efetuado com sucesso!");
     }//GEN-LAST:event_usarCadastroPadraoActionPerformed
