@@ -30,6 +30,11 @@ class Producer(threading.Thread):
         self.cars_ended_lap = []
         self.cars_ended_race = []
 
+        if 'teste' in race_config.keys():
+            self.teste = race_config['teste']
+        else:
+            self.teste = False
+
         for car in race_config['cars']:
             self.cars[bytes(car, "utf-8")] = {"current_lap": 0, "first_read_lap": None, "next_start_read": None}
             self.num_cars += 1
@@ -54,11 +59,11 @@ class Producer(threading.Thread):
             # Laço para esperar até tempo minimo de próxima leitura para começar a ler
             while datetime.now() < self.time_next_read:
                 continue
-            self.sensor.read_data(self.treat_data)
+            self.sensor.read_data(self.treat_data, self.teste, list(self.cars.keys()))
             # Laço para esperar até que todos carros terminem a volta que iniciou ou até o limite máximo de qualificação
             while len(self.cars_ended_lap) != self.num_cars and datetime.now() < timeout:
                 continue
-            self.sensor.stop_read_data()
+            self.sensor.stop_read_data(self.teste)
             self.cars_ended_lap = []
         self.buffer.add("QUALIFICATION_COMPLETED")
         print("QUALIFICATION_COMPLETED_PRODUCER")
@@ -74,17 +79,17 @@ class Producer(threading.Thread):
         while len(self.cars_ended_race) != self.num_cars and datetime.now() < timeout:
             while datetime.now() < self.time_next_read:
                 continue
-            self.sensor.read_data(self.treat_data)
+            self.sensor.read_data(self.treat_data, self.teste, list(self.cars.keys()))
             # Laço para esperar até que todos carros terminem a volta que iniciou ou até todos completarem a corrida
             #  ou até o limite máximo de qualificação
             while len(self.cars_ended_lap) != self.num_cars and datetime.now() < timeout and len(self.cars_ended_race) != self.num_cars:
                 continue
-            self.sensor.stop_read_data()
+            self.sensor.stop_read_data(self.teste)
             self.cars_ended_lap = []
         self.buffer.add("RACE_COMPLETED")
         print("RACE_COMPLETED_PRODUCER")
 
-    def treat_data(self, epc, rssi, timestamp):
+    def treat_data(self, epc, timestamp):
         try:
             # Verificação se a tag lida está na corrida
             if epc in self.cars.keys() and (type == 'qualification' or epc not in self.cars_ended_race):
@@ -105,6 +110,6 @@ class Producer(threading.Thread):
                     if self.type == 'race' and epc not in self.cars_ended_race and self.cars[epc]['current_lap'] == self.num_laps:
                         self.cars_ended_race.append(epc)
         except Exception as e:
-            self.sensor.stop_read_data()
+            self.sensor.stop_read_data(self.teste)
             print(e)
             sys.exit(0)

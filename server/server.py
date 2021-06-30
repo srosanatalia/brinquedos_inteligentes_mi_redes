@@ -1,8 +1,10 @@
+from configs import path_default
 import signal
 import socket
 import sys
 from bcolors import bcolors
 from ServerController import ServerController
+import os
 
 # Função para encerramento do programa com ctrl+c
 def end_execution_handler(sig, frame):

@@ -1,5 +1,8 @@
+import json
 import paho.mqtt.client as mqtt
 from configs import env
+import logging
+import time
 
 class Publisher:
     
@@ -18,16 +21,31 @@ class Publisher:
         self.client.loop_start()
 
     def on_log(self, client, userdata, level, buf):
-        print('a')
+        logging.info(buf)
 
     def on_connect(self, client, userdata, flags, rc):
-        print('a')
+        if rc == 0:
+            client.connected_flag = True
+            logging.info("Conexão estabelecida")
+            return
+        
+        logging.info("Falha ao conectar %s, erro, rc=%s" % rc)
 
     def on_disconnect(self, client, userdata, rc):
-        print('a')
+        logging.info("Cliente disconectou")
 
     def on_publish(self, client,userdata,mid):
-        print('a')
+        logging.info("Dado publicado\n")
    
     def on_message(self, client, userdata, msg):
-        print('a')
+        msg = msg.payload.decode("utf-8")
+        logging.info(f"Mensagem no tópico {msg.topic}: {msg}")
+        msg_json = json.loads(msg.payload)
+        print(msg_json)
+
+    def send_message(self, message="", retain=False):
+        while not self.client.connected_flag:
+            time.sleep(1)
+
+        ret = self.client.publish(self.topic, message, 0, retain=retain)
+        logging.info("Resultado de publicação: "+str(ret))
