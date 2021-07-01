@@ -1,8 +1,14 @@
 import socket, time, sys
 from datetime import datetime, timedelta
 
-# print(newlist)
-# sys.exit(0)
+from mqtt.Subscriber import Subscriber
+from mqtt.Publisher import Publisher
+
+# subscriber = Subscriber('laercio')
+publisher = Publisher('laercio')
+publisher.send_message("Teste, por favor, vai")
+time.sleep(5)
+sys.exit(0)
 
 # create a socket object
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 

@@ -53,6 +53,9 @@ class Sensor():
         else:
             self.reader.stop_reading()
 
+    def finished_read_data(self):
+        self.simulate_data.finished()
+
 class __SimulateData__(threading.Thread):
     def __init__(self, handle_data, epcs):
         threading.Thread.__init__(self)

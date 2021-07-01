@@ -65,6 +65,8 @@ class Producer(threading.Thread):
                 continue
             self.sensor.stop_read_data(self.teste)
             self.cars_ended_lap = []
+        if self.teste:
+            self.sensor.finished_read_data()
         self.buffer.add("QUALIFICATION_COMPLETED")
         print("QUALIFICATION_COMPLETED_PRODUCER")
     
@@ -86,6 +88,8 @@ class Producer(threading.Thread):
                 continue
             self.sensor.stop_read_data(self.teste)
             self.cars_ended_lap = []
+        if self.teste:
+            self.sensor.finished_read_data()
         self.buffer.add("RACE_COMPLETED")
         print("RACE_COMPLETED_PRODUCER")
 
