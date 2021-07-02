@@ -37,11 +37,12 @@ class Publisher:
     def on_publish(self, client,userdata,mid):
         print("Dado publicado\n")
    
-    def on_message(self, client, userdata, msg):
-        msg = msg.payload.decode("utf-8")
-        print(f"Mensagem no tópico {msg.topic}: {msg}")
-        msg_json = json.loads(msg.payload)
-        print(msg_json)
+    def on_message(self, client, userdata, message):
+        message_decode = message.payload.decode("utf-8")
+        print(f"Mensagem no tópico {message.topic}: {message_decode}")
+        # print(f"Mensagem no tópico {msg.topic}: {msg}")
+        # msg_json = json.loads(msg.payload)
+        # print(msg_json)
 
     def send_message(self, message="", retain=False):
         while not self.client.connected_flag:

@@ -6,7 +6,7 @@ import time
 class Subscriber:
     
     def __init__(self, topic = "/"):
-        self.client = mqtt.Client(client_id=env.var('MQTT_ID'), clean_session=True, userdata=None, protocol=mqtt.MQTTv311, transport="tcp")
+        self.client = mqtt.Client(client_id=env.var('MQTT_ID'), clean_session=False, userdata=None, protocol=mqtt.MQTTv311, transport="tcp")
         self.client.username_pw_set(env.var('MQTT_USER'), env.var('MQTT_PASSWORD'))
         self.topic = topic
         self.receive_msg = False

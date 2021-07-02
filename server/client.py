@@ -6,8 +6,8 @@ from mqtt.Publisher import Publisher
 
 # subscriber = Subscriber('laercio')
 publisher = Publisher('autorama')
-publisher.send_message("oiii")
-time.sleep(15)
+publisher.send_message("Fala")
+time.sleep(2)
 sys.exit(0)
 
 # create a socket object
