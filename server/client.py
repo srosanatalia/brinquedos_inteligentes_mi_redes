@@ -5,9 +5,9 @@ from mqtt.Subscriber import Subscriber
 from mqtt.Publisher import Publisher
 
 # subscriber = Subscriber('laercio')
-publisher = Publisher('laercio')
-publisher.send_message("Teste, por favor, vai")
-time.sleep(5)
+publisher = Publisher('autorama')
+publisher.send_message("oiii")
+time.sleep(15)
 sys.exit(0)
 
 # create a socket object

@@ -18,15 +18,16 @@ class ServerController:
         * Quando iniciado, o controller verifica se já existe arquivo de configuração do módulo de leitura,
         * caso positivo, pergunta ao usuário se ele deseja iniciar a conexão com o leitor.
         '''
-        self.subscriber = Subscriber('laercio')
-        print(self.subscriber.requestRecv())
-        # self.publisher = Publisher('laercio2')
-        if os.path.isfile('configs/rfid.json'):
-            start_rfid = input(f"{bcolors.YELLOW}Arquivo de configuração do RFID existente. Deseja iniciar conexão? (Y/n) {bcolors.COLOR_OFF}")
-            if start_rfid == 'Y' or start_rfid == 'y':
-                with open('configs/rfid.json', 'r') as file:
-                    data = json.load(file)
-                    self.__start_connection_rfid(data)
+        self.subscriber = Subscriber('autorama')
+        self.subscriber.setTopic('autorama')
+        # self.subscriber.setTopic('teste/laercio')
+        # print(self.subscriber.requestRecv())
+        # if os.path.isfile('configs/rfid.json'):
+        #     start_rfid = input(f"{bcolors.YELLOW}Arquivo de configuração do RFID existente. Deseja iniciar conexão? (Y/n) {bcolors.COLOR_OFF}")
+        #     if start_rfid == 'Y' or start_rfid == 'y':
+        #         with open('configs/rfid.json', 'r') as file:
+        #             data = json.load(file)
+        #             self.__start_connection_rfid(data)
         print('')
 
     def add_client(self, ip, port, clientsock):
