@@ -963,8 +963,6 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        tempoPista.setText("Tempo pista:");
-
         javax.swing.GroupLayout painelQualificacaoLayout = new javax.swing.GroupLayout(painelQualificacao);
         painelQualificacao.setLayout(painelQualificacaoLayout);
         painelQualificacaoLayout.setHorizontalGroup(
@@ -1027,7 +1025,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(voltasQualificacao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tempoPista)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addGroup(painelQualificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoVoltar4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1422,6 +1420,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 ImageIcon img = new ImageIcon(img_bf);
                 img = new ImageIcon(img.getImage().getScaledInstance(44, 32, java.awt.Image.SCALE_DEFAULT));
                 imagemNacionalidadePistaQualificacao.setIcon(img);
+                System.out.println(pista.getTempoPista());
                 tempoPista.setText("Tempo pista: " + pista.getTempoPista() + "seg");
                 
             } catch (IOException ex) {

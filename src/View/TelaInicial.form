@@ -1400,7 +1400,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="tempoPista" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="63" max="32767" attributes="0"/>
+                  <EmptySpace pref="81" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="botaoVoltar4" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="botaoContinuar" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
@@ -1579,9 +1579,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="tempoPista">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Tempo pista:"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>
