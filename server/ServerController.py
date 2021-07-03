@@ -18,8 +18,8 @@ class ServerController:
         * Quando iniciado, o controller verifica se já existe arquivo de configuração do módulo de leitura,
         * caso positivo, pergunta ao usuário se ele deseja iniciar a conexão com o leitor.
         '''
-        self.subscriber = Subscriber('autorama')
-        self.subscriber.setTopic('autorama')
+        # self.subscriber = Subscriber('autorama')
+        # self.subscriber.setTopic('autorama')
         # self.subscriber.setTopic('teste/laercio')
         # print(self.subscriber.requestRecv())
         # if os.path.isfile('configs/rfid.json'):
