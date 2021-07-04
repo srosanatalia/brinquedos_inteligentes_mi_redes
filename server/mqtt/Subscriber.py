@@ -1,5 +1,6 @@
 import paho.mqtt.client as mqtt
 from configs import env
+import time
 
 class Subscriber:
     
@@ -14,10 +15,13 @@ class Subscriber:
         # self.client.on_connect = self.on_connect
         self.client.on_message = self.on_message
         self.client.on_subscribe = self.on_subscribe
+        self.client.on_publish = self.on_publish 
+        mqtt.Client.connected_flag=False
         self.client.connect(env.var('MQTT_HOST'), port=int(env.var('MQTT_PORT')))
         while not self.connected:
             continue
         self.client.subscribe(self.topic, qos=0)
+        self.client.connected_flag = True
         self.client.loop_start()
 
     def on_log(self, client, userdata, level, buf):
@@ -41,11 +45,8 @@ class Subscriber:
         self.topic_msg = message.topic
         print(f"Mensagem no tópico {self.topic_msg}: {self.msg}")
 
-    # def requestRecv(self):
-    #     while not self.receive_msg:
-    #         continue
-    #     self.receive_msg = False
-    #     return self.msg
+    def on_publish(self, client,userdata,mid):
+        print("Dado publicado\n")
 
     # def stop(self):
     #     self.client.disconnect()
@@ -67,3 +68,12 @@ class Subscriber:
     def set_topic(self, topic):
         self.topic = topic
         self.client.subscribe(self.topic, qos=0)
+
+    def send_message(self, message="", topic=None, retain=False):
+        if topic == None:
+            topic = self.topic
+        while not self.client.connected_flag:
+            time.sleep(1)
+
+        print(f"Mensagem publicando: {message}")
+        self.client.publish(topic, payload=message, qos=0, retain=retain)

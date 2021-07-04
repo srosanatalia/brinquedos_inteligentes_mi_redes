@@ -18,7 +18,7 @@ class ServerController:
         * Quando iniciado, o controller verifica se já existe arquivo de configuração do módulo de leitura,
         * caso positivo, pergunta ao usuário se ele deseja iniciar a conexão com o leitor.
         '''
-        self.publisher = Publisher('autorama')
+        self.publisher = Publisher('response')
         self.subscriber = Subscriber('autorama/#')
         self.subscriber.set_topic('autorama/#')
         # self.subscriber.setTopic('teste/laercio')
