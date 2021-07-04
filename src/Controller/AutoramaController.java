@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 import Model.*;
+import Model.Mqtt.Subscriber;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -36,7 +37,8 @@ public class AutoramaController {
     public String protocol;
     public String antenna;
     public String frequency;
-    public ClienteTCP Cliente;
+    public Cliente Cliente;
+    public Subscriber subscriber;
     
     public AutoramaController() {
         this.pilotos = new ArrayList ();
@@ -141,18 +143,21 @@ public class AutoramaController {
     }
     
     public void iniciarservidor(String url, int porta) throws Exception{
-        try{
-            this.porta = porta;
-            this.url = url;
-            new Thread(cliente).start();
-        } catch (Exception e){System.out.println("Não foi possível estabelecer uma conexão.");}
+        this.porta = porta;
+        this.url = url;
+        this.subscriber = new Subscriber("tcp://"+this.url+":"+porta, "/autorama");
+//        try{
+//            this.porta = porta;
+//            this.url = url;
+//            new Thread(cliente).start();
+//        } catch (Exception e){System.out.println("Não foi possível estabelecer uma conexão.");}
         
     }
-
+    
     private Runnable cliente = new Runnable() {
         public void run() {
             try{
-                Cliente = new ClienteTCP(url, porta);
+                Cliente = new Cliente(url, porta);
                 Cliente.leituraTag();
             } catch (Exception e){}
        }

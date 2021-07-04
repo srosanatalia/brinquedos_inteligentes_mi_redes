@@ -1590,6 +1590,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }
     private void usarCadastroPadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usarCadastroPadraoActionPerformed
         if(autorama.getTags().isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Nenhuma tag disponível. Cadastro não realizado.");
             return;
         }
         //equipes

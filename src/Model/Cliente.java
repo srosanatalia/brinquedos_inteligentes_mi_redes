@@ -5,6 +5,8 @@
  */
 package Model;
 
+import Model.Mqtt.Publisher;
+import Model.Mqtt.Subscriber;
 import View.TelaCorrida;
 import View.TelaQualificacao;
 import java.awt.HeadlessException;
@@ -24,15 +26,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
+import org.eclipse.paho.client.mqttv3.MqttException;
 
 /**
  *
  * @author nati_
  */
-public class ClienteTCP {
+public class Cliente {
     private String url;
     private int porta;
     public Socket cliente;
+    public Subscriber subscriber;
+    public Publisher publisher;
     public BufferedReader entrada;
     public ArrayList tags;
     private ArrayList resultadoGeral;
@@ -41,7 +46,7 @@ public class ClienteTCP {
     private ArrayList pilotos;
     private TelaCorrida frameCorrida = new TelaCorrida();
 
-    public ClienteTCP(String url, int porta) {
+    public Cliente(String url, int porta) {
         this.url = url;
         this.porta = porta;
         this.tags = new ArrayList();
@@ -52,10 +57,14 @@ public class ClienteTCP {
     }
     
     //Método utilizado para leitura das tags
-    public void leituraTag() throws ClassNotFoundException{
+    public void leituraTag() throws ClassNotFoundException, MqttException{
         try {
             this.cliente = new Socket(this.url, this.porta);
             this.entrada = new BufferedReader (new InputStreamReader(this.cliente.getInputStream(), "UTF-8"));
+            
+//            this.subscriber = new Subscriber("tcp://"+this.url+":"+porta, "/autorama");
+            
+//            this.publisher = new Publisher ("tcp://"+this.url+":"+porta, "/autorama", "oi");
             if(cliente.isConnected()){
                 System.out.println("Conexão iniciada");
                 String tags=null;
@@ -318,7 +327,7 @@ public class ClienteTCP {
                         }
                     }
                 } catch (IOException ex) {
-                    Logger.getLogger(ClienteTCP.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
        }

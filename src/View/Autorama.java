@@ -6,7 +6,7 @@
 package View;
 
 import Controller.AutoramaController;
-import Model.ClienteTCP;
+import Model.Cliente;
 
 /**
  *
