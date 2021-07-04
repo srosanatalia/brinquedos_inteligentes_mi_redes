@@ -79,7 +79,6 @@ class ServerController:
         if self.subscriber.has_new_message():
             body = self.subscriber.get_message()
             route = self.subscriber.get_topic_msg()
-            print(route)
             self.routes(route.replace('autorama', ''), body)
 
     def __post_rfid_config(self, data):
