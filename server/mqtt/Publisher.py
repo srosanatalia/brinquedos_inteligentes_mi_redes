@@ -44,12 +44,14 @@ class Publisher:
         # msg_json = json.loads(msg.payload)
         # print(msg_json)
 
-    def send_message(self, message="", retain=False):
+    def send_message(self, message="", topic=None, retain=False):
+        if topic == None:
+            topic = self.topic
         while not self.client.connected_flag:
             time.sleep(1)
 
         print(f"Mensagem publicando: {message}")
-        self.client.publish(self.topic, payload=message, qos=0, retain=retain)
+        self.client.publish(topic, payload=message, qos=0, retain=retain)
         # ret = self.client.publish(self.topic, message)
 
     def stop(self):
