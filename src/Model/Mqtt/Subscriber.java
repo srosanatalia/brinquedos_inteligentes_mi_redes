@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
@@ -21,6 +22,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 public class Subscriber implements MqttCallback{
     
     public MqttClient clienteMqtt;
+    private final MqttConnectOptions mqttOptions;
     public String urlBroker;
     public String topic;
     public String mensagem = "";
@@ -29,8 +31,16 @@ public class Subscriber implements MqttCallback{
         this.urlBroker = url;
         this.topic = topic;
         this.clienteMqtt = new MqttClient(this.urlBroker, "ClienteSubscriber");
+        
+        mqttOptions = new MqttConnectOptions();
+        mqttOptions.setMaxInflight(200);
+        mqttOptions.setConnectionTimeout(3);
+        mqttOptions.setKeepAliveInterval(10);
+        mqttOptions.setAutomaticReconnect(true);
+        mqttOptions.setCleanSession(false);
+        
         this.clienteMqtt.setCallback(this);
-        this.clienteMqtt.connect();
+        this.clienteMqtt.connect(mqttOptions);
         this.clienteMqtt.subscribe(topic);
         
     }
@@ -76,16 +86,16 @@ public class Subscriber implements MqttCallback{
     @Override
     public void connectionLost(Throwable thrwbl) {
         System.out.println("Conexão perdida.");
-        System.out.println("Tentando conectar novamente no tópico:"+ this.topic);
-        try {
-            this.clienteMqtt.connect();
-            this.clienteMqtt.subscribe(this.topic);
-            if(clienteMqtt.isConnected()){
-                System.out.println("Conectado");
-            }
-        } catch (MqttException ex) {
-            Logger.getLogger(Subscriber.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        System.out.println("Tentando conectar novamente no tópico:"+ this.topic);
+//        try {
+//            this.clienteMqtt.connect();
+//            this.clienteMqtt.subscribe(this.topic);
+//            if(clienteMqtt.isConnected()){
+//                System.out.println("Conectado");
+//            }
+//        } catch (MqttException ex) {
+//            Logger.getLogger(Subscriber.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     @Override
