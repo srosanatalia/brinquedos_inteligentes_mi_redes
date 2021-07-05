@@ -22,6 +22,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.eclipse.paho.client.mqttv3.MqttException;
 
 /**
  *
@@ -1506,10 +1507,14 @@ public class TelaInicial extends javax.swing.JFrame {
         botaoContinuar.setEnabled(false);
         iniciarQualificacao.setEnabled(true);
         String rotaQUAL = "POST /race/config\n{\"min_time_speedway\":\""+tempoPista+"\", \"max_time_qualification\":\""+duracaoQualificacao.getText()+"\", \"num_laps_race\":\""+voltasQualificacao.getText()+"\", \"cars\":["+jsonTags+"]}";
-        
+        String rotaQUALMqtt = "{\"min_time_speedway\":\""+tempoPista+"\", \"max_time_qualification\":\""+duracaoQualificacao.getText()+"\", \"num_laps_race\":\""+voltasQualificacao.getText()+"\", \"cars\":["+jsonTags+"]}";
         try {
-            autorama.configurarQualificacao(rotaQUAL);
+            autorama.configurarQualificacao(rotaQUALMqtt);
         } catch (IOException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MqttException ex) {
             Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_botaoContinuarActionPerformed
@@ -1530,7 +1535,8 @@ public class TelaInicial extends javax.swing.JFrame {
 //            }
             
             
-            autorama.iniciarQualificacao("POST /race/qualification/start\n");
+//            autorama.iniciarQualificacao("POST /race/qualification/start\n");
+              autorama.iniciarQualificacaoMqtt();
             
 //            DefaultTableModel tabela = (DefaultTableModel)tabelaPilotosQualificacao.getModel();
 //            Piloto piloto = buscaPilotoNome(selecionado);

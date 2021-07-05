@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.eclipse.paho.client.mqttv3.MqttException;
 
 /**
  *
@@ -160,12 +161,17 @@ public class AutoramaController {
        }
     };
     
-    public void configurarQualificacao(String url) throws IOException{
-        Cliente.configurarQualificacao(url);
+    public void configurarQualificacao(String url) throws IOException, InterruptedException, MqttException{
+//        Cliente.configurarQualificacao(url);
+          Cliente.configurarQualificacaoMqtt(url);
     }
     
     public void iniciarQualificacao(String url) throws IOException{
         Cliente.iniciarQualificacao(url, getCarros(), getPilotos());
+    }
+    
+    public void iniciarQualificacaoMqtt() throws IOException, MqttException{
+        Cliente.iniciarQualificacaoMqtt(getCarros(), getPilotos());
     }
     
     public void criarJsonRfid(String serial, String baudrate, String region, String protocol, String antenna, String frequency){

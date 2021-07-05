@@ -22,10 +22,12 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 /**
@@ -58,49 +60,51 @@ public class Cliente {
     }
     
     //Método utilizado para leitura das tags
-    public void leituraTag() throws ClassNotFoundException, MqttException{
-//        try {
-//            this.cliente = new Socket(this.url, this.porta);
-//            this.entrada = new BufferedReader (new InputStreamReader(this.cliente.getInputStream(), "UTF-8"));
-            
+    public void leituraTag() throws ClassNotFoundException, MqttException, InterruptedException{
             this.subscriber = new Subscriber("tcp://"+this.url+":"+porta, "response/");
             if(subscriber.isConected()){
                 System.out.println("O cliente se inscreveu no tópico: "+subscriber.topic);
             } else{
                 System.out.println("Sem conexão.");
             }
-            
+            TimeUnit.SECONDS.sleep(5);
+            this.subscriber.setTopic("response/rfid/config");
             this.subscriber.enviaMensagem("{\"serial\":\"tmr:///dev/ttyUSB0\", \"baudrate\":\"230400\", \"region\":\"NA2\", \"protocol\":\"GEN2\", \"antenna\":\"1\", \"frequency\":\"1800\"}", "autorama/rfid/config");
+            TimeUnit.SECONDS.sleep(5);
             this.subscriber.setTopic("response/rfid/config");
             this.subscriber.enviaMensagem("{\"teste\":false}", "autorama/rfid/tags");
-            this.subscriber.setTopic("response/rfid/config");
+            TimeUnit.SECONDS.sleep(5);
             System.out.println("Iniciando thread de leitura");
             new Thread(leituraTagMqtt).start();
-            
-//            this.publisher = new Publisher ("tcp://"+this.url+":"+porta, "/autorama", "oi");
-//            if(cliente.isConnected()){
-//                System.out.println("Conexão iniciada");
-//                String tags=null;
-//                DataOutputStream dos = new DataOutputStream(this.cliente.getOutputStream());
-//                
-//                String rotaPOST = "POST /rfid/config\n{\"serial\":\"tmr:///dev/ttyUSB0\", \"baudrate\":\"230400\", \"region\":\"NA2\", \"protocol\":\"GEN2\", \"antenna\":\"1\", \"frequency\":\"1800\"}";
-//                byte[] rota = rotaPOST.getBytes();
-//                dos.write(rota);
-//                dos.flush();
-//
-//                String rotaGET = "GET /rfid/tags\n";
-//                byte[] rota2 = rotaGET.getBytes();
-//                dos.write(rota2);
-//                dos.flush();
-//                
-//                new Thread(leituraTag).start();
-//                
-//               
-//            }
-//          }
-//          catch(HeadlessException | IOException e) {
-//            System.out.println("Erro: " + e.getMessage());
-//          }
+    }
+    
+    public void leituraTagTCP() throws ClassNotFoundException, MqttException, InterruptedException{
+        try {
+            this.cliente = new Socket(this.url, this.porta);
+            this.entrada = new BufferedReader (new InputStreamReader(this.cliente.getInputStream(), "UTF-8"));
+            if(cliente.isConnected()){
+                System.out.println("Conexão iniciada");
+                String tags=null;
+                DataOutputStream dos = new DataOutputStream(this.cliente.getOutputStream());
+                
+                String rotaPOST = "POST /rfid/config\n{\"serial\":\"tmr:///dev/ttyUSB0\", \"baudrate\":\"230400\", \"region\":\"NA2\", \"protocol\":\"GEN2\", \"antenna\":\"1\", \"frequency\":\"1800\"}";
+                byte[] rota = rotaPOST.getBytes();
+                dos.write(rota);
+                dos.flush();
+
+                String rotaGET = "GET /rfid/tags\n";
+                byte[] rota2 = rotaGET.getBytes();
+                dos.write(rota2);
+                dos.flush();
+                
+                new Thread(leituraTag).start();
+                
+               
+            }
+          }
+          catch(HeadlessException | IOException e) {
+            System.out.println("Erro: " + e.getMessage());
+          }
     }
     
     //Recebe e envia a rota da configuração da qualificação
@@ -111,6 +115,11 @@ public class Cliente {
         byte[] rota3 = rotaQUAL.getBytes();
         dos.write(rota3);
         dos.flush();
+    }
+    public void configurarQualificacaoMqtt(String url) throws IOException, InterruptedException, MqttException{
+        TimeUnit.SECONDS.sleep(5);
+        this.subscriber.setTopic("response/race/config");
+        this.subscriber.enviaMensagem(url, "autorama/race/config");
     }
     
     //Inicia qualificação
@@ -129,16 +138,31 @@ public class Cliente {
         frameCorrida.cronometroQualificacao();
     }
     
+    public void iniciarQualificacaoMqtt(ArrayList carros, ArrayList pilotos) throws IOException, MqttException{
+        this.carros = carros;
+        this.pilotos = pilotos;
+        
+        this.subscriber.setTopic("response/qualification");
+        this.subscriber.enviaMensagem("", "autorama/race/qualification/start");
+        
+        frameCorrida.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frameCorrida.setVisible(true);
+        frameCorrida.cronometroQualificacao();
+    }
+    
     //Inicia corrida
-    public void iniciarCorrida(String url) throws IOException{
+    public void iniciarCorrida(String url) throws IOException, MqttException{
         this.carros = carros;
         
-        DataOutputStream dos = new DataOutputStream(this.cliente.getOutputStream());
-        
-        String rotaCORINI = url;
-        byte[] rota4 = rotaCORINI.getBytes();
-        dos.write(rota4);
-        dos.flush();
+//        DataOutputStream dos = new DataOutputStream(this.cliente.getOutputStream());
+//        
+//        String rotaCORINI = url;
+//        byte[] rota4 = rotaCORINI.getBytes();
+//        dos.write(rota4);
+//        dos.flush();
+          
+        this.subscriber.setTopic("response/race");
+        this.subscriber.enviaMensagem("", "autorama/race/start");
     }
 
     public ArrayList getTags() {
@@ -195,9 +219,12 @@ public class Cliente {
     
     private Runnable leituraTagMqtt = new Runnable() {
         public void run() {
+            System.out.println("Ouvindo em:" + subscriber.getTopic());
             while(true){
                 if(!subscriber.mensagem.isEmpty()){
                     System.out.println(subscriber.mensagem);
+                }
+                else{
                 }
             }
         }

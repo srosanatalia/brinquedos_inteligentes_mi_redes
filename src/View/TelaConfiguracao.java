@@ -250,7 +250,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         try {
             autoramaController.iniciarservidor("localhost", 5022);
 //            autoramaController.iniciarservidor("augusto.ddns.net", 5022);
-            autoramaController.criarJsonRfid("tmr:///dev/ttyUSB0", "115200", "NA2", "GEN2", "1", "1500");
+//            autoramaController.criarJsonRfid("tmr:///dev/ttyUSB0", "115200", "NA2", "GEN2", "1", "1500");
         } catch (Exception ex) {
             Logger.getLogger(TelaConfiguracao.class.getName()).log(Level.SEVERE, null, ex);
         }

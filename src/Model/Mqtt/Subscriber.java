@@ -5,6 +5,8 @@
  */
 package Model.Mqtt;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -47,7 +49,8 @@ public class Subscriber implements MqttCallback{
 
     public void setTopic(String topic) throws MqttException {
         this.topic = topic;
-        this.clienteMqtt.subscribe(topic);
+        this.clienteMqtt.subscribe(topic, 0);
+        System.out.println("O cliente se increveu no tópico:" + topic);
     }
 
     public String getMensagem() {
@@ -60,8 +63,10 @@ public class Subscriber implements MqttCallback{
     
     public void enviaMensagem(String mensagem, String topico) throws MqttException{
         MqttMessage messageSend = new MqttMessage((mensagem).getBytes());
-        System.out.println("Publicando: "+mensagem);
-        clienteMqtt.publish(topico, messageSend);
+        if(this.clienteMqtt.isConnected()){
+            System.out.println("Publicando: "+mensagem+" em:"+topico);
+            clienteMqtt.publish(topico, (mensagem).getBytes(), 0, false);
+        }
     }
     
     public boolean isConected(){
@@ -71,6 +76,16 @@ public class Subscriber implements MqttCallback{
     @Override
     public void connectionLost(Throwable thrwbl) {
         System.out.println("Conexão perdida.");
+        System.out.println("Tentando conectar novamente no tópico:"+ this.topic);
+        try {
+            this.clienteMqtt.connect();
+            this.clienteMqtt.subscribe(this.topic);
+            if(clienteMqtt.isConnected()){
+                System.out.println("Conectado");
+            }
+        } catch (MqttException ex) {
+            Logger.getLogger(Subscriber.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
