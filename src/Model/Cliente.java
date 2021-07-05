@@ -219,7 +219,6 @@ public class Cliente {
     
     private Runnable leituraTagMqtt = new Runnable() {
         public void run() {
-            System.out.println("Ouvindo em:" + subscriber.getTopic());
             while(true){
                 if(!subscriber.mensagem.isEmpty()){
                     System.out.println(subscriber.mensagem);
@@ -377,6 +376,8 @@ public class Cliente {
                         }
                     }
                 } catch (IOException ex) {
+                    Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (MqttException ex) {
                     Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
