@@ -9,10 +9,10 @@ import threading
 import time
 
 class Consumer(threading.Thread):
-    def __init__(self, buffer, race_config, clients, type):
+    def __init__(self, buffer, race_config, publisher, type):
         threading.Thread.__init__(self)
         self.buffer = buffer 
-        self.clients = clients 
+        self.publisher = publisher 
         self.type = type
         self.cars = {}
 
@@ -51,10 +51,8 @@ class Consumer(threading.Thread):
             print("QUALIFICATION COMPLETED")
         elif self.type == 'race':
             print("RACE COMPLETED")
-        # Envia para todos clientes conectados a mensagem de finalização
-        for client in self.clients:
-            time.sleep(1)
-            client.clientsock.sendall(f'{msg_finished}!'.encode("utf-8"))
+        
+        self.publisher.send_message(f'{msg_finished}!'.encode("utf-8"), f"response/{self.type}")
     
     # Atualização das informações com base no modo, 
     # sendo que após atualização ele gera um resultado e envia para o cliente
@@ -73,8 +71,7 @@ class Consumer(threading.Thread):
         self.cars[data['epc']]['laps'].insert((data['lap']-1), {'time': time, 'timestamp': data['timestamp']})
 
         result = self.__get_result_qualification()
-        for client in self.clients:
-            client.clientsock.sendall(f"OK\n{result}!".encode("utf-8"))
+        self.publisher.send_message(f"OK\n{result}!".encode("utf-8"), 'response/qualification')
 
     def __get_result_qualification(self):
         result = []
@@ -110,8 +107,7 @@ class Consumer(threading.Thread):
         self.cars[data['epc']]['laps'].insert((data['lap']-1), {'time': time, 'timestamp': data['timestamp']})
 
         result = self.__get_result_race()
-        for client in self.clients:
-            client.clientsock.sendall(f"OK\n{result}!".encode("utf-8"))
+        self.publisher.send_message(f"OK\n{result}!".encode("utf-8"), 'response/race')
 
     def __get_result_race(self):
         result = []

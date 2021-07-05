@@ -34,8 +34,11 @@ class Sensor():
             self.controller.set_sensor(self)
 
     # Obtém as TAGs que estão abaixo do leitor
-    def get_tags(self):
-        tags = list(map(lambda t: t.epc, self.reader.read()))
+    def get_tags(self, teste=False):
+        if not teste:
+            tags = list(map(lambda t: t.epc, self.reader.read()))
+        else:
+            tags = ["E2000017221101241890547C", "E20000172211012518905484"]
         return '{"tags":'+str(tags)+'}!'
 
     # Inicia leitura assíncrona

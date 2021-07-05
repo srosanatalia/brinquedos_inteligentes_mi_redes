@@ -1,6 +1,5 @@
 import paho.mqtt.client as mqtt
 from configs import env
-import json
 import time
 
 class Subscriber:
@@ -11,11 +10,18 @@ class Subscriber:
         self.topic = topic
         self.receive_msg = False
         self.msg = ''
+        self.topic_msg = ''
         # self.client.on_log = self.on_log
         # self.client.on_connect = self.on_connect
         self.client.on_message = self.on_message
         self.client.on_subscribe = self.on_subscribe
+        self.client.on_publish = self.on_publish 
+        mqtt.Client.connected_flag=False
         self.client.connect(env.var('MQTT_HOST'), port=int(env.var('MQTT_PORT')))
+        while not self.connected:
+            continue
+        self.client.subscribe(self.topic, qos=0)
+        self.client.connected_flag = True
         self.client.loop_start()
 
     def on_log(self, client, userdata, level, buf):
@@ -34,27 +40,40 @@ class Subscriber:
         print(f"Falha ao conectar subscriber, erro, rc={rc}")
         
     def on_message(self, client, userdata, message):
-        # print(message.topic+" "+str(message.qos)+" "+str(message.payload))
-        message_decode = message.payload.decode("utf-8")
-        print(f"Mensagem no tópico {message.topic}: {message_decode}")
+        self.msg = message.payload.decode("utf-8")
         self.receive_msg = True
-        self.msg = message_decode
-        # msg_json = json.loads(message.payload)
-        # print(msg_json)
+        self.topic_msg = message.topic
+        print(f"Mensagem no tópico {self.topic_msg}: {self.msg}")
 
-    def requestRecv(self):
-        while not self.receive_msg:
-            continue
-        self.receive_msg = True
-        return self.msg
+    def on_publish(self, client,userdata,mid):
+        print("Dado publicado\n")
 
-    def stop(self):
-        self.client.disconnect()
-        self.client.loop_stop()
+    # def stop(self):
+    #     self.client.disconnect()
+    #     self.client.loop_stop()
+
+    def has_new_message(self):
+        return self.receive_msg
 
     def connected(self):
         return self.client.is_connected()
 
-    def setTopic(self, topic):
+    def get_topic_msg(self):
+        return self.topic_msg
+
+    def get_message(self):
+        self.receive_msg = False
+        return self.msg
+
+    def set_topic(self, topic):
         self.topic = topic
         self.client.subscribe(self.topic, qos=0)
+
+    def send_message(self, message="", topic=None, retain=False):
+        if topic == None:
+            topic = self.topic
+        while not self.client.connected_flag:
+            time.sleep(1)
+
+        print(f"Mensagem publicando: {message}")
+        self.client.publish(topic, payload=message, qos=0, retain=retain)
