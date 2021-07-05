@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -19,7 +20,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
  *
  * @author natalia
  */
-public class Subscriber implements MqttCallback{
+public class Subscriber implements MqttCallbackExtended{
     
     public MqttClient clienteMqtt;
     private final MqttConnectOptions mqttOptions;
@@ -85,17 +86,7 @@ public class Subscriber implements MqttCallback{
 
     @Override
     public void connectionLost(Throwable thrwbl) {
-        System.out.println("Conexão perdida.");
-//        System.out.println("Tentando conectar novamente no tópico:"+ this.topic);
-//        try {
-//            this.clienteMqtt.connect();
-//            this.clienteMqtt.subscribe(this.topic);
-//            if(clienteMqtt.isConnected()){
-//                System.out.println("Conectado");
-//            }
-//        } catch (MqttException ex) {
-//            Logger.getLogger(Subscriber.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        System.out.println("Conexão perdida -" + thrwbl);
     }
 
     @Override
@@ -107,5 +98,10 @@ public class Subscriber implements MqttCallback{
     @Override
     public void deliveryComplete(IMqttDeliveryToken imdt) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void connectComplete(boolean reconnect, String serverURI) {
+        System.out.println("Cliente MQTT " + (reconnect ? "reconectado" : "conectado") + " com o broker " + serverURI);
     }
 }
