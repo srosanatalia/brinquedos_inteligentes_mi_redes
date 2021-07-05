@@ -39,6 +39,7 @@ public class Cliente {
     public Subscriber subscriber;
     public Publisher publisher;
     public BufferedReader entrada;
+    public String topico;
     public ArrayList tags;
     private ArrayList resultadoGeral;
     private ArrayList resultadoGeralQualificacao;
@@ -58,36 +59,48 @@ public class Cliente {
     
     //Método utilizado para leitura das tags
     public void leituraTag() throws ClassNotFoundException, MqttException{
-        try {
-            this.cliente = new Socket(this.url, this.porta);
-            this.entrada = new BufferedReader (new InputStreamReader(this.cliente.getInputStream(), "UTF-8"));
+//        try {
+//            this.cliente = new Socket(this.url, this.porta);
+//            this.entrada = new BufferedReader (new InputStreamReader(this.cliente.getInputStream(), "UTF-8"));
             
-//            this.subscriber = new Subscriber("tcp://"+this.url+":"+porta, "/autorama");
+            this.subscriber = new Subscriber("tcp://"+this.url+":"+porta, "response/");
+            if(subscriber.isConected()){
+                System.out.println("O cliente se inscreveu no tópico: "+subscriber.topic);
+            } else{
+                System.out.println("Sem conexão.");
+            }
+            
+            this.subscriber.enviaMensagem("{\"serial\":\"tmr:///dev/ttyUSB0\", \"baudrate\":\"230400\", \"region\":\"NA2\", \"protocol\":\"GEN2\", \"antenna\":\"1\", \"frequency\":\"1800\"}", "autorama/rfid/config");
+            this.subscriber.setTopic("response/rfid/config");
+            this.subscriber.enviaMensagem("{\"teste\":false}", "autorama/rfid/tags");
+            this.subscriber.setTopic("response/rfid/config");
+            System.out.println("Iniciando thread de leitura");
+            new Thread(leituraTagMqtt).start();
             
 //            this.publisher = new Publisher ("tcp://"+this.url+":"+porta, "/autorama", "oi");
-            if(cliente.isConnected()){
-                System.out.println("Conexão iniciada");
-                String tags=null;
-                DataOutputStream dos = new DataOutputStream(this.cliente.getOutputStream());
-                
-                String rotaPOST = "POST /rfid/config\n{\"serial\":\"tmr:///dev/ttyUSB0\", \"baudrate\":\"230400\", \"region\":\"NA2\", \"protocol\":\"GEN2\", \"antenna\":\"1\", \"frequency\":\"1800\"}";
-                byte[] rota = rotaPOST.getBytes();
-                dos.write(rota);
-                dos.flush();
-
-                String rotaGET = "GET /rfid/tags\n";
-                byte[] rota2 = rotaGET.getBytes();
-                dos.write(rota2);
-                dos.flush();
-                
-                new Thread(leituraTag).start();
-                
-               
-            }
-          }
-          catch(HeadlessException | IOException e) {
-            System.out.println("Erro: " + e.getMessage());
-          }
+//            if(cliente.isConnected()){
+//                System.out.println("Conexão iniciada");
+//                String tags=null;
+//                DataOutputStream dos = new DataOutputStream(this.cliente.getOutputStream());
+//                
+//                String rotaPOST = "POST /rfid/config\n{\"serial\":\"tmr:///dev/ttyUSB0\", \"baudrate\":\"230400\", \"region\":\"NA2\", \"protocol\":\"GEN2\", \"antenna\":\"1\", \"frequency\":\"1800\"}";
+//                byte[] rota = rotaPOST.getBytes();
+//                dos.write(rota);
+//                dos.flush();
+//
+//                String rotaGET = "GET /rfid/tags\n";
+//                byte[] rota2 = rotaGET.getBytes();
+//                dos.write(rota2);
+//                dos.flush();
+//                
+//                new Thread(leituraTag).start();
+//                
+//               
+//            }
+//          }
+//          catch(HeadlessException | IOException e) {
+//            System.out.println("Erro: " + e.getMessage());
+//          }
     }
     
     //Recebe e envia a rota da configuração da qualificação
@@ -179,6 +192,16 @@ public class Cliente {
         }
         return "Desconhecido";
     }
+    
+    private Runnable leituraTagMqtt = new Runnable() {
+        public void run() {
+            while(true){
+                if(!subscriber.mensagem.isEmpty()){
+                    System.out.println(subscriber.mensagem);
+                }
+            }
+        }
+    };
     
     //Thread para receber e tratar os dados recebidos do servidor
     private Runnable leituraTag = new Runnable() {

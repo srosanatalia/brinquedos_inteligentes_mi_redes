@@ -26,7 +26,6 @@ public class Publisher {
         this.clienteMqtt.connect();
         
         MqttMessage messageSend = new MqttMessage((mensagem).getBytes());
-        System.out.println("a");
         clienteMqtt.publish(topic, messageSend);
     }
     

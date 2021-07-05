@@ -21,6 +21,7 @@ public class Subscriber implements MqttCallback{
     public MqttClient clienteMqtt;
     public String urlBroker;
     public String topic;
+    public String mensagem = "";
     
     public Subscriber(String url, String topic) throws MqttException {
         this.urlBroker = url;
@@ -30,9 +31,37 @@ public class Subscriber implements MqttCallback{
         this.clienteMqtt.connect();
         this.clienteMqtt.subscribe(topic);
         
-        if (this.clienteMqtt.isConnected()){
-            System.out.println("O cliente se inscreveu no tópico: "+topic);
-        }
+    }
+
+    public String getUrlBroker() {
+        return urlBroker;
+    }
+
+    public void setUrlBroker(String urlBroker) {
+        this.urlBroker = urlBroker;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) throws MqttException {
+        this.topic = topic;
+        this.clienteMqtt.subscribe(topic);
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
+    }
+    
+    public void enviaMensagem(String mensagem, String topico) throws MqttException{
+        MqttMessage messageSend = new MqttMessage((mensagem).getBytes());
+        System.out.println("Publicando: "+mensagem);
+        clienteMqtt.publish(topico, messageSend);
     }
     
     public boolean isConected(){
@@ -46,8 +75,8 @@ public class Subscriber implements MqttCallback{
 
     @Override
     public void messageArrived(String string, MqttMessage mm) throws Exception {
-        System.out.println("Mensagem recebida.");
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Mensagem recebida: Tópico-" + string+ " Mensagem- "+ mm.toString());
+        this.mensagem = mm.toString();
     }
 
     @Override

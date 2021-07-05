@@ -143,14 +143,11 @@ public class AutoramaController {
     }
     
     public void iniciarservidor(String url, int porta) throws Exception{
-        this.porta = porta;
-        this.url = url;
-        this.subscriber = new Subscriber("tcp://"+this.url+":"+porta, "/autorama");
-//        try{
-//            this.porta = porta;
-//            this.url = url;
-//            new Thread(cliente).start();
-//        } catch (Exception e){System.out.println("Não foi possível estabelecer uma conexão.");}
+        try{
+            this.porta = porta;
+            this.url = url;
+            new Thread(cliente).start();
+        } catch (Exception e){System.out.println("Não foi possível estabelecer uma conexão.");}
         
     }
     
