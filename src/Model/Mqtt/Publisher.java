@@ -12,6 +12,9 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 /**
  *
  * @author natalia
+ * 
+ * Classe utilizada apenas para enviar mensagens.
+ * Não a utilizamos pois fazemos com que o nosso cliente subscriber também envie mensagens como publisher.
  */
 public class Publisher {
     public MqttClient clienteMqtt;

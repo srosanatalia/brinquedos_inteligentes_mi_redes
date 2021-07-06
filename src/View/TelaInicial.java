@@ -1551,6 +1551,8 @@ public class TelaInicial extends javax.swing.JFrame {
             
         } catch (IOException ex) {
             Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MqttException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_iniciarQualificacaoActionPerformed
 
@@ -1587,13 +1589,14 @@ public class TelaInicial extends javax.swing.JFrame {
                 if(!this.carrosUsados.contains(carros.get(i))){
                     carrosUsados.add(carros.get(i));
                     Carro carro = (Carro) carros.get(i);
-//                    System.out.println(carro.getMarca());
                     return carro;
                 }
             }
         }
         return null;
     }
+    
+    //Cadastra os dados default caso hajam tags disponíveis para serem utilizadas
     private void usarCadastroPadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usarCadastroPadraoActionPerformed
         if(autorama.getTags().isEmpty()){
             JOptionPane.showMessageDialog(rootPane, "Nenhuma tag disponível. Cadastro não realizado.");

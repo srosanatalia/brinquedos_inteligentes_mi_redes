@@ -59,7 +59,7 @@ public class Cliente {
         this.resultadoGeralQualificacao = new ArrayList();
     }
     
-    //Método utilizado para leitura das tags
+    //Método utilizado para leitura das tags utilizando o protocolo MQTT
     public void leituraTag() throws ClassNotFoundException, MqttException, InterruptedException{
             this.subscriber = new Subscriber("tcp://"+this.url+":"+porta, "response/");
             if(subscriber.isConected()){
@@ -76,7 +76,7 @@ public class Cliente {
             System.out.println("Iniciando thread de leitura");
             new Thread(leituraTagMqtt).start();
     }
-    
+    //Método utilizado para leitura das tags utilizando o protocolo TCP
     public void leituraTagTCP() throws ClassNotFoundException, MqttException, InterruptedException{
         try {
             this.cliente = new Socket(this.url, this.porta);
@@ -152,13 +152,6 @@ public class Cliente {
     //Inicia corrida
     public void iniciarCorrida(String url) throws IOException, MqttException{
         this.carros = carros;
-        
-//        DataOutputStream dos = new DataOutputStream(this.cliente.getOutputStream());
-//        
-//        String rotaCORINI = url;
-//        byte[] rota4 = rotaCORINI.getBytes();
-//        dos.write(rota4);
-//        dos.flush();
           
         this.subscriber.setTopic("response/race");
         this.subscriber.enviaMensagem("", "autorama/race/start");
@@ -228,7 +221,6 @@ public class Cliente {
                         for (int i = 0; i < textoSeparado.length; i++) {
                             if(textoSeparado[i].length() == 24){
                                 tags.add(textoSeparado[i]);
-//                                System.out.println(textoSeparado[i]);
                             }
                         }
                         tag = "";
@@ -247,7 +239,6 @@ public class Cliente {
                             dados = dados.replaceAll("\\]","");
                             dados = dados.replaceAll("!","");
                             dados = dados.replaceAll(":","");
-//                                    System.out.println("Corrida: "+dados);
                             frameCorrida.limpaTabelaCorrida();
                             tag = "";
                             String[] textoSeparado =dados.split("'");
@@ -307,7 +298,6 @@ public class Cliente {
                             dados = dados.replaceAll("\\]","");
                             dados = dados.replaceAll("!","");
                             dados = dados.replaceAll(":","");
-//                                    System.out.println("Qualificacao: "+dados);
                             frameCorrida.limpaTabelaQualificacao();
                             tag = "";
                             String[] textoSeparado =dados.split("'");
@@ -406,7 +396,6 @@ public class Cliente {
                                     dados = dados.replaceAll("\\]","");
                                     dados = dados.replaceAll("!","");
                                     dados = dados.replaceAll(":","");
-//                                    System.out.println("Corrida: "+dados);
                                     frameCorrida.limpaTabelaCorrida();
                                     tag = "";
                                     String[] textoSeparado =dados.split("'");

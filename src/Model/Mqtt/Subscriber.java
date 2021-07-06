@@ -20,6 +20,8 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 /**
  *
  * @author natalia
+ * 
+ * Classe utilizada para que o cliente se inscreva em um tópico e envie mensagens no protocolo MQTT
  */
 public class Subscriber implements MqttCallbackExtended{
     
@@ -34,16 +36,16 @@ public class Subscriber implements MqttCallbackExtended{
         this.urlBroker = url;
         this.topic = topic;
         this.tags = new ArrayList();
-        this.clienteMqtt = new MqttClient(this.urlBroker, "xx");
+        this.clienteMqtt = new MqttClient(this.urlBroker, "xx"); //Definir rota e id
         
         mqttOptions = new MqttConnectOptions();
         mqttOptions.setMaxInflight(200);
         mqttOptions.setConnectionTimeout(3);
         mqttOptions.setKeepAliveInterval(10);
-        mqttOptions.setAutomaticReconnect(true);
+        mqttOptions.setAutomaticReconnect(true); //Caso a conexão seja perdida, reconecta automaticamente
         mqttOptions.setCleanSession(false);
-        mqttOptions.setUserName("xx");
-        mqttOptions.setPassword("xx".toCharArray());
+        mqttOptions.setUserName("xx"); //Definir username da conexão
+        mqttOptions.setPassword("xx".toCharArray()); //Definir password da conexão
         
         this.clienteMqtt.setCallback(this);
         this.clienteMqtt.connect(mqttOptions);
@@ -63,7 +65,7 @@ public class Subscriber implements MqttCallbackExtended{
         return topic;
     }
 
-    public void setTopic(String topic) throws MqttException {
+    public void setTopic(String topic) throws MqttException { //Seta um tópico para ser ouvido
         this.topic = topic;
         this.clienteMqtt.subscribe(topic, 0);
         System.out.println("O cliente se increveu no tópico:" + topic);
@@ -81,6 +83,7 @@ public class Subscriber implements MqttCallbackExtended{
         enviaMensagem(mensagem.getBytes(), topico, 0, false);
     }
     
+    //Utilizado para enviar mensagens para o broker
     public synchronized void enviaMensagem(byte[] payload, String topic, int qos, boolean retained) throws MqttException{
        try {
             if (this.clienteMqtt.isConnected()) {
@@ -94,15 +97,18 @@ public class Subscriber implements MqttCallbackExtended{
         }
     }
     
+    //Informa se a conexão está ativa ou não
     public boolean isConected(){
         return this.clienteMqtt.isConnected();
     }
-
+    
+    //Informa quando a conexão é perdida
     @Override
     public void connectionLost(Throwable thrwbl) {
         System.out.println("Conexão perdida -" + thrwbl);
     }
-
+    
+    //Mostra as mensagens que chegam
     @Override
     public void messageArrived(String topico, MqttMessage mm) throws Exception {
         System.out.println("Mensagem recebida:");
@@ -111,16 +117,6 @@ public class Subscriber implements MqttCallbackExtended{
         System.out.println("\tMensagem: " + this.mensagem);
         System.out.println("");
         
-//        if(this.mensagem.contains("tags")){
-//            String[] textoSeparado = this.mensagem.split("'");
-//            for (int i = 0; i < textoSeparado.length; i++) {
-//                if(textoSeparado[i].length() == 24){
-//                    tags.add(textoSeparado[i]);
-//                    System.out.println(textoSeparado[i]);
-//                }
-//            }
-//       }
-//        System.out.println(getTags().size());
     }
 
     public ArrayList getTags() {
