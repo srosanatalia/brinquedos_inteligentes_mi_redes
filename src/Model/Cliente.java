@@ -366,7 +366,7 @@ public class Cliente {
                     
                 }
                 else{ //Só pra mandar a thread fazer algo
-//                    System.out.println("");
+                    System.out.println("");
                 }
             }
         }
