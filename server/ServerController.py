@@ -13,7 +13,9 @@ class ServerController:
     
     def __init__(self):
         '''
-        * Quando iniciado, o controller verifica se já existe arquivo de configuração do módulo de leitura,
+        * Quando iniciado, o controller uma instância de subscriber para ouvir as requisições
+        * e cria uma instância de publisher para retornar os responses das requisições.
+        *  Depois dissoverifica se já existe arquivo de configuração do módulo de leitura,
         * caso positivo, pergunta ao usuário se ele deseja iniciar a conexão com o leitor.
         '''
         self.publisher = Publisher('response')
@@ -57,6 +59,10 @@ class ServerController:
 
         self.publisher.send_message(response.encode("utf-8"), f"response{url}")
 
+    '''
+    * Método checa se chegou nova mensagem no tópico de autorama,
+    * caso positivo ele chama método de rotas para tratar requisição
+    '''
     def check_new_messages(self):
         if self.subscriber.has_new_message():
             body = self.subscriber.get_message()

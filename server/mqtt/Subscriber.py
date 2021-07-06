@@ -11,8 +11,6 @@ class Subscriber:
         self.receive_msg = False
         self.msg = ''
         self.topic_msg = ''
-        # self.client.on_log = self.on_log
-        # self.client.on_connect = self.on_connect
         self.client.on_message = self.on_message
         self.client.on_subscribe = self.on_subscribe
         self.client.on_publish = self.on_publish 
@@ -24,21 +22,13 @@ class Subscriber:
         self.client.connected_flag = True
         self.client.loop_start()
 
-    def on_log(self, client, userdata, level, buf):
-        print(buf)
-
     def on_subscribe(self, client, userdata, mid, granted_qos):
         print(f"Subscriber se inscreveu no tópico: {self.topic}")
-
-    def on_connect(self, client, userdata, flags, rc):
-        if rc == 0:
-            client.connected_flag = True
-            print("Conexão do subscriber estabelecida")
-            self.client.subscribe(self.topic, qos=0)
-            return
         
-        print(f"Falha ao conectar subscriber, erro, rc={rc}")
-        
+    '''
+    * Método trata recebimento de mensagens, setando como positivo a variavel para
+    * marcar que existe nova mensagem.
+    '''
     def on_message(self, client, userdata, message):
         self.msg = message.payload.decode("utf-8")
         self.receive_msg = True
@@ -47,10 +37,6 @@ class Subscriber:
 
     def on_publish(self, client,userdata,mid):
         print("Dado publicado\n")
-
-    # def stop(self):
-    #     self.client.disconnect()
-    #     self.client.loop_stop()
 
     def has_new_message(self):
         return self.receive_msg
@@ -62,6 +48,10 @@ class Subscriber:
         return self.topic_msg
 
     def get_message(self):
+        '''
+        * Seta a váriavel de nova mensagem como negativo para marcar que a
+        * já foi lida.
+        '''
         self.receive_msg = False
         return self.msg
 

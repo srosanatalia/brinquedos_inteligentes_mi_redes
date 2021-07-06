@@ -75,6 +75,8 @@ Após avançar na etapa de configuração, você será apresentado à tela de ca
 
 Apenas carros e pilotos que fazem parte de uma equipe podem participar da corrida.
 
+Também é possível utilizar o cadastro padrão do sistema através do botão "Utilizar cadastro padrão", presente na tela inicial. Caso hajam tags disponíveis, o sistema irá cadastrar carros, pilotos, equipes e pistas automaticamente ao selecionar essa opção.
+
 ## Tecnologias 🛠 
 
 As seguintes ferramentas foram usadas na construção do projeto:

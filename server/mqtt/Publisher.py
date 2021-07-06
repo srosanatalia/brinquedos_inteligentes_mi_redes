@@ -8,13 +8,10 @@ class Publisher:
     def __init__(self, topic = "/"):
         self.client = mqtt.Client(client_id=env.var('MQTT_ID'), clean_session=True, userdata=None, protocol=mqtt.MQTTv311, transport="tcp")
         self.client.username_pw_set(env.var('MQTT_USER'), env.var('MQTT_PASSWORD'))
-        # self.client = mqtt.Client(client_id=env.var('MQTT_ID2'), clean_session=True, userdata=None, protocol=mqtt.MQTTv311, transport="tcp")
-        # self.client.username_pw_set(env.var('MQTT_USER2'), env.var('MQTT_PASSWORD2'))
         self.topic = topic
         self.receive_msg = False
         self.msg = ''
         self.topic_msg = ''
-        # self.client.on_log = self.on_log
         self.client.on_connect = self.on_connect
         self.client.on_disconnect = self.on_disconnect
         self.client.on_publish = self.on_publish  
@@ -54,7 +51,6 @@ class Publisher:
 
         print(f"Mensagem publicando: {message}")
         self.client.publish(topic, payload=message, qos=0, retain=retain)
-        # ret = self.client.publish(self.topic, message)
 
     def stop(self):
         self.client.disconnect()
