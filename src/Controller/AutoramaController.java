@@ -152,6 +152,7 @@ public class AutoramaController {
         
     }
     
+    //Tread que inicia o cliente 
     private Runnable cliente = new Runnable() {
         public void run() {
             try{
@@ -162,7 +163,6 @@ public class AutoramaController {
     };
     
     public void configurarQualificacao(String url) throws IOException, InterruptedException, MqttException{
-//        Cliente.configurarQualificacao(url);
           Cliente.configurarQualificacaoMqtt(url);
     }
     

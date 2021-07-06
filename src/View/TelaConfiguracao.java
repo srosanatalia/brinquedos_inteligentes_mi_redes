@@ -224,10 +224,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoConfigurarLeitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfigurarLeitorActionPerformed
-//        if(inputIp.getText().isEmpty() || inputPorta.getText().isEmpty() || inputSerial.getText().isEmpty() || inputBaudrate.getText().isEmpty() || inputRegion.getText().isEmpty() || inputProtocol.getText().isEmpty() || inputAntenna.getText().isEmpty()|| inputFrequency.getText().isEmpty()){
-//            JOptionPane.showMessageDialog(rootPane, "Verifique se as informações inseridas estão corretas.");
-//            return;
-//        }
+
         if(inputIp.getText().isEmpty() || inputPorta.getText().isEmpty()){
             JOptionPane.showMessageDialog(rootPane, "Preencha os campos obrigatórios.");
             return;
@@ -248,9 +245,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
 
     private void botaoConfiguracaoPadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfiguracaoPadraoActionPerformed
         try {
-            autoramaController.iniciarservidor("node02.myqtthub.com", 1883);
-//            autoramaController.iniciarservidor("augusto.ddns.net", 5022);
-//            autoramaController.criarJsonRfid("tmr:///dev/ttyUSB0", "115200", "NA2", "GEN2", "1", "1500");
+              autoramaController.iniciarservidor("localhost", 5022);
         } catch (Exception ex) {
             Logger.getLogger(TelaConfiguracao.class.getName()).log(Level.SEVERE, null, ex);
         }
