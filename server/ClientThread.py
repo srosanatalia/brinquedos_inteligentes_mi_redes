@@ -1,3 +1,6 @@
+'''
+    Em Desuso com o Uso de MQTT
+'''
 import socket
 import threading
 
