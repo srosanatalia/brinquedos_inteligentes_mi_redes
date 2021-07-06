@@ -67,13 +67,13 @@ public class Cliente {
             } else{
                 System.out.println("Sem conexão.");
             }
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(3);
             this.subscriber.setTopic("response/rfid/config");
             this.subscriber.enviaMensagem("{\"serial\":\"tmr:///dev/ttyUSB0\", \"baudrate\":\"230400\", \"region\":\"NA2\", \"protocol\":\"GEN2\", \"antenna\":\"1\", \"frequency\":\"1800\"}", "autorama/rfid/config");
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(3);
             this.subscriber.setTopic("response/rfid/config");
             this.subscriber.enviaMensagem("{\"teste\":false}", "autorama/rfid/tags");
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(3);
             System.out.println("Iniciando thread de leitura");
             new Thread(leituraTagMqtt).start();
     }
@@ -220,10 +220,154 @@ public class Cliente {
     private Runnable leituraTagMqtt = new Runnable() {
         public void run() {
             while(true){
-                if(!subscriber.mensagem.isEmpty()){
-                    System.out.println(subscriber.mensagem);
+                int tamanhoMsg = subscriber.getMensagem().length();
+                if(tamanhoMsg > 0){
+                    String tag = subscriber.getMensagem();
+                    subscriber.setMensagem("");
+                    if(tag.contains("tags")){
+                        String[] textoSeparado = tag.split("'");
+                        for (int i = 0; i < textoSeparado.length; i++) {
+                            if(textoSeparado[i].length() == 24){
+                                tags.add(textoSeparado[i]);
+//                                System.out.println(textoSeparado[i]);
+                            }
+                        }
+                        tag = "";
+                   }
+                   else{
+                       if(!tag.contains("RACE_COMPLETED!") && tag.contains("epc") && tag.contains("laps") && !tag.contains("QUALIFICATION_COMPLETED!")){
+                            String dados = tag;
+                            ArrayList <String> resultadoCorrida = new ArrayList();
+                            dados = dados.replaceAll("OK","");
+                            dados = dados.replaceAll(" ","");
+                            dados = dados.replaceAll("\\[","");
+                            dados = dados.replaceAll("\\{","");
+                            dados = dados.replaceAll("\\n","");
+                            dados = dados.replaceAll(",","");
+                            dados = dados.replaceAll("\\}","");
+                            dados = dados.replaceAll("\\]","");
+                            dados = dados.replaceAll("!","");
+                            dados = dados.replaceAll(":","");
+//                                    System.out.println("Corrida: "+dados);
+                            frameCorrida.limpaTabelaCorrida();
+                            tag = "";
+                            String[] textoSeparado =dados.split("'");
+                            for (int i = 0; i <textoSeparado.length; ++i){ 
+                                if(textoSeparado[i].contains("epc")){
+                                    String tagCarro = textoSeparado[i+2];
+                                    resultadoCorrida.add(getCarroNumero(tagCarro));
+                                    resultadoCorrida.add(getCarroPiloto(tagCarro));
+                                }
+                                else if(textoSeparado[i].contains("race_time")){
+                                    String tempoFormatado = "";
+                                    String tempo = textoSeparado[i+2];
+                                    if(tempo.length() > 9){
+                                        String seg = tempo.substring(tempo.length() - 9, tempo.length());
+                                        String min = tempo.substring(0, tempo.length() - 9);
+                                        tempoFormatado = min + ":" + seg;
+                                    }
+                                    resultadoCorrida.add(tempoFormatado);
+                                }
+                                else if(textoSeparado[i].contains("best_time")){
+                                    String tempoFormatado = "";
+                                    String tempo = textoSeparado[i+2];
+                                    if(tempo.length() > 9){
+                                        String seg = tempo.substring(tempo.length() - 9, tempo.length());
+                                        String min = tempo.substring(0, tempo.length() - 9);
+                                        tempoFormatado = min + ":" + seg;
+                                    }
+                                    resultadoCorrida.add(tempoFormatado);
+                                }
+                                else if(textoSeparado[i].contains("time_lap")){
+                                    String tempoFormatado = "";
+                                    String tempo = textoSeparado[i+2];
+                                    if(tempo.length() > 9){
+                                        String seg = tempo.substring(tempo.length() - 9, tempo.length());
+                                        String min = tempo.substring(0, tempo.length() - 9);
+                                        tempoFormatado = min + ":" + seg;
+                                    }
+                                    resultadoCorrida.add(tempoFormatado);
+                                }
+                                else if(textoSeparado[i].contains("laps")){
+                                    resultadoCorrida.add(textoSeparado[i+1]);
+                                    resultadoGeral.add(resultadoCorrida);
+                                    frameCorrida.preencheResultado(resultadoCorrida);
+                                    resultadoCorrida.clear();
+                                }
+                            } 
+                       } else if(!tag.contains("RACE_COMPLETED!") && tag.contains("epc") && !tag.contains("laps") && !tag.contains("QUALIFICATION_COMPLETED!") ){
+                           String dados = tag;
+                            ArrayList <String> resultadoQualificacao = new ArrayList();
+                            dados = dados.replaceAll("OK","");
+                            dados = dados.replaceAll(" ","");
+                            dados = dados.replaceAll("\\[","");
+                            dados = dados.replaceAll("\\{","");
+                            dados = dados.replaceAll("\\n","");
+                            dados = dados.replaceAll(",","");
+                            dados = dados.replaceAll("\\}","");
+                            dados = dados.replaceAll("\\]","");
+                            dados = dados.replaceAll("!","");
+                            dados = dados.replaceAll(":","");
+//                                    System.out.println("Qualificacao: "+dados);
+                            frameCorrida.limpaTabelaQualificacao();
+                            tag = "";
+                            String[] textoSeparado =dados.split("'");
+                            for (int i = 0; i <textoSeparado.length; ++i){ 
+                                if(textoSeparado[i].contains("epc")){
+                                    String tagCarro = textoSeparado[i+2];
+                                    resultadoQualificacao.add(getCarroNumero(tagCarro));
+                                    resultadoQualificacao.add(getCarroModelo(tagCarro));
+                                    resultadoQualificacao.add(getCarroPiloto(tagCarro));
+                                }
+                                else if(textoSeparado[i].contains("best_time")){
+                                    String tempoFormatado = "";
+                                    String tempo = textoSeparado[i+2];
+                                    if(tempo.length() > 9){
+                                        String seg = tempo.substring(tempo.length() - 9, tempo.length());
+                                        String min = tempo.substring(0, tempo.length() - 9);
+                                        tempoFormatado = min + ":" + seg;
+                                    }
+                                    resultadoQualificacao.add(tempoFormatado);
+                                }
+                                else if(textoSeparado[i].contains("time")){
+                                    String tempoFormatado = "";
+                                    String tempo = textoSeparado[i+2];
+                                    if(tempo.length() > 9){
+                                        String seg = tempo.substring(tempo.length() - 9, tempo.length());
+                                        String min = tempo.substring(0, tempo.length() - 9);
+                                        tempoFormatado = min + ":" + seg;
+                                    }
+                                    resultadoQualificacao.add(tempoFormatado);
+                                    resultadoGeralQualificacao.add(resultadoQualificacao);
+                                    frameCorrida.preencheResultadoQualificacao(resultadoQualificacao);
+                                    resultadoQualificacao.clear();
+                                }
+                            } 
+                       } 
+                       else if(tag.contains("RACE_COMPLETED!")){
+                           tag = "";
+                           frameCorrida.sucesso();
+                           System.out.println("Completou!");
+                       }   
+                       else if(tag.contains("QUALIFICATION_COMPLETED!")){
+                           tag = "";
+                           frameCorrida.sucessoQualificacao();
+                           System.out.println("Completou Qualificação!");
+                           frameCorrida.setaCorrida(true);
+                           frameCorrida.setaQualificacao(false);
+                           try {
+                               iniciarCorrida("POST /race/start\n");
+                           } catch (IOException ex) {
+                               Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+                           } catch (MqttException ex) {
+                               Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+                           }
+                       }   
+                   }
+                    
                 }
-                else{
+                else{ //Só pra mandar a thread fazer algo
+                    System.out.println("");
                 }
             }
         }

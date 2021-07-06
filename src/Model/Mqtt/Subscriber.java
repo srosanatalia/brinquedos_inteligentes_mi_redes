@@ -5,6 +5,7 @@
  */
 package Model.Mqtt;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -27,10 +28,12 @@ public class Subscriber implements MqttCallbackExtended{
     public String urlBroker;
     public String topic;
     public String mensagem = "";
+    public ArrayList tags;
     
     public Subscriber(String url, String topic) throws MqttException {
         this.urlBroker = url;
         this.topic = topic;
+        this.tags = new ArrayList();
         this.clienteMqtt = new MqttClient(this.urlBroker, "ClienteSubscriber");
         
         mqttOptions = new MqttConnectOptions();
@@ -42,7 +45,7 @@ public class Subscriber implements MqttCallbackExtended{
         
         this.clienteMqtt.setCallback(this);
         this.clienteMqtt.connect(mqttOptions);
-        this.clienteMqtt.subscribe(topic);
+        this.clienteMqtt.subscribe(topic, 0);
         
     }
 
@@ -65,7 +68,7 @@ public class Subscriber implements MqttCallbackExtended{
     }
 
     public String getMensagem() {
-        return mensagem;
+        return this.mensagem;
     }
 
     public void setMensagem(String mensagem) {
@@ -73,10 +76,19 @@ public class Subscriber implements MqttCallbackExtended{
     }
     
     public void enviaMensagem(String mensagem, String topico) throws MqttException{
-        MqttMessage messageSend = new MqttMessage((mensagem).getBytes());
-        if(this.clienteMqtt.isConnected()){
-            System.out.println("Publicando: "+mensagem+" em:"+topico);
-            clienteMqtt.publish(topico, (mensagem).getBytes(), 0, false);
+        enviaMensagem(mensagem.getBytes(), topico, 0, false);
+    }
+    
+    public synchronized void enviaMensagem(byte[] payload, String topic, int qos, boolean retained) throws MqttException{
+       try {
+            if (this.clienteMqtt.isConnected()) {
+                this.clienteMqtt.publish(topic, payload, qos, retained);
+                System.out.println(String.format("Tópico %s publicado. %s", topic, payload));
+            } else {
+                System.out.println("Cliente desconectado, não foi possível publicar o tópico " + topic);
+            }
+        } catch (MqttException ex) {
+            System.out.println("Erro ao publicar " + topic + " - " + ex);
         }
     }
     
@@ -90,9 +102,31 @@ public class Subscriber implements MqttCallbackExtended{
     }
 
     @Override
-    public void messageArrived(String string, MqttMessage mm) throws Exception {
-        System.out.println("Mensagem recebida: Tópico-" + string+ " Mensagem- "+ mm.toString());
-        this.mensagem = mm.toString();
+    public void messageArrived(String topico, MqttMessage mm) throws Exception {
+        System.out.println("Mensagem recebida:");
+        System.out.println("\tTópico: " + topico);
+        this.mensagem =  new String(mm.getPayload());
+        System.out.println("\tMensagem: " + this.mensagem);
+        System.out.println("");
+        
+//        if(this.mensagem.contains("tags")){
+//            String[] textoSeparado = this.mensagem.split("'");
+//            for (int i = 0; i < textoSeparado.length; i++) {
+//                if(textoSeparado[i].length() == 24){
+//                    tags.add(textoSeparado[i]);
+//                    System.out.println(textoSeparado[i]);
+//                }
+//            }
+//       }
+//        System.out.println(getTags().size());
+    }
+
+    public ArrayList getTags() {
+        return tags;
+    }
+
+    public void setTags(ArrayList tags) {
+        this.tags = tags;
     }
 
     @Override
