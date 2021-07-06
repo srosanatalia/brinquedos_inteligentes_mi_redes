@@ -37,20 +37,27 @@ Antes de começar, você precisa ter instalado em seu rapsberry o [python 3.6+](
 # Acesse a pasta do projeto no terminal
 $ cd server
 
+# Instale as dependências
+$ pip install -r requirements.txt
+
+# Copie o .env
+$ cp .env.example .env
+# Depois disso é necessário preencher o .env com as informações do broker do MQTT.
+
 # Execute o comando para rodar o projeto
 $ python3 server.py
-
-# Por padrão o projeto será iniciado na porta 5022, 
-# caso a porta já esteja em uso ele solicitará outra porta.
 ```
-Com o servidor rodando os clientes poderão conectar e chamar as rotas seguindo o seguinte padrão:
-<blockquote>MÉTODO ROTA \quebra_de_linha BODY_EM_JSON</blockquote>
+Com o servidor rodando os clientes poderão chamar as rotas se conectando ao mesmo broker do servidor e mandar uma mensagem no tópico autorama/url_rota, contendo o body da requisição em json na mensagem.
 Exemplo: 
-<blockquote>POST /rfid/config\n{"serial":"tmr:///dev/ttyUSB0", "baudrate":"230400", "region":"NA2", "protocol":"GEN2", "antenna":"1", "frequency":"1800"}</blockquote>
-A cada chamada o servidor retorna uma mensagem seguindo o seguinte padrão:
-<blockquote>STATUS \quebra_de_linha RESPONSE_EM_JSON !</blockquote>
+<blockquote>Tópico: autorama/rfid/config
+<br>
+Mensagem: {"serial":"tmr:///dev/ttyUSB0", "baudrate":"230400", "region":"NA2", "protocol":"GEN2", "antenna":"1", "frequency":"1800"}</blockquote>
+
+A cada chamada o servidor retorna uma mensagem para o tópico respose/url_rota.
 Exemplo:
-<blockquote>OK \n {"tags":[b'E2000017221101241890547C', b'E20000172211012518905484', b'E20000172211011718905474']}!</blockquote>
+<blockquote>Tópico: response/rfid/config
+<br>
+Mensagem: {"tags":[b'E2000017221101241890547C', b'E20000172211012518905484', b'E20000172211011718905474']}!</blockquote>
 
 ## Como Rodar o Cliente
 ### Pré Requisitos do Cliente

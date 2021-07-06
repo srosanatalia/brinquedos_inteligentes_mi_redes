@@ -1,7 +1,6 @@
 import json
 import os.path
 
-from ClientThread import ClientThread
 from Sensor import Sensor
 from Producer import Producer
 from Consumer import Consumer
@@ -10,7 +9,6 @@ from mqtt.Subscriber import Subscriber
 from mqtt.Publisher import Publisher
 
 class ServerController:
-    # clients = []
     sensor = None
     
     def __init__(self):
@@ -21,24 +19,14 @@ class ServerController:
         self.publisher = Publisher('response')
         self.subscriber = Subscriber('autorama/#')
         self.subscriber.set_topic('autorama/#')
-        # self.subscriber.setTopic('teste/laercio')
-        # print(self.subscriber.requestRecv())
-        # if os.path.isfile('configs/rfid.json'):
-        #     start_rfid = input(f"{bcolors.YELLOW}Arquivo de configuração do RFID existente. Deseja iniciar conexão? (Y/n) {bcolors.COLOR_OFF}")
-        #     if start_rfid == 'Y' or start_rfid == 'y':
-        #         with open('configs/rfid.json', 'r') as file:
-        #             data = json.load(file)
-        #             self.__start_connection_rfid(data)
+
+        if os.path.isfile('configs/rfid.json'):
+            start_rfid = input(f"{bcolors.YELLOW}Arquivo de configuração do RFID existente. Deseja iniciar conexão? (Y/n) {bcolors.COLOR_OFF}")
+            if start_rfid == 'Y' or start_rfid == 'y':
+                with open('configs/rfid.json', 'r') as file:
+                    data = json.load(file)
+                    self.__start_connection_rfid(data)
         print('')
-
-    # def add_client(self, ip, port, clientsock):
-    #     new_client = ClientThread(ip, port, clientsock, self)
-    #     new_client.start()
-
-    #     self.clients.append(new_client)
-    
-    # def remove_client(self, client):
-    #     self.clients.remove(client)
 
     def set_sensor(self, sensor):
         self.sensor = sensor
@@ -68,12 +56,6 @@ class ServerController:
             response = '{"status":"NOT_FOUND"}'
 
         self.publisher.send_message(response.encode("utf-8"), f"response{url}")
-        # else: # Caso seja chamado uma rota que não existe, é enviado uma mensagem de 'NOT_FOUND'
-        #     client.clientsock.sendall(f"NOT_FOUND\n".encode("utf-8"))
-        #     return
-        
-        # # Envia para o cliente mensagem de 'OK' com resposta da rota
-        # client.clientsock.sendall(f"OK\n{response}".encode("utf-8"))
 
     def check_new_messages(self):
         if self.subscriber.has_new_message():
