@@ -248,7 +248,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
 
     private void botaoConfiguracaoPadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfiguracaoPadraoActionPerformed
         try {
-            autoramaController.iniciarservidor("localhost", 5022);
+            autoramaController.iniciarservidor("node02.myqtthub.com", 1883);
 //            autoramaController.iniciarservidor("augusto.ddns.net", 5022);
 //            autoramaController.criarJsonRfid("tmr:///dev/ttyUSB0", "115200", "NA2", "GEN2", "1", "1500");
         } catch (Exception ex) {

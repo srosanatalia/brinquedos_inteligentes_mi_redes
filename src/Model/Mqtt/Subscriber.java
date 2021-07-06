@@ -34,7 +34,7 @@ public class Subscriber implements MqttCallbackExtended{
         this.urlBroker = url;
         this.topic = topic;
         this.tags = new ArrayList();
-        this.clienteMqtt = new MqttClient(this.urlBroker, "ClienteSubscriber");
+        this.clienteMqtt = new MqttClient(this.urlBroker, "laercio.rios13@hotmail.com");
         
         mqttOptions = new MqttConnectOptions();
         mqttOptions.setMaxInflight(200);
@@ -42,6 +42,8 @@ public class Subscriber implements MqttCallbackExtended{
         mqttOptions.setKeepAliveInterval(10);
         mqttOptions.setAutomaticReconnect(true);
         mqttOptions.setCleanSession(false);
+        mqttOptions.setUserName("laerciorios");
+        mqttOptions.setPassword("pnBpQJzR-lSqLgJ3V".toCharArray());
         
         this.clienteMqtt.setCallback(this);
         this.clienteMqtt.connect(mqttOptions);

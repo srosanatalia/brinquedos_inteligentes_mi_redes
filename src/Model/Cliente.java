@@ -67,13 +67,12 @@ public class Cliente {
             } else{
                 System.out.println("Sem conexão.");
             }
-            TimeUnit.SECONDS.sleep(3);
+            TimeUnit.SECONDS.sleep(5);
             this.subscriber.setTopic("response/rfid/config");
             this.subscriber.enviaMensagem("{\"serial\":\"tmr:///dev/ttyUSB0\", \"baudrate\":\"230400\", \"region\":\"NA2\", \"protocol\":\"GEN2\", \"antenna\":\"1\", \"frequency\":\"1800\"}", "autorama/rfid/config");
-            TimeUnit.SECONDS.sleep(3);
+            TimeUnit.SECONDS.sleep(5);
             this.subscriber.setTopic("response/rfid/config");
-            this.subscriber.enviaMensagem("{\"teste\":false}", "autorama/rfid/tags");
-            TimeUnit.SECONDS.sleep(3);
+            this.subscriber.enviaMensagem("{\"teste\":true}", "autorama/rfid/tags");
             System.out.println("Iniciando thread de leitura");
             new Thread(leituraTagMqtt).start();
     }
@@ -367,7 +366,7 @@ public class Cliente {
                     
                 }
                 else{ //Só pra mandar a thread fazer algo
-                    System.out.println("");
+//                    System.out.println("");
                 }
             }
         }
